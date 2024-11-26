@@ -1,7 +1,7 @@
 name: Update requirements
 on:
   schedule:
-    - '5 4 * * *'
+    - cron: '5 4 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
