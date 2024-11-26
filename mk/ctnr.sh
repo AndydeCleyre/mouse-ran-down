@@ -27,7 +27,7 @@ buildah run "$ctnr" chmod +x "${appdir}/svcs/app/run" "${appdir}/svcs/app/log/ru
 buildah config --cmd "s6-svscan ${appdir}/svcs" "$ctnr"
 
 imageid="$(buildah commit --rm "$ctnr" "$image")"
-buildah tag "$imageid:$(date +%Y.%m.%d-%s)"
+buildah tag "$imageid" "image:$(date +%Y.%m.%d-%s)"
 
 printf '%s\n' "-- When running container, mount or copy credentials.py into ${appdir}/ --" \
   '-- For example: --' \
