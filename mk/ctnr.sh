@@ -29,6 +29,7 @@ buildah config --cmd "s6-svscan ${appdir}/svcs" "$ctnr"
 imageid="$(buildah commit --rm "$ctnr" "$image")"
 buildah tag "$imageid" "$image:$(date +%Y.%m.%d-%s)"
 
-printf '%s\n' "-- When running container, mount or copy credentials.py into ${appdir}/ --" \
+printf '%s\n' \
+  "-- When running container, mount or copy credentials.py into ${appdir}/ --" \
   '-- For example: --' \
   "-- podman run -d -v ./credentials.py:${appdir}/credentials.py:ro $image  --"
