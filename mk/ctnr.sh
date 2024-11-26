@@ -18,10 +18,10 @@ buildah run "$ctnr" "${appdir}"/.venv/bin/pip install -r "${appdir}"/requirement
 buildah run "$ctnr" mkdir -p "${appdir}/logs/app" "${appdir}/svcs/app/log"
 printf '%s\n' \
   '#!/bin/execlineb -P' 'fdmove -c 2 1' "${appdir}/.venv/bin/python ${appdir}/main.py" \
-  | buildah run "$ctnr" sh -c "cat >>${appdir}/svcs/app/run"
+  | buildah run "$ctnr" sh -c "cat >${appdir}/svcs/app/run"
 printf '%s\n' \
   '#!/bin/execlineb -P' s6-log T s4194304 S41943040 "${appdir}/logs/app" \
-  | buildah run "$ctnr" sh -c "cat >>${appdir}/svcs/app/log/run"
+  | buildah run "$ctnr" sh -c "cat >${appdir}/svcs/app/log/run"
 buildah run "$ctnr" chmod +x "${appdir}/svcs/app/run" "${appdir}/svcs/app/log/run"
 
 buildah config --cmd "s6-svscan ${appdir}/svcs" "$ctnr"
