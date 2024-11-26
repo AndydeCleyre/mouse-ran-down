@@ -24,7 +24,6 @@ def get_tiktok_urls(message):
 
 @bot.message_handler(func=lambda m: True)
 def tiktok_link_handler(message):
-    # bot.reply_to(message, "MESSAGE ACKNOWLEDGED")
     urls = get_tiktok_urls(message)
     if urls:
         with local.tempdir() as tmp:
