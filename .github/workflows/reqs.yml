@@ -1,0 +1,21 @@
+name: Update requirements
+on:
+  schedule:
+    - '5 4 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - run: pipx install uv
+
+      - name: update requirements
+        run: uv pip compile -o requirements.txt --no-header --annotation-style=line -q -U requirements.in
+
+      - name: push it
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git commit -am 'Bump PyPI requirements [Automated]' && git push || true
