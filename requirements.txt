@@ -1,0 +1,8 @@
+certifi==2024.8.30        # via requests
+charset-normalizer==3.4.0  # via requests
+idna==3.10                # via requests
+plumbum==1.9.0            # via -r requirements.in
+pytelegrambotapi==4.24.0  # via -r requirements.in
+requests==2.32.3          # via pytelegrambotapi
+urllib3==2.2.3            # via requests
+yt-dlp==2024.11.18        # via -r requirements.in
