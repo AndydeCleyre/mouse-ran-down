@@ -15,7 +15,7 @@ $ ./mk/ctnr.sh
 Run container with:
 
 ```console
-$ podman run -d -v ./credentials.py:/app/credentials.py:ro quay.io/andykluger/mouse-ran-down
+$ podman run --rm -d -v ./credentials.py:/app/credentials.py:ro quay.io/andykluger/mouse-ran-down
 ```
 
 View logs with:

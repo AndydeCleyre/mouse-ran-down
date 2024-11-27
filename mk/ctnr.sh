@@ -32,4 +32,4 @@ buildah tag "$imageid" "$image:$(date +%Y.%m.%d-%s)"
 printf '%s\n' \
   "-- When running container, mount or copy credentials.py into ${appdir}/ --" \
   '-- For example: --' \
-  "-- podman run -d -v ./credentials.py:${appdir}/credentials.py:ro $image  --"
+  "-- podman run --rm -d -v ./credentials.py:${appdir}/credentials.py:ro $image  --"
