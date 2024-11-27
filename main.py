@@ -26,10 +26,12 @@ def get_tiktok_urls(message):
 def tiktok_link_handler(message):
     urls = get_tiktok_urls(message)
     if urls:
+        bot.send_chat_action(chat_id=message.chat.id, action='record_video')
         with local.tempdir() as tmp:
             with YoutubeDL(params={'paths': {'home': tmp}}) as ydl:
                 ydl.download(urls)
             for vid in tmp // '*':
+                bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
                 bot.send_video(
                     chat_id=message.chat.id,
                     video=InputFile(vid),
