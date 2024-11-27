@@ -40,4 +40,4 @@ def tiktok_link_handler(message):
 
 
 if __name__ == '__main__':
-    bot.infinity_polling()
+    bot.infinity_polling(timeout=60, long_polling_timeout=60)
