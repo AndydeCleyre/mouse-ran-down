@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import re
 
+import stamina
 from plumbum import local
 from telebot import TeleBot
 from telebot.types import InputFile, ReplyParameters
@@ -14,14 +15,16 @@ TIKTOK_PATTERN = r'https://www\.tiktok\.com/t/[^/ ]+'
 
 def get_tiktok_urls(message):
     urls = []
-    for ent in message.entities:
-        if ent.type == 'url':
-            url = ent.url or message.text[ent.offset : ent.offset + ent.length]
-            if re.match(TIKTOK_PATTERN, url):
-                urls.append(url)
+    if message.entities:
+        for ent in message.entities:
+            if ent.type == 'url':
+                url = ent.url or message.text[ent.offset : ent.offset + ent.length]
+                if re.match(TIKTOK_PATTERN, url):
+                    urls.append(url)
     return urls
 
 
+@stamina.retry(on=Exception)
 @bot.message_handler(func=lambda m: True)
 def tiktok_link_handler(message):
     urls = get_tiktok_urls(message)

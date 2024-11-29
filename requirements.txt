@@ -4,5 +4,7 @@ idna==3.10                # via requests
 plumbum==1.9.0            # via -r requirements.in
 pytelegrambotapi==4.24.0  # via -r requirements.in
 requests==2.32.3          # via pytelegrambotapi
+stamina==24.3.0           # via -r requirements.in
+tenacity==9.0.0           # via stamina
 urllib3==2.2.3            # via requests
 yt-dlp==2024.11.18        # via -r requirements.in
