@@ -6,7 +6,7 @@ appdir=/app
 image=quay.io/andykluger/mouse-ran-down
 
 buildah run "$ctnr" apk upgrade
-buildah run "$ctnr" apk add python3 s6
+buildah run "$ctnr" apk add ffmpeg python3 s6
 
 buildah run "$ctnr" mkdir -p "${appdir}"
 buildah copy "$ctnr" main.py "${appdir}"/main.py
