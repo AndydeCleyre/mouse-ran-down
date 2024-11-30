@@ -5,15 +5,16 @@ import stamina
 from plumbum import local
 from telebot import TeleBot
 from telebot.types import InputFile, ReplyParameters
-from yt_dlp import YoutubeDL
+from yt_dlp import DownloadError, YoutubeDL
 
 from credentials import TOKEN
 
 bot = TeleBot(TOKEN)
 TIKTOK_PATTERN = r'https://www\.tiktok\.com/t/[^/ ]+'
+X_PATTERN = r'https://x\.com/[^/]+/status/\d+'
 
 
-def get_tiktok_urls(message):
+def get_download_urls(message):
     urls = []
     if message.entities:
         for ent in message.entities:
@@ -21,13 +22,21 @@ def get_tiktok_urls(message):
                 url = ent.url or message.text[ent.offset : ent.offset + ent.length]
                 if re.match(TIKTOK_PATTERN, url):
                     urls.append(url)
+                elif re.match(X_PATTERN, url):
+                    with YoutubeDL() as ydl:
+                        try:
+                            ydl.extract_info(url, download=False)
+                        except DownloadError:
+                            continue
+                        else:
+                            urls.append(url)
     return urls
 
 
 @stamina.retry(on=Exception)
 @bot.message_handler(func=lambda m: True)
 def tiktok_link_handler(message):
-    urls = get_tiktok_urls(message)
+    urls = get_download_urls(message)
     if urls:
         bot.send_chat_action(chat_id=message.chat.id, action='record_video')
         with local.tempdir() as tmp:
