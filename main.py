@@ -16,8 +16,7 @@ bot = TeleBot(TOKEN)
 logger = structlog.get_logger()
 TIKTOK_PATTERN = r'https://www\.tiktok\.com/t/[^/ ]+'
 X_PATTERN = r'https://x\.com/[^/]+/status/\d+'
-INSTA_PATTERN = r'https://www\.instagram\.com/p/(?P<shortcode>[^/]+).*'
-
+INSTA_PATTERN = r'https://www\.instagram\.com/(p|reel)/(?P<shortcode>[^/]+).*'
 
 def message_urls(message):
     if message.entities:
