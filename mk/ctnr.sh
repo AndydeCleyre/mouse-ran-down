@@ -1,19 +1,20 @@
 #!/bin/sh -e
 cd "$(dirname "$0")"/..
 
-ctnr="$(buildah from alpine:edge)"
+ctnr="$(buildah from python:3.13-alpine)"
 appdir=/app
 image=quay.io/andykluger/mouse-ran-down
 
 buildah run "$ctnr" apk upgrade
-buildah run "$ctnr" apk add ffmpeg python3 s6
+buildah run "$ctnr" apk add ffmpeg s6
 
 buildah run "$ctnr" mkdir -p "${appdir}"
-buildah copy "$ctnr" main.py "${appdir}"/main.py
-buildah copy "$ctnr" requirements.txt "${appdir}"/requirements.txt
+for src in main.py requirements.txt; do
+  buildah copy "$ctnr" "$src" "${appdir}/${src}"
+done
 
-buildah run "$ctnr" python -m venv "${appdir}"/.venv
-buildah run "$ctnr" "${appdir}"/.venv/bin/pip install -r "${appdir}"/requirements.txt
+buildah run "$ctnr" python -m venv "${appdir}/.venv"
+buildah run "$ctnr" "${appdir}/.venv/bin/pip" install -r "${appdir}/requirements.txt"
 
 buildah run "$ctnr" mkdir -p "${appdir}/logs/app" "${appdir}/svcs/app/log"
 printf '%s\n' \
