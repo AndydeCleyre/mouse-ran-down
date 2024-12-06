@@ -5,7 +5,7 @@ from mimetypes import guess_file_type
 import instaloader
 import stamina
 import structlog
-from plumbum import local
+from plumbum import LocalPath, local
 from telebot import TeleBot
 from telebot.types import InputFile, ReplyParameters
 from yt_dlp import DownloadError, YoutubeDL
@@ -17,6 +17,7 @@ logger = structlog.get_logger()
 TIKTOK_PATTERN = r'https://www\.tiktok\.com/t/[^/ ]+'
 X_PATTERN = r'https://x\.com/[^/]+/status/\d+'
 INSTA_PATTERN = r'https://www\.instagram\.com/(p|reel)/(?P<shortcode>[^/]+).*'
+
 
 def message_urls(message):
     if message.entities:
@@ -93,30 +94,19 @@ def insta_link_handler(message, shortcodes):
             insta.download_post(
                 post=instaloader.Post.from_shortcode(insta.context, shortcode), target='loot'
             )
-            for loot in tmp.walk(filter=lambda p: path_is_type(p, 'video')):
-                logger.info("Sending insta", shortcode=shortcode, video=loot)
-                bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
-                bot.send_video(
-                    chat_id=message.chat.id,
-                    video=InputFile(loot),
-                    reply_parameters=ReplyParameters(message_id=message.id),
-                )
-            for loot in tmp.walk(filter=lambda p: path_is_type(p, 'image')):
-                logger.info("Sending insta", shortcode=shortcode, image=loot)
-                bot.send_chat_action(chat_id=message.chat.id, action='upload_photo')
-                bot.send_photo(
-                    chat_id=message.chat.id,
-                    photo=InputFile(loot),
-                    reply_parameters=ReplyParameters(message_id=message.id),
-                )
-            for loot in tmp.walk(filter=lambda p: path_is_type(p, 'text')):
-                logger.info("Sending insta", shortcode=shortcode, text=loot)
-                bot.send_chat_action(chat_id=message.chat.id, action='typing')
-                bot.send_message(
-                    chat_id=message.chat.id,
-                    text=loot.read(),
-                    reply_parameters=ReplyParameters(message_id=message.id),
-                )
+            for filetype, action, send_func, send_key, loot_wrapper in (
+                ('video', 'upload_video', bot.send_video, 'video', InputFile),
+                ('image', 'upload_photo', bot.send_photo, 'photo', InputFile),
+                ('text', 'typing', bot.send_message, 'text', LocalPath.read),
+            ):
+                for loot in tmp.walk(filter=lambda p: path_is_type(p, filetype)):
+                    logger.info("Sending insta", shortcode=shortcode, file=loot)
+                    bot.send_chat_action(chat_id=message.chat.id, action=action)
+                    send_func(
+                        chat_id=message.chat.id,
+                        **{send_key: loot_wrapper(loot)},
+                        reply_parameters=ReplyParameters(message_id=message.id),
+                    )
 
 
 @stamina.retry(on=Exception)
