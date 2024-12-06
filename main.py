@@ -66,7 +66,6 @@ def video_link_handler(message, urls):
 
 
 def get_insta_shortcodes(message):
-    # TODO: reel?
     shortcodes = []
     for url in message_urls(message):
         if match := re.match(INSTA_PATTERN, url):
@@ -112,12 +111,13 @@ def insta_link_handler(message, shortcodes):
 @stamina.retry(on=Exception)
 @bot.message_handler(func=lambda m: True)
 def media_link_handler(message):
-    urls = get_video_download_urls(message)
-    if urls:
-        video_link_handler(message, urls)
-    shortcodes = get_insta_shortcodes(message)
-    if shortcodes:
-        insta_link_handler(message, shortcodes)
+    for extractor, handler in (
+        (get_video_download_urls, video_link_handler),
+        (get_insta_shortcodes, insta_link_handler),
+    ):
+        loot_ids = extractor(message)
+        if loot_ids:
+            handler(message, loot_ids)
 
 
 if __name__ == '__main__':
