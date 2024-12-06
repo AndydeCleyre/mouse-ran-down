@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import re
+from collections.abc import Iterator
 from mimetypes import guess_file_type
 
 import instaloader
@@ -7,7 +8,7 @@ import stamina
 import structlog
 from plumbum import LocalPath, local
 from telebot import TeleBot
-from telebot.types import InputFile, ReplyParameters
+from telebot.types import InputFile, Message, ReplyParameters
 from yt_dlp import DownloadError, YoutubeDL
 
 from credentials import TOKEN
@@ -19,14 +20,16 @@ X_PATTERN = r'https://x\.com/[^/]+/status/\d+'
 INSTA_PATTERN = r'https://www\.instagram\.com/(p|reel)/(?P<shortcode>[^/]+).*'
 
 
-def message_urls(message):
+def message_urls(message: Message) -> Iterator[str]:
+    """Yield all URLs in a message."""
     if message.entities:
         for ent in message.entities:
             if ent.type == 'url':
                 yield ent.url or message.text[ent.offset : ent.offset + ent.length]
 
 
-def suitable_for_ytdlp(url):
+def suitable_for_ytdlp(url: str) -> bool:
+    """Return True if the URL target has a yt-dlp-downloadable video."""
     log = logger.bind(url=url)
     if re.match(TIKTOK_PATTERN, url):
         log.info("Looks like tiktok")
@@ -45,11 +48,13 @@ def suitable_for_ytdlp(url):
     return False
 
 
-def get_video_download_urls(message):
+def get_video_download_urls(message: Message) -> list[str]:
+    """Return a list of URLs suitable for yt-dlp."""
     return [url for url in message_urls(message) if suitable_for_ytdlp(url)]
 
 
-def video_link_handler(message, urls):
+def video_link_handler(message: Message, urls: list[str]):
+    """Download videos and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
     with local.tempdir() as tmp:
         with YoutubeDL(params={'paths': {'home': tmp}}) as ydl:
@@ -65,7 +70,8 @@ def video_link_handler(message, urls):
             )
 
 
-def get_insta_shortcodes(message):
+def get_insta_shortcodes(message: Message) -> list[str]:
+    """Return a list of Instagram shortcodes in a message."""
     shortcodes = []
     for url in message_urls(message):
         if match := re.match(INSTA_PATTERN, url):
@@ -74,7 +80,8 @@ def get_insta_shortcodes(message):
     return shortcodes
 
 
-def path_is_type(path, typestr):
+def path_is_type(path: str, typestr: str) -> bool:
+    """Return True if the path has the given file type."""
     log = logger.bind(path=path, target_type=typestr)
     filetype, _ = guess_file_type(path, strict=False)
     if filetype:
@@ -84,7 +91,8 @@ def path_is_type(path, typestr):
     return False
 
 
-def insta_link_handler(message, shortcodes):
+def insta_link_handler(message: Message, shortcodes: list[str]):
+    """Download Instagram posts and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
     with local.tempdir() as tmp:
         insta = instaloader.Instaloader(dirname_pattern=tmp / '{target}')
@@ -110,7 +118,8 @@ def insta_link_handler(message, shortcodes):
 
 @stamina.retry(on=Exception)
 @bot.message_handler(func=lambda m: True)
-def media_link_handler(message):
+def media_link_handler(message: Message):
+    """Download from any URLs that we handle and upload content to the chat ."""
     for extractor, handler in (
         (get_video_download_urls, video_link_handler),
         (get_insta_shortcodes, insta_link_handler),
