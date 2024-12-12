@@ -2,14 +2,14 @@
 import re
 from collections.abc import Iterator
 from mimetypes import guess_file_type
-from typing import cast
+from typing import cast, Any
 
 import instaloader
 import stamina
 import structlog
 from plumbum import LocalPath, local
 from telebot import TeleBot
-from telebot.types import InputFile, Message, ReplyParameters
+from telebot.types import InputMediaVideo, InputMediaPhoto, InputFile, Message, ReplyParameters
 from yt_dlp import DownloadError, YoutubeDL
 
 from credentials import TOKEN
@@ -19,6 +19,11 @@ logger = structlog.get_logger()
 TIKTOK_PATTERN = r'https://www\.tiktok\.com/t/[^/ ]+'
 X_PATTERN = r'https://x\.com/[^/]+/status/\d+'
 INSTA_PATTERN = r'https://www\.instagram\.com/(p|reel)/(?P<shortcode>[^/]+).*'
+
+LOOT_ACTION = {'video': 'upload_video', 'image': 'upload_photo', 'text': 'typing'}
+LOOT_SEND_FUNC = {'video': bot.send_video, 'image': bot.send_photo, 'text': bot.send_message}
+LOOT_SEND_KEY = {'video': 'video', 'image': 'photo', 'text': 'text'}
+LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
 
 
 def message_urls(message: Message) -> Iterator[str]:
@@ -54,6 +59,50 @@ def get_video_download_urls(message: Message) -> list[str]:
     return [url for url in message_urls(message) if suitable_for_ytdlp(url)]
 
 
+def path_is_type(path: str, typestr: str) -> bool:
+    """Return True if the path has the given file type."""
+    log = logger.bind(path=path, target_type=typestr)
+    filetype, _ = guess_file_type(path, strict=False)
+    if filetype:
+        log.info("Identified", guessed_type=filetype)
+        return filetype.startswith(typestr)
+    log.info("Unidentified")
+    return False
+
+
+def send_potential_media_group(message: Message, loot_folder: LocalPath, context: Any = None):
+    """Send all media from a directory as a reply."""
+    log = logger.bind(context=context)
+    loot_items = {}
+    for filetype in ('video', 'image', 'text'):
+        loot_items[filetype] = [
+            LOOT_WRAPPER[filetype](loot)
+            for loot in loot_folder.walk(filter=lambda p: path_is_type(p, filetype))
+        ]
+    if 1 < (len(loot_items['video']) + len(loot_items['image'])) < 11:
+        bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
+        media_group = [InputMediaPhoto(img) for img in loot_items['image']] + [
+            InputMediaVideo(vid) for vid in loot_items['video']
+        ]
+        media_group[0].caption = '\n\n'.join(loot_items['text'])
+        log.info("Uploading", loot=media_group)
+        bot.send_media_group(
+            chat_id=message.chat.id,
+            media=media_group,  # pyright: ignore [reportArgumentType]
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+    else:
+        for filetype, items in loot_items.items():
+            for loot in items:
+                bot.send_chat_action(chat_id=message.chat.id, action=LOOT_ACTION[filetype])
+                log.info("Uploading", loot=loot)
+                LOOT_SEND_FUNC[filetype](
+                    chat_id=message.chat.id,
+                    **{LOOT_SEND_KEY[filetype]: loot},
+                    reply_parameters=ReplyParameters(message_id=message.id),
+                )
+
+
 def video_link_handler(message: Message, urls: list[str]):
     """Download videos and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
@@ -61,14 +110,7 @@ def video_link_handler(message: Message, urls: list[str]):
         with YoutubeDL(params={'paths': {'home': tmp}}) as ydl:
             logger.info("Downloading videos", urls=urls)
             ydl.download(urls)
-        for vid in tmp // '*':
-            logger.info("Uploading", video=vid)
-            bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
-            bot.send_video(
-                chat_id=message.chat.id,
-                video=InputFile(vid),
-                reply_parameters=ReplyParameters(message_id=message.id),
-            )
+        send_potential_media_group(message, tmp, context=urls)
 
 
 def get_insta_shortcodes(message: Message) -> list[str]:
@@ -81,17 +123,6 @@ def get_insta_shortcodes(message: Message) -> list[str]:
     return shortcodes
 
 
-def path_is_type(path: str, typestr: str) -> bool:
-    """Return True if the path has the given file type."""
-    log = logger.bind(path=path, target_type=typestr)
-    filetype, _ = guess_file_type(path, strict=False)
-    if filetype:
-        log.info("Identified", guessed_type=filetype)
-        return filetype.startswith(typestr)
-    log.info("Unidentified")
-    return False
-
-
 def insta_link_handler(message: Message, shortcodes: list[str]):
     """Download Instagram posts and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
@@ -102,19 +133,7 @@ def insta_link_handler(message: Message, shortcodes: list[str]):
             insta.download_post(
                 post=instaloader.Post.from_shortcode(insta.context, shortcode), target='loot'
             )
-            for filetype, action, send_func, send_key, loot_wrapper in (
-                ('video', 'upload_video', bot.send_video, 'video', InputFile),
-                ('image', 'upload_photo', bot.send_photo, 'photo', InputFile),
-                ('text', 'typing', bot.send_message, 'text', LocalPath.read),
-            ):
-                for loot in tmp.walk(filter=lambda p: path_is_type(p, filetype)):
-                    logger.info("Sending insta", shortcode=shortcode, file=loot)
-                    bot.send_chat_action(chat_id=message.chat.id, action=action)
-                    send_func(
-                        chat_id=message.chat.id,
-                        **{send_key: loot_wrapper(loot)},  # pyright: ignore [reportArgumentType]
-                        reply_parameters=ReplyParameters(message_id=message.id),
-                    )
+            send_potential_media_group(message, tmp, context=shortcode)
 
 
 @stamina.retry(on=Exception)
