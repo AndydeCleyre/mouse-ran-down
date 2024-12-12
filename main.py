@@ -2,6 +2,7 @@
 import re
 from collections.abc import Iterator
 from mimetypes import guess_file_type
+from typing import cast
 
 import instaloader
 import stamina
@@ -25,7 +26,7 @@ def message_urls(message: Message) -> Iterator[str]:
     if message.entities:
         for ent in message.entities:
             if ent.type == 'url':
-                yield ent.url or message.text[ent.offset : ent.offset + ent.length]
+                yield ent.url or cast(str, message.text)[ent.offset : ent.offset + ent.length]
 
 
 def suitable_for_ytdlp(url: str) -> bool:
@@ -111,7 +112,7 @@ def insta_link_handler(message: Message, shortcodes: list[str]):
                     bot.send_chat_action(chat_id=message.chat.id, action=action)
                     send_func(
                         chat_id=message.chat.id,
-                        **{send_key: loot_wrapper(loot)},
+                        **{send_key: loot_wrapper(loot)},  # pyright: ignore [reportArgumentType]
                         reply_parameters=ReplyParameters(message_id=message.id),
                     )
 
