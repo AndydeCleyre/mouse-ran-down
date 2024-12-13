@@ -2,7 +2,7 @@
 import re
 from collections.abc import Iterator
 from mimetypes import guess_file_type
-from typing import cast, Any
+from typing import cast, Any, TypedDict
 
 import instaloader
 import stamina
@@ -26,12 +26,32 @@ LOOT_SEND_KEY = {'video': 'video', 'image': 'photo', 'text': 'text'}
 LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
 
 
+class LootItems(TypedDict):
+    video: list[InputFile]
+    image: list[InputFile]
+    text: list[str]
+
+
 def message_urls(message: Message) -> Iterator[str]:
     """Yield all URLs in a message."""
     if message.entities:
         for ent in message.entities:
             if ent.type == 'url':
                 yield ent.url or cast(str, message.text)[ent.offset : ent.offset + ent.length]
+
+
+def ytdlp_url_has_video(url: str) -> bool:
+    """Return True if the yt-dlp-suitable URL really has a video."""
+    log = logger.bind(url=url)
+    with YoutubeDL() as ydl:
+        try:
+            ydl.extract_info(url, download=False)
+        except DownloadError:
+            log.info("Video not found")
+            return False
+        else:
+            log.info("Video found")
+            return True
 
 
 def suitable_for_ytdlp(url: str) -> bool:
@@ -41,20 +61,13 @@ def suitable_for_ytdlp(url: str) -> bool:
         log.info("Looks like tiktok")
         return True
     if re.match(X_PATTERN, url):
-        with YoutubeDL() as ydl:
-            try:
-                ydl.extract_info(url, download=False)
-            except DownloadError:
-                log.info("Looks like twitter without video")
-                return False
-            else:
-                log.info("Looks like twitter video")
-                return True
+        log.info("Looks like X")
+        return ytdlp_url_has_video(url)
     log.info("Looks unsuitable for yt-dlp")
     return False
 
 
-def get_video_download_urls(message: Message) -> list[str]:
+def get_ytdlp_download_urls(message: Message) -> list[str]:
     """Return a list of URLs suitable for yt-dlp."""
     return [url for url in message_urls(message) if suitable_for_ytdlp(url)]
 
@@ -70,9 +83,36 @@ def path_is_type(path: str, typestr: str) -> bool:
     return False
 
 
+def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):
+    """Send loot items as a media group."""
+    bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
+    media_group = [InputMediaPhoto(img) for img in loot_items['image']] + [
+        InputMediaVideo(vid) for vid in loot_items['video']
+    ]
+    media_group[0].caption = '\n\n'.join(loot_items['text'])
+    logger.info("Uploading", loot=media_group, context=context)
+    bot.send_media_group(
+        chat_id=message.chat.id,
+        media=media_group,  # pyright: ignore [reportArgumentType]
+        reply_parameters=ReplyParameters(message_id=message.id),
+    )
+
+
+def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):
+    """Send loot items individually."""
+    for filetype, items in loot_items.items():
+        for loot in cast(list, items):
+            bot.send_chat_action(chat_id=message.chat.id, action=LOOT_ACTION[filetype])
+            logger.info("Uploading", loot=loot, context=context)
+            LOOT_SEND_FUNC[filetype](
+                chat_id=message.chat.id,
+                **{LOOT_SEND_KEY[filetype]: loot},
+                reply_parameters=ReplyParameters(message_id=message.id),
+            )
+
+
 def send_potential_media_group(message: Message, loot_folder: LocalPath, context: Any = None):
     """Send all media from a directory as a reply."""
-    log = logger.bind(context=context)
     loot_items = {}
     for filetype in ('video', 'image', 'text'):
         loot_items[filetype] = [
@@ -80,30 +120,12 @@ def send_potential_media_group(message: Message, loot_folder: LocalPath, context
             for loot in loot_folder.walk(filter=lambda p: path_is_type(p, filetype))
         ]
     if 1 < (len(loot_items['video']) + len(loot_items['image'])) < 11:
-        bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
-        media_group = [InputMediaPhoto(img) for img in loot_items['image']] + [
-            InputMediaVideo(vid) for vid in loot_items['video']
-        ]
-        media_group[0].caption = '\n\n'.join(loot_items['text'])
-        log.info("Uploading", loot=media_group)
-        bot.send_media_group(
-            chat_id=message.chat.id,
-            media=media_group,  # pyright: ignore [reportArgumentType]
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
+        send_loot_items_as_media_group(message, cast(LootItems, loot_items), context)
     else:
-        for filetype, items in loot_items.items():
-            for loot in items:
-                bot.send_chat_action(chat_id=message.chat.id, action=LOOT_ACTION[filetype])
-                log.info("Uploading", loot=loot)
-                LOOT_SEND_FUNC[filetype](
-                    chat_id=message.chat.id,
-                    **{LOOT_SEND_KEY[filetype]: loot},
-                    reply_parameters=ReplyParameters(message_id=message.id),
-                )
+        send_loot_items_individually(message, cast(LootItems, loot_items), context)
 
 
-def video_link_handler(message: Message, urls: list[str]):
+def ytdlp_url_handler(message: Message, urls: list[str]):
     """Download videos and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
     with local.tempdir() as tmp:
@@ -123,7 +145,7 @@ def get_insta_shortcodes(message: Message) -> list[str]:
     return shortcodes
 
 
-def insta_link_handler(message: Message, shortcodes: list[str]):
+def insta_shortcode_handler(message: Message, shortcodes: list[str]):
     """Download Instagram posts and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
     with local.tempdir() as tmp:
@@ -141,8 +163,8 @@ def insta_link_handler(message: Message, shortcodes: list[str]):
 def media_link_handler(message: Message):
     """Download from any URLs that we handle and upload content to the chat ."""
     for extractor, handler in (
-        (get_video_download_urls, video_link_handler),
-        (get_insta_shortcodes, insta_link_handler),
+        (get_ytdlp_download_urls, ytdlp_url_handler),
+        (get_insta_shortcodes, insta_shortcode_handler),
     ):
         loot_ids = extractor(message)
         if loot_ids:
