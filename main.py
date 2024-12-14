@@ -20,6 +20,8 @@ PATTERNS = {
     'tiktok': r'https://www\.tiktok\.com/t/[^/ ]+',
     'x': r'https://x\.com/[^/]+/status/\d+',
     'insta': r'https://www\.instagram\.com/(p|reel)/(?P<shortcode>[^/]+).*',
+    'vreddit': r'https://v\.redd\.it/[^/]+',
+    'reddit': r'https://www\.reddit\.com/r/[^/]+/comments/[a-zA-Z0-9_/]+',
 }
 
 LOOT_ACTION = {'video': 'upload_video', 'image': 'upload_photo', 'text': 'typing'}
@@ -59,10 +61,10 @@ def ytdlp_url_has_video(url: str) -> bool:
 def suitable_for_ytdlp(url: str) -> bool:
     """Return True if the URL target has a yt-dlp-downloadable video."""
     log = logger.bind(url=url)
-    if re.match(PATTERNS['tiktok'], url):
+    if re.match(f"({PATTERNS['tiktok']}|{PATTERNS['vreddit']})", url):
         log.info("Looks suitable for yt-dlp")
         return True
-    if re.match(PATTERNS['x'], url):
+    if re.match(f"({PATTERNS['x']}|{PATTERNS['reddit']})", url):
         log.info("Looks potentially suitable for yt-dlp")
         return ytdlp_url_has_video(url)
     log.info("Looks unsuitable for yt-dlp")
