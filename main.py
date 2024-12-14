@@ -14,6 +14,14 @@ from yt_dlp import DownloadError, YoutubeDL
 
 from credentials import TOKEN
 
+try:
+    from credentials import COOKIES
+
+    (local.path(__file__).up() / 'cookies.txt').write(COOKIES)
+    COOKIES = str(local.path(__file__).up() / 'cookies.txt')
+except ImportError:
+    COOKIES = None
+
 bot = TeleBot(TOKEN)
 logger = structlog.get_logger()
 PATTERNS = {
@@ -47,7 +55,10 @@ def message_urls(message: Message) -> Iterator[str]:
 def ytdlp_url_has_video(url: str) -> bool:
     """Return True if the yt-dlp-suitable URL really has a video."""
     log = logger.bind(url=url)
-    with YoutubeDL() as ydl:
+    params = {}
+    if COOKIES:
+        params['cookiefile'] = COOKIES
+    with YoutubeDL(params=params) as ydl:
         try:
             ydl.extract_info(url, download=False)
         except DownloadError:
@@ -140,13 +151,14 @@ def ytdlp_url_handler(message: Message, urls: list[str]):
     """Download videos and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
     with local.tempdir() as tmp:
-        with YoutubeDL(
-            params={
-                'paths': {'home': tmp},
-                'outtmpl': {'default': '%(id)s.%(ext)s'},
-                'writethumbnail': True,
-            }
-        ) as ydl:
+        params = {
+            'paths': {'home': tmp},
+            'outtmpl': {'default': '%(id)s.%(ext)s'},
+            'writethumbnail': True,
+        }
+        if COOKIES:
+            params['cookiefile'] = COOKIES
+        with YoutubeDL(params=params) as ydl:
             logger.info("Downloading videos", urls=urls)
             ydl.download(urls)
         send_potential_media_group(message, tmp, context=urls)
