@@ -16,9 +16,11 @@ from credentials import TOKEN
 
 bot = TeleBot(TOKEN)
 logger = structlog.get_logger()
-TIKTOK_PATTERN = r'https://www\.tiktok\.com/t/[^/ ]+'
-X_PATTERN = r'https://x\.com/[^/]+/status/\d+'
-INSTA_PATTERN = r'https://www\.instagram\.com/(p|reel)/(?P<shortcode>[^/]+).*'
+PATTERNS = {
+    'tiktok': r'https://www\.tiktok\.com/t/[^/ ]+',
+    'x': r'https://x\.com/[^/]+/status/\d+',
+    'insta': r'https://www\.instagram\.com/(p|reel)/(?P<shortcode>[^/]+).*',
+}
 
 LOOT_ACTION = {'video': 'upload_video', 'image': 'upload_photo', 'text': 'typing'}
 LOOT_SEND_FUNC = {'video': bot.send_video, 'image': bot.send_photo, 'text': bot.send_message}
@@ -57,11 +59,11 @@ def ytdlp_url_has_video(url: str) -> bool:
 def suitable_for_ytdlp(url: str) -> bool:
     """Return True if the URL target has a yt-dlp-downloadable video."""
     log = logger.bind(url=url)
-    if re.match(TIKTOK_PATTERN, url):
-        log.info("Looks like tiktok")
+    if re.match(PATTERNS['tiktok'], url):
+        log.info("Looks suitable for yt-dlp")
         return True
-    if re.match(X_PATTERN, url):
-        log.info("Looks like X")
+    if re.match(PATTERNS['x'], url):
+        log.info("Looks potentially suitable for yt-dlp")
         return ytdlp_url_has_video(url)
     log.info("Looks unsuitable for yt-dlp")
     return False
@@ -146,7 +148,7 @@ def get_insta_shortcodes(message: Message) -> list[str]:
     """Return a list of Instagram shortcodes in a message."""
     shortcodes = []
     for url in message_urls(message):
-        if match := re.match(INSTA_PATTERN, url):
+        if match := re.match(PATTERNS['insta'], url):
             logger.info("Looks like insta", url=url)
             shortcodes.append(match['shortcode'])
     return shortcodes
