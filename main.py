@@ -2,14 +2,14 @@
 import re
 from collections.abc import Iterator
 from mimetypes import guess_file_type
-from typing import cast, Any, TypedDict
+from typing import Any, TypedDict, cast
 
 import instaloader
 import stamina
 import structlog
 from plumbum import LocalPath, local
 from telebot import TeleBot
-from telebot.types import InputMediaVideo, InputMediaPhoto, InputFile, Message, ReplyParameters
+from telebot.types import InputFile, InputMediaPhoto, InputMediaVideo, Message, ReplyParameters
 from yt_dlp import DownloadError, YoutubeDL
 
 from credentials import TOKEN
