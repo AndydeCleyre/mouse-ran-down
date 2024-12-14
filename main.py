@@ -89,13 +89,17 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
     media_group = [InputMediaPhoto(img) for img in loot_items['image']] + [
         InputMediaVideo(vid) for vid in loot_items['video']
     ]
-    media_group[0].caption = '\n\n'.join(loot_items['text'])[:1024]
+    text = '\n\n'.join(loot_items['text'])
+    if len(text) <= 1024:
+        media_group[0].caption = text
+    else:
+        bot.send_message(chat_id=message.chat.id, text=text, reply_to_message_id=message.id)
     logger.info("Uploading", loot=media_group, context=context)
+    bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
     bot.send_media_group(
         chat_id=message.chat.id,
         media=media_group,  # pyright: ignore [reportArgumentType]
         reply_parameters=ReplyParameters(message_id=message.id),
-        timeout=60,
     )
 
 
