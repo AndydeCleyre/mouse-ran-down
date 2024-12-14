@@ -137,7 +137,11 @@ def ytdlp_url_handler(message: Message, urls: list[str]):
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
     with local.tempdir() as tmp:
         with YoutubeDL(
-            params={'paths': {'home': tmp}, 'outtmpl': {'default': '%(id)s.%(ext)s'}}
+            params={
+                'paths': {'home': tmp},
+                'outtmpl': {'default': '%(id)s.%(ext)s'},
+                'writethumbnail': True,
+            }
         ) as ydl:
             logger.info("Downloading videos", urls=urls)
             ydl.download(urls)
