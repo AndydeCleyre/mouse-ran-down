@@ -134,7 +134,9 @@ def ytdlp_url_handler(message: Message, urls: list[str]):
     """Download videos and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
     with local.tempdir() as tmp:
-        with YoutubeDL(params={'paths': {'home': tmp}}) as ydl:
+        with YoutubeDL(
+            params={'paths': {'home': tmp}, 'outtmpl': {'default': '%(id)s.%(ext)s'}}
+        ) as ydl:
             logger.info("Downloading videos", urls=urls)
             ydl.download(urls)
         send_potential_media_group(message, tmp, context=urls)
