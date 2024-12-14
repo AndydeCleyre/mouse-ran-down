@@ -17,7 +17,7 @@ from credentials import TOKEN
 bot = TeleBot(TOKEN)
 logger = structlog.get_logger()
 PATTERNS = {
-    'tiktok': r'https://www\.tiktok\.com/t/[^/ ]+',
+    'tiktok': r'https://www\.tiktok\.com/(t/[^/ ]+|@[^/]+/video/\d+)',
     'x': r'https://x\.com/[^/]+/status/\d+',
     'insta': r'https://www\.instagram\.com/(p|reel)/(?P<shortcode>[^/]+).*',
     'vreddit': r'https://v\.redd\.it/[^/]+',
