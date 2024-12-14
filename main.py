@@ -61,10 +61,10 @@ def ytdlp_url_has_video(url: str) -> bool:
 def suitable_for_ytdlp(url: str) -> bool:
     """Return True if the URL target has a yt-dlp-downloadable video."""
     log = logger.bind(url=url)
-    if re.match(f"({PATTERNS['tiktok']}|{PATTERNS['vreddit']})", url):
+    if re.match(f"({'|'.join((PATTERNS['tiktok'], PATTERNS['vreddit']))})", url):
         log.info("Looks suitable for yt-dlp")
         return True
-    if re.match(f"({PATTERNS['x']}|{PATTERNS['reddit']})", url):
+    if re.match(f"({'|'.join((PATTERNS['x'], PATTERNS['reddit']))})", url):
         log.info("Looks potentially suitable for yt-dlp")
         return ytdlp_url_has_video(url)
     log.info("Looks unsuitable for yt-dlp")
