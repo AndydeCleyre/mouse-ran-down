@@ -89,12 +89,13 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
     media_group = [InputMediaPhoto(img) for img in loot_items['image']] + [
         InputMediaVideo(vid) for vid in loot_items['video']
     ]
-    media_group[0].caption = '\n\n'.join(loot_items['text'])
+    media_group[0].caption = '\n\n'.join(loot_items['text'])[:1024]
     logger.info("Uploading", loot=media_group, context=context)
     bot.send_media_group(
         chat_id=message.chat.id,
         media=media_group,  # pyright: ignore [reportArgumentType]
         reply_parameters=ReplyParameters(message_id=message.id),
+        timeout=60,
     )
 
 
