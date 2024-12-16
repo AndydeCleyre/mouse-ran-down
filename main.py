@@ -22,8 +22,17 @@ try:
 except ImportError:
     COOKIES = None
 
-bot = TeleBot(TOKEN)
+
+structlog.configure(
+    processors=[
+        structlog.processors.dict_tracebacks,
+        structlog.processors.add_log_level,
+        structlog.processors.JSONRenderer(sort_keys=True),
+    ]
+)
 logger = structlog.get_logger()
+
+bot = TeleBot(TOKEN)
 PATTERNS = {
     'tiktok': r'https://www\.tiktok\.com/(t/[^/ ]+|@[^/]+/video/\d+)',
     'x': r'https://x\.com/[^/]+/status/\d+',
