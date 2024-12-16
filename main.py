@@ -208,9 +208,13 @@ def media_link_handler(message: Message):
         (get_ytdlp_download_urls, ytdlp_url_handler),
         (get_insta_shortcodes, insta_shortcode_handler),
     ):
-        loot_ids = extractor(message)
-        if loot_ids:
-            handler(message, loot_ids)
+        try:
+            loot_ids = extractor(message)
+            if loot_ids:
+                handler(message, loot_ids)
+        except Exception as e:
+            logger.error("Crashed", exc_info=e)
+            raise e
 
 
 if __name__ == '__main__':
