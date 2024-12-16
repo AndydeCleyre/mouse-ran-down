@@ -61,6 +61,7 @@ def message_urls(message: Message) -> Iterator[str]:
                 yield ent.url or cast(str, message.text)[ent.offset : ent.offset + ent.length]
 
 
+@stamina.retry(on=Exception)
 def ytdlp_url_has_video(url: str) -> bool:
     """Return True if the yt-dlp-suitable URL really has a video."""
     log = logger.bind(url=url)
@@ -107,6 +108,7 @@ def path_is_type(path: str, typestr: str) -> bool:
     return False
 
 
+@stamina.retry(on=Exception)
 def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):
     """Send loot items as a media group."""
     bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
@@ -129,6 +131,7 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
     )
 
 
+@stamina.retry(on=Exception)
 def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):
     """Send loot items individually."""
     for filetype, items in loot_items.items():
@@ -156,6 +159,7 @@ def send_potential_media_group(message: Message, loot_folder: LocalPath, context
         send_loot_items_individually(message, cast(LootItems, loot_items), context)
 
 
+@stamina.retry(on=Exception)
 def ytdlp_url_handler(message: Message, urls: list[str]):
     """Download videos and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
@@ -183,6 +187,7 @@ def get_insta_shortcodes(message: Message) -> list[str]:
     return shortcodes
 
 
+@stamina.retry(on=Exception)
 def insta_shortcode_handler(message: Message, shortcodes: list[str]):
     """Download Instagram posts and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
@@ -196,7 +201,6 @@ def insta_shortcode_handler(message: Message, shortcodes: list[str]):
             send_potential_media_group(message, tmp, context=shortcode)
 
 
-@stamina.retry(on=Exception)
 @bot.message_handler(func=lambda m: True)
 def media_link_handler(message: Message):
     """Download from any URLs that we handle and upload content to the chat ."""
