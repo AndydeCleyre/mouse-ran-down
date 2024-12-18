@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Download videos from any sent instagram, reddit, or x links, and upload them to the chat."""
+
 import re
 from collections.abc import Iterator
 from mimetypes import guess_file_type
@@ -48,6 +50,8 @@ LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
 
 
 class LootItems(TypedDict):
+    """Video, image, and text items downloaded from URLs."""
+
     video: list[InputFile]
     image: list[InputFile]
     text: list[str]
@@ -213,8 +217,8 @@ def media_link_handler(message: Message):
             if loot_ids:
                 handler(message, loot_ids)
         except Exception as e:
-            logger.error("Crashed", exc_info=e)
-            raise e
+            logger.exception("Crashed", exc_info=e)
+            raise
 
 
 if __name__ == '__main__':
