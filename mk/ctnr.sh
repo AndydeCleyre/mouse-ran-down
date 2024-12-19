@@ -6,7 +6,7 @@ if [ "$1" = -h ] || [ "$1" = --help ]; then
   printf '%s\n' \
   'Build a container image for Mouse Ran Down' \
   "Usage: $0 [<image>]" \
-  '<image> defaults to quay.io/andykluger/mouse-ran-down'
+  '  <image> defaults to quay.io/andykluger/mouse-ran-down'
   exit
 fi
 
