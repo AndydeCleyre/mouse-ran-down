@@ -49,7 +49,7 @@ podman run --name "$name" --rm -d -v "$credentials":/app/credentials.py:ro "${im
 
 # -- Show logs --
 podman ps -a
-podman exec -it "$name" cat /app/logs/app/current
+podman logs "$name"
 
 # -- Clean up --
 if [ "$clean" = true ]; then
