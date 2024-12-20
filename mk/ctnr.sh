@@ -35,7 +35,7 @@ RUN python -m venv "${appdir}/.venv"
 RUN "${appdir}/.venv/bin/pip" install -r "${appdir}/requirements.txt"
 
 # -- App Services --
-RUN mkdir -p "${appdir}/svcs/app/log" "${appdir}/logs/app"
+RUN mkdir -p "${appdir}/svcs/app/log" "${appdir}/logs/app" "${appdir}/svcs/logtailer"
 
 <<EOF APPEND "${appdir}/svcs/app/run"
 #!/bin/execlineb -P
@@ -48,7 +48,12 @@ EOF
 s6-log T s4194304 S41943040 ${appdir}/logs/app
 EOF
 
-RUN chmod +x "${appdir}/svcs/app/run" "${appdir}/svcs/app/log/run"
+<<EOF APPEND "${appdir}/svcs/logtailer/run"
+#!/bin/execlineb -P
+tail -F ${appdir}/logs/app/current
+EOF
+
+RUN chmod +x "${appdir}/svcs/app/run" "${appdir}/svcs/app/log/run" "${appdir}/svcs/logtailer/run"
 buildah config --cmd "s6-svscan ${appdir}/svcs" "$ctnr"
 
 # -- Commit Image --
