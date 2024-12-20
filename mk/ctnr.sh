@@ -11,7 +11,7 @@ if [ "$1" = -h ] || [ "$1" = --help ]; then
 fi
 
 # -- Variables --
-ctnr="$(buildah from python:3.13-alpine)"
+ctnr="$(buildah from docker.io/library/python:3.13-alpine)"
 appdir=/app
 image=${1:-quay.io/andykluger/mouse-ran-down}
 
