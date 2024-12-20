@@ -38,7 +38,7 @@ bot = TeleBot(TOKEN)
 PATTERNS = {
     'tiktok': r'https://www\.tiktok\.com/(t/[^/ ]+|@[^/]+/video/\d+)',
     'x': r'https://x\.com/[^/]+/status/\d+',
-    'insta': r'https://www\.instagram\.com/(p|reel)/(?P<shortcode>[^/]+).*',
+    'insta': r'https://www\.instagram\.com/([^/]+/)?(p|reel)/(?P<shortcode>[^/]+).*',
     'vreddit': r'https://v\.redd\.it/[^/]+',
     'reddit': r'https://www\.reddit\.com/r/[^/]+/comments/[a-zA-Z0-9_/]+',
 }
