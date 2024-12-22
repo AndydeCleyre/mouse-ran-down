@@ -156,7 +156,9 @@ def send_potential_media_group(message: Message, loot_folder: LocalPath, context
     for filetype in ('video', 'image', 'text'):
         loot_items[filetype] = [
             LOOT_WRAPPER[filetype](loot)
-            for loot in loot_folder.walk(filter=lambda p: path_is_type(p, filetype))
+            for loot in loot_folder.walk(
+                filter=lambda p: p.is_file() and path_is_type(p, filetype)
+            )
         ]
     if 1 < (len(loot_items['video']) + len(loot_items['image'])) < 11:
         send_loot_items_as_media_group(message, cast(LootItems, loot_items), context)
