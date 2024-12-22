@@ -53,9 +53,5 @@ podman logs "$name"
 
 # -- Clean up --
 if [ "$clean" = true ]; then
-  cruft=$(podman images -f dangling=true -q)
-  if [ "$cruft" ]; then
-    # TODO: Find out if quotes always work here:
-    podman rmi "$cruft"
-  fi
+  podman image prune -f
 fi
