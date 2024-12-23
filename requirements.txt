@@ -8,5 +8,5 @@ requests==2.32.3          # via instaloader, pytelegrambotapi
 stamina==24.3.0           # via -r requirements.in
 structlog==24.4.0         # via -r requirements.in
 tenacity==9.0.0           # via stamina
-urllib3==2.2.3            # via requests
+urllib3==2.3.0            # via requests
 yt-dlp==2024.12.13        # via -r requirements.in
