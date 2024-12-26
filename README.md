@@ -1,8 +1,20 @@
 # Mouse Ran Down
 
-This is a *tiny* Telegram bot for personal use.
+[![Format and Lint](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/fmt_lint.yml/badge.svg)](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/fmt_lint.yml)
+[![Build and push to quay.io](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/ctnr.yml/badge.svg)](https://quay.io/andykluger/mouse-ran-down)
+[![Update requirements](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/reqs.yml/badge.svg)](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/reqs.yml)
 
-Nothing to see here.
+This is a Telegram bot.
+
+When added to a group, any shared public X/Reddit/Instagram/TikTok links with videos will bring the videos
+directly into the chat, along with a preview image.
+For Instagram it will also do images and text.
+
+You can also send links as direct (or forwarded) messages to the bot.
+
+Currently running at [@MouseRanDownBot](https://t.me/MouseRanDownBot).
+
+I do not guarantee any level of service or privacy, so you might like to run it yourself.
 
 ## Credentials
 
