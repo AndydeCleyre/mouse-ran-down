@@ -1,4 +1,4 @@
-name: Update requirements
+name: Format and Lint
 on: push
 jobs:
   build:
