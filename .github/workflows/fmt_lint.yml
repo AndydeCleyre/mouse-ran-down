@@ -13,10 +13,11 @@ jobs:
 
       - run: shellcheck mk/*.sh start/*.sh
 
-      - run: uv run --with ssort   ssort              app/main.py
-      - run: uv run --with ruff    ruff format        app/main.py
-      - run: uv run --with ruff    ruff check --fix   app/main.py
-      - run: uv run --with pyright pyright --warnings app/main.py
+      - run: uv run --with ssort ssort            app/main.py
+      - run: uv run --with ruff  ruff format      app/main.py
+      - run: uv run --with ruff  ruff check --fix app/main.py
+
+      - run: uv run --with pyright --with-requirements app/requirements.txt pyright --warnings app/main.py
 
       - name: push it
         run: |
