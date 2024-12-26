@@ -48,6 +48,9 @@ LOOT_SEND_FUNC = {'video': bot.send_video, 'image': bot.send_photo, 'text': bot.
 LOOT_SEND_KEY = {'video': 'video', 'image': 'photo', 'text': 'text'}
 LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
 
+MAX_CAPTION_CHARS = 1024
+MAX_MEDIA_GROUP_MEMBERS = 10
+
 
 class LootItems(TypedDict):
     """Video, image, and text items downloaded from URLs."""
@@ -114,7 +117,7 @@ def path_is_type(path: str, typestr: str) -> bool:
 
 
 @stamina.retry(on=Exception)
-def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):
+def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items as a media group."""
     bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
     media_group = [InputMediaPhoto(img) for img in loot_items['image']] + [
@@ -122,7 +125,7 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
     ]
 
     text = '\n\n'.join(loot_items['text'])
-    if len(text) <= 1024:
+    if len(text) <= MAX_CAPTION_CHARS:
         media_group[0].caption = text
     else:
         bot.send_message(chat_id=message.chat.id, text=text, reply_to_message_id=message.id)
@@ -137,7 +140,7 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
 
 
 @stamina.retry(on=Exception)
-def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):
+def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items individually."""
     for filetype, items in loot_items.items():
         for loot in cast(list, items):
@@ -150,20 +153,22 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
             )
 
 
-def send_potential_media_group(message: Message, loot_folder: LocalPath, context: Any = None):
+def send_potential_media_group(message: Message, loot_folder: LocalPath, context: Any = None):  # noqa: ANN401
     """Send all media from a directory as a reply."""
+    # Regarding B023: https://github.com/astral-sh/ruff/issues/7847
     loot_items = {}
     for filetype in ('video', 'image', 'text'):
         loot_items[filetype] = [
             LOOT_WRAPPER[filetype](loot)
             for loot in loot_folder.walk(
-                filter=lambda p: p.is_file() and path_is_type(p, filetype)
+                filter=lambda p: p.is_file() and path_is_type(p, filetype)  # noqa: B023
             )
         ]
-    if 1 < (len(loot_items['video']) + len(loot_items['image'])) < 11:
-        send_loot_items_as_media_group(message, cast(LootItems, loot_items), context)
+    if 1 < (len(loot_items['video']) + len(loot_items['image'])) <= MAX_MEDIA_GROUP_MEMBERS:
+        send = send_loot_items_as_media_group
     else:
-        send_loot_items_individually(message, cast(LootItems, loot_items), context)
+        send = send_loot_items_individually
+    send(message, cast(LootItems, loot_items), context)
 
 
 @stamina.retry(on=Exception)
@@ -208,7 +213,7 @@ def insta_shortcode_handler(message: Message, shortcodes: list[str]):
             send_potential_media_group(message, tmp, context=shortcode)
 
 
-@bot.message_handler(func=lambda m: True)
+@bot.message_handler(func=bool)
 def media_link_handler(message: Message):
     """Download from any URLs that we handle and upload content to the chat ."""
     for extractor, handler in (
