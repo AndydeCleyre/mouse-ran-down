@@ -45,7 +45,7 @@ EOF
 
 <<EOF APPEND "${appdir}/svcs/app/log/run"
 #!/bin/execlineb -P
-s6-log T s4194304 S41943040 ${appdir}/logs/app
+s6-log t s4194304 S41943040 ${appdir}/logs/app
 EOF
 
 <<EOF APPEND "${appdir}/svcs/logtailer/run"

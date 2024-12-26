@@ -29,6 +29,7 @@ structlog.configure(
     processors=[
         structlog.processors.dict_tracebacks,
         structlog.processors.add_log_level,
+        structlog.processors.TimeStamper(fmt='%Y-%m-%d %H:%M:%SZ'),
         structlog.processors.JSONRenderer(sort_keys=True),
     ]
 )
