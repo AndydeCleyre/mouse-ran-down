@@ -16,7 +16,7 @@ from telebot.types import InputFile, InputMediaPhoto, InputMediaVideo, Message, 
 from yt_dlp import DownloadError, YoutubeDL
 
 try:
-    from credentials import COOKIES
+    from credentials import COOKIES  # pyright: ignore [reportMissingImports]
 
     (local.path(__file__).up() / 'cookies.txt').write(COOKIES)
     COOKIES = str(local.path(__file__).up() / 'cookies.txt')
