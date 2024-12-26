@@ -49,7 +49,7 @@ Otherwise podman will kill the container on logout.
 Run the container from a local image `quay.io/andykluger/mouse-ran-down` with:
 
 ```console
-$ podman run --rm -d -v ./credentials.py:/app/credentials.py:ro quay.io/andykluger/mouse-ran-down
+$ podman run --rm -d -v ./app/credentials.py:/app/credentials.py:ro quay.io/andykluger/mouse-ran-down
 ```
 
 ### From an image pushed to a registry
