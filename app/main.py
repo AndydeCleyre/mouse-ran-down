@@ -9,7 +9,7 @@ from typing import Any, TypedDict, cast
 import instaloader
 import stamina
 import structlog
-from credentials import TOKEN
+from credentials import TOKEN  # pyright: ignore [reportMissingImports]
 from plumbum import LocalPath, local
 from telebot import TeleBot
 from telebot.types import InputFile, InputMediaPhoto, InputMediaVideo, Message, ReplyParameters
