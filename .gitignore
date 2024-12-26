@@ -1,4 +1,4 @@
-/credentials.*py
+/app/credentials.*py
 /mise.local.toml
 /.tsk
-/cookies.txt
+/app/cookies.txt

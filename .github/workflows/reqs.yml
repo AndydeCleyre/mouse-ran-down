@@ -14,7 +14,7 @@ jobs:
       - run: pipx install uv
 
       - name: update requirements
-        run: uv pip compile -o requirements.txt --no-header --annotation-style=line -q -U requirements.in
+        run: uv pip compile -o app/requirements.txt --no-header --annotation-style=line -q -U requirements.in
 
       - name: push it
         run: |

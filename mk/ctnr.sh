@@ -27,7 +27,7 @@ RUN apk add ffmpeg s6
 # -- Copy App --
 RUN mkdir -p "${appdir}"
 for src in main.py requirements.txt; do
-  COPY "$src" "${appdir}/${src}"
+  COPY "app/${src}" "${appdir}/${src}"
 done
 
 # -- Python Packages --

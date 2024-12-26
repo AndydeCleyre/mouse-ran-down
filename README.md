@@ -6,7 +6,7 @@ Nothing to see here.
 
 ## Credentials
 
-Copy `credentials.py.example` to `credentials.py` and insert at least a Telegram bot token.
+Copy `app/credentials.py.example` to `app/credentials.py` and insert at least a Telegram bot token.
 
 ### Telegram
 
