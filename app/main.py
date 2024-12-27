@@ -110,7 +110,7 @@ def path_is_type(path: str, typestr: str) -> bool:
     filetype, _ = guess_file_type(path, strict=False)
     if filetype:
         if not re.match(r'(video|image|text)', filetype):
-            log.info("Unrecognized", guessed_type=filetype)
+            log.info("Unhandled filetype", guessed_type=filetype)
         return filetype.startswith(typestr)
     log.info("Unidentified")
     return False
