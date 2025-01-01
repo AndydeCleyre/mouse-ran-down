@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Download videos from any sent instagram, reddit, or x links, and upload them to the chat."""
+"""Download videos from any sent instagram/reddit/bluesky/x links, and upload them to the chat."""
 
 import re
 from collections.abc import Iterator
@@ -38,6 +38,7 @@ bot = TeleBot(TOKEN)
 PATTERNS = {
     'tiktok': r'https://www\.tiktok\.com/(t/[^/ ]+|@[^/]+/video/\d+)',
     'x': r'https://x\.com/[^/]+/status/\d+',
+    'bluesky': r'https://bsky\.app/profile/[^/]+/post/[^/]+',
     'insta': r'https://www\.instagram\.com/([^/]+/)?(p|reel)/(?P<shortcode>[^/]+).*',
     'vreddit': r'https://v\.redd\.it/[^/]+',
     'reddit': r'https://www\.reddit\.com/r/[^/]+/comments/[a-zA-Z0-9_/]+',
@@ -97,7 +98,7 @@ def suitable_for_ytdlp(url: str) -> bool:
     if re.match(f"({'|'.join((PATTERNS['tiktok'], PATTERNS['vreddit']))})", url):
         log.info("Looks suitable for yt-dlp")
         return True
-    if re.match(f"({'|'.join((PATTERNS['x'], PATTERNS['reddit']))})", url):
+    if re.match(f"({'|'.join((PATTERNS['x'], PATTERNS['reddit'], PATTERNS['bluesky']))})", url):
         log.info("Looks potentially suitable for yt-dlp")
         return ytdlp_url_has_video(url)
     log.info("Looks unsuitable for yt-dlp")
