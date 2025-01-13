@@ -166,7 +166,7 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
             parse_mode = None
             if filetype == 'text' and len(loot) > MAX_CAPTION_CHARS:
                 parse_mode = 'HTML'
-                loot = str_to_collapsed_quotation_html(loot)
+                loot = str_to_collapsed_quotation_html(loot)  # noqa: PLW2901
             LOOT_SEND_FUNC[filetype](
                 chat_id=message.chat.id,
                 parse_mode=parse_mode,
