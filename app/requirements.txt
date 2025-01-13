@@ -9,4 +9,4 @@ stamina==24.3.0           # via -r requirements.in
 structlog==24.4.0         # via -r requirements.in
 tenacity==9.0.0           # via stamina
 urllib3==2.3.0            # via requests
-yt-dlp==2024.12.23        # via -r requirements.in
+yt-dlp==2025.1.12         # via -r requirements.in
