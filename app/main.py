@@ -12,6 +12,7 @@ import structlog
 from credentials import TOKEN  # pyright: ignore [reportMissingImports]
 from plumbum import LocalPath, local
 from telebot import TeleBot
+from telebot.formatting import escape_html
 from telebot.types import InputFile, InputMediaPhoto, InputMediaVideo, Message, ReplyParameters
 from yt_dlp import DownloadError, YoutubeDL
 
@@ -122,6 +123,11 @@ def path_is_type(path: str, typestr: str) -> bool:
     return False
 
 
+def str_to_collapsed_quotation_html(text: str) -> str:
+    """Convert a string to an expandable quotation HTML string."""
+    return f"<blockquote expandable>{escape_html(text)}</blockquote>"
+
+
 @stamina.retry(on=Exception)
 def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items as a media group."""
@@ -134,7 +140,12 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
     if len(text) <= MAX_CAPTION_CHARS:
         media_group[0].caption = text
     else:
-        bot.send_message(chat_id=message.chat.id, text=text, reply_to_message_id=message.id)
+        bot.send_message(
+            chat_id=message.chat.id,
+            parse_mode='HTML',
+            text=str_to_collapsed_quotation_html(text),
+            reply_to_message_id=message.id,
+        )
 
     logger.info("Uploading", loot=media_group, context=context)
     bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
@@ -152,8 +163,13 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
         for loot in cast(list, items):
             bot.send_chat_action(chat_id=message.chat.id, action=LOOT_ACTION[filetype])
             logger.info("Uploading", loot=loot, context=context)
+            parse_mode = None
+            if filetype == 'text' and len(loot) > MAX_CAPTION_CHARS:
+                parse_mode = 'HTML'
+                loot = str_to_collapsed_quotation_html(loot)
             LOOT_SEND_FUNC[filetype](
                 chat_id=message.chat.id,
+                parse_mode=parse_mode,
                 **{LOOT_SEND_KEY[filetype]: loot},
                 reply_parameters=ReplyParameters(message_id=message.id),
             )
