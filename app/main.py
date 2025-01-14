@@ -14,6 +14,7 @@ from plumbum import LocalPath, local
 from telebot import TeleBot
 from telebot.formatting import escape_html
 from telebot.types import InputFile, InputMediaPhoto, InputMediaVideo, Message, ReplyParameters
+from telebot.util import smart_split
 from yt_dlp import DownloadError, YoutubeDL
 
 try:
@@ -129,17 +130,18 @@ def str_to_collapsed_quotation_html(text: str) -> str:
 
 
 def send_potentially_collapsed_text(message: Message, text: str):
-    """Send text, as an expandable quotation if it's long."""
-    parse_mode = None
-    if len(text) > MAX_CAPTION_CHARS:
-        text = str_to_collapsed_quotation_html(text)
-        parse_mode = 'HTML'
-    bot.send_message(
-        chat_id=message.chat.id,
-        parse_mode=parse_mode,
-        text=text,
-        reply_parameters=ReplyParameters(message_id=message.id),
-    )
+    """Send text, as an expandable quotation if it's long, and split if very long."""
+    for txt in smart_split(text):
+        parse_mode = None
+        if len(txt) > MAX_CAPTION_CHARS:
+            txt = str_to_collapsed_quotation_html(txt)  # noqa: PLW2901
+            parse_mode = 'HTML'
+        bot.send_message(
+            chat_id=message.chat.id,
+            parse_mode=parse_mode,
+            text=txt,
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
 
 
 @stamina.retry(on=Exception)
