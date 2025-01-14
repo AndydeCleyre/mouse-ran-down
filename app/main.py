@@ -172,6 +172,12 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
 @stamina.retry(on=Exception)
 def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items individually."""
+    caption = None
+    if len(loot_items['video'] + loot_items['image']) == 1 and loot_items['text']:
+        text = '\n\n'.join(loot_items['text'])
+        if len(text) <= MAX_CAPTION_CHARS:
+            caption = text
+            loot_items['text'] = []
     for filetype, items in loot_items.items():
         for loot in cast(list, items):
             bot.send_chat_action(chat_id=message.chat.id, action=LOOT_ACTION[filetype])
@@ -182,6 +188,7 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
             LOOT_SEND_FUNC[filetype](
                 chat_id=message.chat.id,
                 **{LOOT_SEND_KEY[filetype]: loot},
+                caption=caption,
                 reply_parameters=ReplyParameters(message_id=message.id),
             )
 
