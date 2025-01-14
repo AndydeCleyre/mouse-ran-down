@@ -120,6 +120,8 @@ def path_is_type(path: str, typestr: str) -> bool:
         if not re.match(r'(video|image|text)', filetype):
             log.info("Unhandled filetype", guessed_type=filetype)
         return filetype.startswith(typestr)
+    if typestr == 'text' and path.endswith('.description'):
+        return True
     log.info("Unidentified")
     return False
 
@@ -211,6 +213,7 @@ def ytdlp_url_handler(message: Message, urls: list[str]):
             'paths': {'home': tmp},
             'outtmpl': {'default': '%(id)s.%(ext)s'},
             'writethumbnail': True,
+            'writedescription': True,
         }
         if COOKIES:
             params['cookiefile'] = COOKIES
