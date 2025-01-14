@@ -128,6 +128,20 @@ def str_to_collapsed_quotation_html(text: str) -> str:
     return f"<blockquote expandable>{escape_html(text)}</blockquote>"
 
 
+def send_potentially_collapsed_text(message: Message, text: str):
+    """Send text, as an expandable quotation if it's long."""
+    parse_mode = None
+    if len(text) > MAX_CAPTION_CHARS:
+        text = str_to_collapsed_quotation_html(text)
+        parse_mode = 'HTML'
+    bot.send_message(
+        chat_id=message.chat.id,
+        parse_mode=parse_mode,
+        text=text,
+        reply_parameters=ReplyParameters(message_id=message.id),
+    )
+
+
 @stamina.retry(on=Exception)
 def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items as a media group."""
@@ -140,12 +154,7 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
     if len(text) <= MAX_CAPTION_CHARS:
         media_group[0].caption = text
     else:
-        bot.send_message(
-            chat_id=message.chat.id,
-            parse_mode='HTML',
-            text=str_to_collapsed_quotation_html(text),
-            reply_to_message_id=message.id,
-        )
+        send_potentially_collapsed_text(message, text)
 
     logger.info("Uploading", loot=media_group, context=context)
     bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
@@ -163,13 +172,11 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
         for loot in cast(list, items):
             bot.send_chat_action(chat_id=message.chat.id, action=LOOT_ACTION[filetype])
             logger.info("Uploading", loot=loot, context=context)
-            parse_mode = None
-            if filetype == 'text' and len(loot) > MAX_CAPTION_CHARS:
-                parse_mode = 'HTML'
-                loot = str_to_collapsed_quotation_html(loot)  # noqa: PLW2901
+            if filetype == 'text':
+                send_potentially_collapsed_text(message, loot)
+                continue
             LOOT_SEND_FUNC[filetype](
                 chat_id=message.chat.id,
-                parse_mode=parse_mode,
                 **{LOOT_SEND_KEY[filetype]: loot},
                 reply_parameters=ReplyParameters(message_id=message.id),
             )
