@@ -9,15 +9,9 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
 
-      - run: pipx install uv
+      - uses: jdx/mise-action@v2
 
-      - run: shellcheck mk/*.sh start/*.sh
-
-      - run: uv run --with ssort ssort            app/main.py
-      - run: uv run --with ruff  ruff format      app/main.py
-      - run: uv run --with ruff  ruff check --fix app/main.py
-
-      - run: uv run --with pyright --with-requirements app/requirements.txt pyright --warnings app/main.py
+      - run: mise tasks run fmt
 
       - name: push it
         run: |

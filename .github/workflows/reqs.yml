@@ -12,10 +12,9 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
 
-      - run: pipx install uv
+      - uses: jdx/mise-action@v2
 
-      - name: update requirements
-        run: uv pip compile -o app/requirements.txt --no-header --annotation-style=line -q -U requirements.in
+      - run: mise tasks run bump-reqs
 
       - name: push it
         run: |

@@ -1,2 +1,26 @@
 [tools]
 python = "3.13"
+shellcheck = "latest"
+
+[env._.python]
+venv = { path = ".venv", create = true }
+
+[tasks.bump-reqs]
+run = [
+  "uv pip compile -o app/requirements.txt --no-header --annotation-style=line -U requirements.in",
+  "uv pip compile -o dev-requirements.txt --no-header --annotation-style=line -U dev-requirements.in"
+]
+alias = "reqs"
+
+[tasks.install]
+run = "uv pip install -p python -r dev-requirements.txt || python -m pip install -r dev-requirements.txt"
+
+[tasks.fmt]
+depends = ["install"]
+run = [
+  "shellcheck mk/*.sh start/*.sh",
+  "ssort              app/main.py",
+  "ruff format        app/main.py",
+  "ruff check --fix   app/main.py",
+  "pyright --warnings app/main.py"
+]

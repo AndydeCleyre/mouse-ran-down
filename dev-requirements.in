@@ -1,0 +1,5 @@
+-r app/requirements.txt
+pyright
+ruff
+ssort
+uv
