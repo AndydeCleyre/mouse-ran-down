@@ -13,7 +13,13 @@ run = [
 alias = "reqs"
 
 [tasks.install]
-run = "uv pip install -p python -r dev-requirements.txt || python -m pip install -r dev-requirements.txt"
+run = """
+  if command -v uv >/dev/null; then
+    uv pip install -p python -r dev-requirements.txt
+  else
+    python -m pip install -r dev-requirements.txt
+  fi
+"""
 
 [tasks.fmt]
 depends = ["install"]
