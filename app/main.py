@@ -38,7 +38,7 @@ logger = structlog.get_logger()
 
 bot = TeleBot(TOKEN)
 PATTERNS = {
-    'tiktok': r'https://www\.tiktok\.com/(t/[^/ ]+|@[^/]+/video/\d+)',
+    'tiktok': r'https://(www\.tiktok\.com/(t/[^/ ]+|@[^/]+/video/\d+)|vm\.tiktok\.com/[^/]+)',
     'x': r'https://x\.com/[^/]+/status/\d+',
     'bluesky': r'https://bsky\.app/profile/[^/]+/post/[^/]+',
     'insta': r'https://www\.instagram\.com/([^/]+/)?(p|reel)/(?P<shortcode>[^/]+).*',
@@ -97,10 +97,14 @@ def ytdlp_url_has_video(url: str) -> bool:
 def suitable_for_ytdlp(url: str) -> bool:
     """Return True if the URL target has a yt-dlp-downloadable video."""
     log = logger.bind(url=url)
-    if re.match(f"({'|'.join((PATTERNS['tiktok'], PATTERNS['vreddit']))})", url):
+    if re.match(f"({'|'.join((PATTERNS['tiktok'], PATTERNS['vreddit']))})", url, re.IGNORECASE):
         log.info("Looks suitable for yt-dlp")
         return True
-    if re.match(f"({'|'.join((PATTERNS['x'], PATTERNS['reddit'], PATTERNS['bluesky']))})", url):
+    if re.match(
+        f"({'|'.join((PATTERNS['x'], PATTERNS['reddit'], PATTERNS['bluesky']))})",
+        url,
+        re.IGNORECASE,
+    ):
         log.info("Looks potentially suitable for yt-dlp")
         return ytdlp_url_has_video(url)
     log.info("Looks unsuitable for yt-dlp")
@@ -234,7 +238,7 @@ def get_insta_shortcodes(message: Message) -> list[str]:
     """Return a list of Instagram shortcodes in a message."""
     shortcodes = []
     for url in message_urls(message):
-        if match := re.match(PATTERNS['insta'], url):
+        if match := re.match(PATTERNS['insta'], url, re.IGNORECASE):
             logger.info("Looks like insta", url=url)
             shortcodes.append(match['shortcode'])
     return shortcodes
