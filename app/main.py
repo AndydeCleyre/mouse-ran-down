@@ -38,7 +38,11 @@ logger = structlog.get_logger()
 
 bot = TeleBot(TOKEN)
 PATTERNS = {
-    'tiktok': r'https://(www\.tiktok\.com/(t/[^/ ]+|@[^/]+/video/\d+)|vm\.tiktok\.com/[^/]+)',
+    'tiktok': (
+        r'https://(www\.tiktok\.com/'
+        r'(t/[^/ ]+|@[^/]+/video/\d+|@[^\?]+[^/]+)'
+        r'|vm\.tiktok\.com/[^/]+)'
+    ),
     'x': r'https://x\.com/[^/]+/status/\d+',
     'bluesky': r'https://bsky\.app/profile/[^/]+/post/[^/]+',
     'insta': r'https://www\.instagram\.com/([^/]+/)?(p|reel)/(?P<shortcode>[^/]+).*',
