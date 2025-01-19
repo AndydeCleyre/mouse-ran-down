@@ -73,9 +73,6 @@ def message_urls(message: Message) -> Iterator[str]:
     """Yield all URLs in a message."""
     if message.entities:
         for ent in message.entities:
-            logger.debug(
-                "Entity", type=ent.type, url=ent.url, offset=ent.offset, length=ent.length
-            )
             if ent.type == 'url':
                 yield ent.url or cast(str, message.text).encode('utf-16-le')[
                     ent.offset * 2 : ent.offset * 2 + ent.length * 2
