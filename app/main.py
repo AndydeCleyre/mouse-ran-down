@@ -58,6 +58,8 @@ LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
 MAX_CAPTION_CHARS = 1024
 MAX_MEDIA_GROUP_MEMBERS = 10
 
+TIMEOUT = 60
+
 
 class LootItems(TypedDict):
     """Video, image, and text items downloaded from URLs."""
@@ -174,6 +176,7 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
         chat_id=message.chat.id,
         media=media_group,  # pyright: ignore [reportArgumentType]
         reply_parameters=ReplyParameters(message_id=message.id),
+        timeout=TIMEOUT,
     )
 
 
@@ -198,6 +201,7 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
                 **{LOOT_SEND_KEY[filetype]: loot},
                 caption=caption,
                 reply_parameters=ReplyParameters(message_id=message.id),
+                timeout=TIMEOUT,
             )
 
 
@@ -279,4 +283,4 @@ def media_link_handler(message: Message):
 
 
 if __name__ == '__main__':
-    bot.infinity_polling(timeout=60, long_polling_timeout=60)
+    bot.infinity_polling(timeout=TIMEOUT, long_polling_timeout=TIMEOUT)
