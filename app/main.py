@@ -156,7 +156,6 @@ def send_potentially_collapsed_text(message: Message, text: str):
         )
 
 
-@stamina.retry(on=Exception)
 def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items as a media group."""
     bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
@@ -180,7 +179,6 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
     )
 
 
-@stamina.retry(on=Exception)
 def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items individually."""
     caption = None
