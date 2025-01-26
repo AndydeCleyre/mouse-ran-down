@@ -15,4 +15,4 @@ structlog==25.1.0         # via -r app/requirements.txt
 tenacity==9.0.0           # via stamina, -r app/requirements.txt
 typing-extensions==4.12.2  # via pyright
 urllib3==2.3.0            # via requests, -r app/requirements.txt
-yt-dlp==2025.1.15         # via -r app/requirements.txt
+yt-dlp==2025.1.26         # via -r app/requirements.txt
