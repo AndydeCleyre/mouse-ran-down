@@ -5,7 +5,7 @@ instaloader==4.14.1       # via -r app/requirements.txt
 nodeenv==1.9.1            # via pyright
 pathspec==0.12.1          # via ssort
 plumbum==1.9.0            # via -r app/requirements.txt
-pyright==1.1.392.post0    # via -r dev-requirements.in
+pyright==1.1.393          # via -r dev-requirements.in
 pytelegrambotapi==4.26.0  # via -r app/requirements.txt
 requests==2.32.3          # via instaloader, pytelegrambotapi, -r app/requirements.txt
 ruff==0.9.3               # via -r dev-requirements.in
