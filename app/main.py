@@ -2,7 +2,9 @@
 """Download videos from any sent instagram/reddit/bluesky/x links, and upload them to the chat."""
 
 import re
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
+from contextlib import suppress
+from json import load
 from mimetypes import guess_file_type
 from typing import Any, TypedDict, cast
 
@@ -11,6 +13,7 @@ import stamina
 import structlog
 from credentials import TOKEN  # pyright: ignore [reportMissingImports]
 from plumbum import LocalPath, local
+from plumbum.cmd import gallery_dl
 from telebot import TeleBot
 from telebot.formatting import escape_html
 from telebot.types import InputFile, InputMediaPhoto, InputMediaVideo, Message, ReplyParameters
@@ -43,7 +46,7 @@ PATTERNS = {
         r'(t/[^/ ]+|@[^/]+/video/\d+|@[^\?]+[^/]+)'
         r'|vm\.tiktok\.com/[^/]+)'
     ),
-    'x': r'https://x\.com/[^/]+/status/\d+',
+    'x': r'(https://x\.com/[^/]+/status/\d+|https://t.co/[^/]+)',
     'bluesky': r'https://bsky\.app/profile/[^/]+/post/[^/]+',
     'insta': r'https://www\.instagram\.com/([^/]+/)?(p|reel)/(?P<shortcode>[^/]+).*',
     'vreddit': r'https://v\.redd\.it/[^/]+',
@@ -79,57 +82,18 @@ def message_urls(message: Message) -> Iterator[str]:
                 ].decode('utf-16-le')
 
 
-@stamina.retry(on=Exception)
-def ytdlp_url_has_video(url: str) -> bool:
-    """Return True if the yt-dlp-suitable URL really has a video."""
-    log = logger.bind(url=url)
-    params = {}
-    if COOKIES:
-        params['cookiefile'] = COOKIES
-    with YoutubeDL(params=params) as ydl:
-        try:
-            ydl.extract_info(url, download=False)
-        except DownloadError:
-            log.info("Video not found")
-            return False
-        else:
-            log.info("Video found")
-            return True
-
-
-def suitable_for_ytdlp(url: str) -> bool:
-    """Return True if the URL target has a yt-dlp-downloadable video."""
-    log = logger.bind(url=url)
-    if re.match(f"({'|'.join((PATTERNS['tiktok'], PATTERNS['vreddit']))})", url, re.IGNORECASE):
-        log.info("Looks suitable for yt-dlp")
-        return True
-    if re.match(
-        f"({'|'.join((PATTERNS['x'], PATTERNS['reddit'], PATTERNS['bluesky']))})",
-        url,
-        re.IGNORECASE,
-    ):
-        log.info("Looks potentially suitable for yt-dlp")
-        return ytdlp_url_has_video(url)
-    log.info("Looks unsuitable for yt-dlp")
-    return False
-
-
-def get_ytdlp_download_urls(message: Message) -> list[str]:
-    """Return a list of URLs suitable for yt-dlp."""
-    return [url for url in message_urls(message) if suitable_for_ytdlp(url)]
-
-
 def path_is_type(path: str, typestr: str) -> bool:
     """Return True if the path has the given file type."""
     log = logger.bind(path=path, target_type=typestr)
+
     filetype, _ = guess_file_type(path, strict=False)
+    if not filetype and path.endswith('.description'):
+        filetype = 'text'
+
     if filetype:
-        if not re.match(r'(video|image|text)', filetype):
-            log.info("Unhandled filetype", guessed_type=filetype)
         return filetype.startswith(typestr)
-    if typestr == 'text' and path.endswith('.description'):
-        return True
-    log.info("Unidentified")
+
+    log.info("Found unidentified file")
     return False
 
 
@@ -156,6 +120,7 @@ def send_potentially_collapsed_text(message: Message, text: str):
 def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items as a media group."""
     bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
+
     media_group = [InputMediaPhoto(img) for img in loot_items['image']] + [
         InputMediaVideo(vid) for vid in loot_items['video']
     ]
@@ -184,13 +149,16 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
         if len(text) <= MAX_CAPTION_CHARS:
             caption = text
             loot_items['text'] = []
+
     for filetype, items in loot_items.items():
         for loot in cast(list, items):
             bot.send_chat_action(chat_id=message.chat.id, action=LOOT_ACTION[filetype])
             logger.info("Uploading", loot=loot, context=context)
+
             if filetype == 'text':
                 send_potentially_collapsed_text(message, loot)
                 continue
+
             LOOT_SEND_FUNC[filetype](
                 chat_id=message.chat.id,
                 **{LOOT_SEND_KEY[filetype]: loot},
@@ -206,15 +174,17 @@ def send_potential_media_group(message: Message, loot_folder: LocalPath, context
     loot_items = {}
     for filetype in ('video', 'image', 'text'):
         loot_items[filetype] = [
-            LOOT_WRAPPER[filetype](loot)
-            for loot in loot_folder.walk(
+            LOOT_WRAPPER[filetype](loot_file)
+            for loot_file in loot_folder.walk(
                 filter=lambda p: p.is_file() and path_is_type(p, filetype)  # noqa: B023
             )
         ]
+
     if 1 < (len(loot_items['video']) + len(loot_items['image'])) <= MAX_MEDIA_GROUP_MEMBERS:
         send = send_loot_items_as_media_group
     else:
         send = send_loot_items_individually
+
     send(message, cast(LootItems, loot_items), context)
 
 
@@ -222,6 +192,7 @@ def send_potential_media_group(message: Message, loot_folder: LocalPath, context
 def ytdlp_url_handler(message: Message, urls: list[str]):
     """Download videos and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
+
     with local.tempdir() as tmp:
         params = {
             'paths': {'home': tmp},
@@ -231,50 +202,104 @@ def ytdlp_url_handler(message: Message, urls: list[str]):
         }
         if COOKIES:
             params['cookiefile'] = COOKIES
+
         with YoutubeDL(params=params) as ydl:
-            logger.info("Downloading videos", urls=urls)
+            logger.info("Downloading videos", urls=urls, downloader='yt-dlp')
             ydl.download(urls)
+
         send_potential_media_group(message, tmp, context=urls)
 
 
-def get_insta_shortcodes(message: Message) -> list[str]:
-    """Return a list of Instagram shortcodes in a message."""
-    shortcodes = []
-    for url in message_urls(message):
-        if match := re.match(PATTERNS['insta'], url, re.IGNORECASE):
-            logger.info("Looks like insta", url=url)
-            shortcodes.append(match['shortcode'])
-    return shortcodes
+@stamina.retry(on=Exception)
+def gallerydl_url_handler(message: Message, urls: list[str]):
+    """Download whatever we can and upload it to the chat."""
+    bot.send_chat_action(chat_id=message.chat.id, action='typing')
+
+    with local.tempdir() as tmp:
+        logger.info("Downloading whatever", urls=urls, downloader='gallery-dl')
+
+        flags = ['--directory', tmp, '--write-info-json']
+        if COOKIES:
+            flags += ['--cookies', COOKIES]
+
+        gallery_dl(*flags, *urls)
+
+        texts = []
+        for json in tmp.walk(filter=lambda p: p.name == 'info.json'):
+            for key in ('title', 'content', 'selftext'):
+                with suppress(KeyError):
+                    texts.append(load(json)[key])
+            (json.parent / 'info.txt').write('\n\n'.join(texts))
+
+        send_potential_media_group(message, tmp, context=urls)
 
 
 @stamina.retry(on=Exception)
-def insta_shortcode_handler(message: Message, shortcodes: list[str]):
+def insta_url_handler(message: Message, urls: list[str]):
     """Download Instagram posts and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
+
     with local.tempdir() as tmp:
         insta = instaloader.Instaloader(dirname_pattern=tmp / '{target}')
-        for shortcode in shortcodes:
-            logger.info("Downloading insta", shortcode=shortcode)
-            insta.download_post(
-                post=instaloader.Post.from_shortcode(insta.context, shortcode), target='loot'
-            )
-            send_potential_media_group(message, tmp, context=shortcode)
+        for url in urls:
+            if match := re.match(PATTERNS['insta'], url, re.IGNORECASE):
+                shortcode = match.group('shortcode')
+                logger.info("Downloading insta", shortcode=shortcode, downloader='instaloader')
+                insta.download_post(
+                    post=instaloader.Post.from_shortcode(insta.context, shortcode), target='loot'
+                )
+
+                send_potential_media_group(message, tmp, context=shortcode)
+
+
+@stamina.retry(on=Exception)
+def ytdlp_url_has_video(url: str) -> bool:
+    """Return True if the yt-dlp-suitable URL really has a video."""
+    log = logger.bind(url=url)
+
+    params = {}
+    if COOKIES:
+        params['cookiefile'] = COOKIES
+
+    with YoutubeDL(params=params) as ydl:
+        try:
+            ydl.extract_info(url, download=False)
+        except DownloadError:
+            log.info("Video not found")
+            return False
+        else:
+            log.info("Video found")
+            return True
+
+
+def get_url_handler(url: str) -> Callable | None:
+    """Return the best handler for the given URL."""
+    if re.match(PATTERNS['insta'], url, re.IGNORECASE):
+        return insta_url_handler
+    if re.match(f"({'|'.join((PATTERNS['tiktok'], PATTERNS['vreddit']))})", url, re.IGNORECASE):
+        return ytdlp_url_handler
+    if re.match(
+        f"({'|'.join((PATTERNS['x'], PATTERNS['reddit'], PATTERNS['bluesky']))})",
+        url,
+        re.IGNORECASE,
+    ):
+        if ytdlp_url_has_video(url):
+            return ytdlp_url_handler
+        return gallerydl_url_handler
+
+    return None
 
 
 @bot.message_handler(func=bool)
 def media_link_handler(message: Message):
-    """Download from any URLs that we handle and upload content to the chat ."""
-    for extractor, handler in (
-        (get_ytdlp_download_urls, ytdlp_url_handler),
-        (get_insta_shortcodes, insta_shortcode_handler),
-    ):
-        try:
-            loot_ids = extractor(message)
-            if loot_ids:
-                handler(message, loot_ids)
-        except Exception as e:
-            logger.exception("Crashed", exc_info=e)
-            raise
+    """Download from any URLs that we handle and upload content to the chat."""
+    for url in message_urls(message):
+        if url_handler := get_url_handler(url):
+            try:
+                url_handler(message, [url])
+            except Exception as e:
+                logger.exception("Crashed", exc_info=e)
+                raise
 
 
 if __name__ == '__main__':
