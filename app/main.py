@@ -4,6 +4,7 @@
 import re
 from collections.abc import Callable, Iterator
 from contextlib import suppress
+from itertools import batched
 from json import load
 from mimetypes import guess_file_type
 from typing import Any, TypedDict, cast
@@ -168,7 +169,26 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
             )
 
 
-def send_potential_media_group(message: Message, loot_folder: LocalPath, context: Any = None):  # noqa: ANN401
+def batch_loot_items(loot_items: LootItems) -> list[LootItems]:
+    """Return a list of LootItems dicts batched by maximum media group size."""
+    media_items = [
+        (filetype, media_item)
+        for filetype in ('video', 'image')
+        for media_item in loot_items[filetype]
+    ]
+
+    loot_items_batches = []
+    for media_batch in batched(media_items, MAX_MEDIA_GROUP_MEMBERS):
+        loot_items_batch = {'video': [], 'image': [], 'text': []}
+        for filetype, item in media_batch:
+            loot_items_batch[filetype].append(item)
+        loot_items_batches.append(loot_items_batch)
+    loot_items_batches[0]['text'].append('\n\n'.join(loot_items['text']))
+
+    return loot_items_batches
+
+
+def send_potential_media_groups(message: Message, loot_folder: LocalPath, context: Any = None):  # noqa: ANN401
     """Send all media from a directory as a reply."""
     # Regarding B023: https://github.com/astral-sh/ruff/issues/7847
     loot_items = {}
@@ -180,12 +200,13 @@ def send_potential_media_group(message: Message, loot_folder: LocalPath, context
             )
         ]
 
-    if 1 < (len(loot_items['video']) + len(loot_items['image'])) <= MAX_MEDIA_GROUP_MEMBERS:
-        send = send_loot_items_as_media_group
-    else:
-        send = send_loot_items_individually
+    for loot_items_batch in batch_loot_items(cast(LootItems, loot_items)):
+        if (len(loot_items_batch['video']) + len(loot_items_batch['image'])) > 1:
+            send = send_loot_items_as_media_group
+        else:
+            send = send_loot_items_individually
 
-    send(message, cast(LootItems, loot_items), context)
+        send(message, cast(LootItems, loot_items_batch), context)
 
 
 @stamina.retry(on=Exception)
@@ -207,7 +228,7 @@ def ytdlp_url_handler(message: Message, urls: list[str]):
             logger.info("Downloading videos", urls=urls, downloader='yt-dlp')
             ydl.download(urls)
 
-        send_potential_media_group(message, tmp, context=urls)
+        send_potential_media_groups(message, tmp, context=urls)
 
 
 @stamina.retry(on=Exception)
@@ -231,7 +252,7 @@ def gallerydl_url_handler(message: Message, urls: list[str]):
                     texts.append(load(json)[key])
             (json.parent / 'info.txt').write('\n\n'.join(texts))
 
-        send_potential_media_group(message, tmp, context=urls)
+        send_potential_media_groups(message, tmp, context=urls)
 
 
 @stamina.retry(on=Exception)
@@ -249,7 +270,7 @@ def insta_url_handler(message: Message, urls: list[str]):
                     post=instaloader.Post.from_shortcode(insta.context, shortcode), target='loot'
                 )
 
-                send_potential_media_group(message, tmp, context=shortcode)
+                send_potential_media_groups(message, tmp, context=shortcode)
 
 
 @stamina.retry(on=Exception)
