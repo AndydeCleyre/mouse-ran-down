@@ -32,7 +32,8 @@ Ensure you give it permissions to read group messages by adjusting the privacy p
 
 ### Cookies
 
-The optional cookies entry helps if using the bot for reddit video links.
+The optional cookies entry helps if using the bot for reddit video links,
+and age-restricted content and such on other platforms.
 You can get the cookie content in the right format with `yt-dlp`'s
 `--cookies` and `--cookies-from-browser` options,
 or a browser extension like [cookies.txt](https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/)
