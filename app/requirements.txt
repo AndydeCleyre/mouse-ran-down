@@ -2,7 +2,7 @@ certifi==2025.1.31        # via requests
 charset-normalizer==3.4.1  # via requests
 gallery-dl==1.28.5        # via -r requirements.in
 idna==3.10                # via requests
-instaloader==4.14.1       # via -r requirements.in
+instaloader==4.10         # via -r requirements.in
 plumbum==1.9.0            # via -r requirements.in
 pytelegrambotapi==4.26.0  # via -r requirements.in
 requests==2.32.3          # via gallery-dl, instaloader, pytelegrambotapi

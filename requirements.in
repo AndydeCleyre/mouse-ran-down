@@ -2,6 +2,6 @@ pyTelegramBotAPI
 yt-dlp
 plumbum
 stamina
-instaloader
+instaloader==4.10
 structlog
 gallery-dl
