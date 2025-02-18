@@ -40,8 +40,11 @@ RUN mkdir -p "${appdir}/svcs/app/log" "${appdir}/logs/app" "${appdir}/svcs/logta
 <<EOF APPEND "${appdir}/svcs/app/run"
 #!/bin/execlineb -P
 fdmove -c 2 1
+
+importas OLDPATH PATH
+export PATH "${appdir}/.venv/bin:\${OLDPATH}"
 importas PATH PATH
-export PATH \${PATH}:${appdir}/.venv/bin
+
 python ${appdir}/main.py
 EOF
 
