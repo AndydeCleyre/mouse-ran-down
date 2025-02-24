@@ -183,7 +183,8 @@ def batch_loot_items(loot_items: LootItems) -> list[LootItems]:
         for filetype, item in media_batch:
             loot_items_batch[filetype].append(item)
         loot_items_batches.append(loot_items_batch)
-    loot_items_batches[0]['text'].append('\n\n'.join(loot_items['text']))
+    if loot_items_batches:
+        loot_items_batches[0]['text'].append('\n\n'.join(loot_items['text']))
 
     return loot_items_batches
 
