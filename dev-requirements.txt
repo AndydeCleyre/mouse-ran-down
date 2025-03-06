@@ -1,11 +1,14 @@
-certifi==2025.1.31        # via requests, -r app/requirements.txt
+certifi==2025.1.31        # via curl-cffi, requests, -r app/requirements.txt
+cffi==1.17.1              # via curl-cffi, -r app/requirements.txt
 charset-normalizer==3.4.1  # via requests, -r app/requirements.txt
+curl-cffi==0.7.1          # via -r app/requirements.txt
 gallery-dl==1.29.0        # via -r app/requirements.txt
 idna==3.10                # via requests, -r app/requirements.txt
 instaloader==4.14.1       # via -r app/requirements.txt
 nodeenv==1.9.1            # via pyright
 pathspec==0.12.1          # via ssort
 plumbum==1.9.0            # via -r app/requirements.txt
+pycparser==2.22           # via cffi, -r app/requirements.txt
 pyright==1.1.396          # via -r dev-requirements.in
 pytelegrambotapi==4.26.0  # via -r app/requirements.txt
 requests==2.32.3          # via gallery-dl, instaloader, pytelegrambotapi, -r app/requirements.txt

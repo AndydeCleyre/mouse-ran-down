@@ -20,6 +20,7 @@ from telebot.formatting import escape_html
 from telebot.types import InputFile, InputMediaPhoto, InputMediaVideo, Message, ReplyParameters
 from telebot.util import smart_split
 from yt_dlp import DownloadError, YoutubeDL
+from yt_dlp.networking.impersonate import ImpersonateTarget
 
 try:
     from credentials import COOKIES  # pyright: ignore [reportMissingImports]
@@ -52,6 +53,15 @@ PATTERNS = {
     'insta': r'https://www\.instagram\.com/([^/]+/)?(p|reel)/(?P<shortcode>[^/]+).*',
     'vreddit': r'https://v\.redd\.it/[^/]+',
     'reddit': r'https://www\.reddit\.com/r/[^/]+/comments/[a-zA-Z0-9_/]+',
+    'youtube': (
+        r'https://(youtu\.be/[^/]+'
+        r'|www\.youtube\.com/shorts/[^/]+'
+        r'|www\.youtube\.com/watch\?v=[^/]+)'
+    ),
+    'vimeo': (
+        r'https://(player\.vimeo\.com/video/[^/]+'
+        r'|vimeo\.com/[0-9]+[^/]*)'
+    ),
 }
 
 LOOT_ACTION = {'video': 'upload_video', 'image': 'upload_photo', 'text': 'typing'}
@@ -62,7 +72,8 @@ LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
 MAX_CAPTION_CHARS = 1024
 MAX_MEDIA_GROUP_MEMBERS = 10
 
-TIMEOUT = 60
+TIMEOUT = 120
+MAX_MEGABYTES = 50
 
 
 class LootItems(TypedDict):
@@ -210,10 +221,76 @@ def send_potential_media_groups(message: Message, loot_folder: LocalPath, contex
         send(message, cast(LootItems, loot_items_batch), context)
 
 
+def choose_ytdlp_format(url: str, max_height: int = 1080) -> str | None:
+    """Choose the best format for the video."""
+    template = 'bestvideo[height<={}]+bestaudio/best[height<={}]'
+    heights = [h for h in (1080, 720, 540, 480) if h <= max_height]
+
+    params = {}
+    if COOKIES:
+        params['cookiefile'] = COOKIES
+
+    with YoutubeDL(params=params) as ydl:
+        info = ydl.extract_info(url, download=False)
+        if not info:
+            return None
+
+        for height in tuple(heights):
+            fmt = template.format(height, height)
+            selector = ydl.build_format_selector(fmt)
+            candidate_gen = selector(info)
+
+            while True:
+                try:
+                    candidate = next(candidate_gen)
+                except StopIteration:
+                    break
+                except KeyError as e:
+                    logger.error(
+                        "Couldn't build format selector",
+                        url=url,
+                        fmt=fmt,
+                        exc_type=type(e),
+                        exc_str=str(e),
+                    )
+                    continue
+
+                logger.info("Checking candidate", target_height=height)
+                if size := candidate.get('filesize') or candidate.get('filesize_approx'):
+                    estimated_bytes = size
+                else:
+                    logger.error(
+                        "Bad filesize data",
+                        url=url,
+                        info_keys=info.keys(),
+                        info_filesize=info.get('filesize'),
+                        info_filesize_approx=info.get('filesize_approx'),
+                    )
+                    continue
+
+                logger.info(
+                    "Estimated size",
+                    url=url,
+                    estimated_bytes=estimated_bytes,
+                    estimated_megabytes=estimated_bytes / 10**6,
+                )
+                if estimated_bytes / 10**6 < MAX_MEGABYTES:
+                    return fmt
+                heights.remove(height)
+
+    if heights:
+        return template.format(heights[0], heights[0])
+    return None
+
+
 @stamina.retry(on=Exception)
-def ytdlp_url_handler(message: Message, urls: list[str]):
+def ytdlp_url_handler(message: Message, url: str):
     """Download videos and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
+
+    url = url.split('&', 1)[0]
+
+    skip_download = not (vid_format := choose_ytdlp_format(url))
 
     with local.tempdir() as tmp:
         params = {
@@ -221,30 +298,34 @@ def ytdlp_url_handler(message: Message, urls: list[str]):
             'outtmpl': {'default': '%(id)s.%(ext)s'},
             'writethumbnail': True,
             'writedescription': True,
+            'format': vid_format,
+            'max_filesize': MAX_MEGABYTES * 10**6,
+            'skip_download': skip_download,
+            'impersonate': ImpersonateTarget(),
         }
         if COOKIES:
             params['cookiefile'] = COOKIES
 
         with YoutubeDL(params=params) as ydl:
-            logger.info("Downloading videos", urls=urls, downloader='yt-dlp')
-            ydl.download(urls)
+            logger.info("Downloading videos", url=url, downloader='yt-dlp')
+            ydl.download([url])
 
-        send_potential_media_groups(message, tmp, context=urls)
+        send_potential_media_groups(message, tmp, context=url)
 
 
 @stamina.retry(on=Exception)
-def gallerydl_url_handler(message: Message, urls: list[str]):
+def gallerydl_url_handler(message: Message, url: str):
     """Download whatever we can and upload it to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='typing')
 
     with local.tempdir() as tmp:
-        logger.info("Downloading whatever", urls=urls, downloader='gallery-dl')
+        logger.info("Downloading whatever", url=url, downloader='gallery-dl')
 
         flags = ['--directory', tmp, '--write-info-json']
         if COOKIES:
             flags += ['--cookies', COOKIES]
 
-        gallery_dl(*flags, *urls)
+        gallery_dl(*flags, url)
 
         texts = []
         for json in tmp.walk(filter=lambda p: p.name == 'info.json'):
@@ -253,25 +334,24 @@ def gallerydl_url_handler(message: Message, urls: list[str]):
                     texts.append(load(json)[key])
             (json.parent / 'info.txt').write('\n\n'.join(texts))
 
-        send_potential_media_groups(message, tmp, context=urls)
+        send_potential_media_groups(message, tmp, context=url)
 
 
 @stamina.retry(on=Exception)
-def insta_url_handler(message: Message, urls: list[str]):
+def insta_url_handler(message: Message, url: str):
     """Download Instagram posts and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
 
     with local.tempdir() as tmp:
         insta = instaloader.Instaloader(dirname_pattern=tmp / '{target}')
-        for url in urls:
-            if match := re.match(PATTERNS['insta'], url, re.IGNORECASE):
-                shortcode = match.group('shortcode')
-                logger.info("Downloading insta", shortcode=shortcode, downloader='instaloader')
-                insta.download_post(
-                    post=instaloader.Post.from_shortcode(insta.context, shortcode), target='loot'
-                )
+        if match := re.match(PATTERNS['insta'], url, re.IGNORECASE):
+            shortcode = match.group('shortcode')
+            logger.info("Downloading insta", shortcode=shortcode, downloader='instaloader')
+            insta.download_post(
+                post=instaloader.Post.from_shortcode(insta.context, shortcode), target='loot'
+            )
 
-                send_potential_media_groups(message, tmp, context=shortcode)
+            send_potential_media_groups(message, tmp, context=shortcode)
 
 
 @stamina.retry(on=Exception)
@@ -298,7 +378,15 @@ def get_url_handler(url: str) -> Callable | None:
     """Return the best handler for the given URL."""
     if re.match(PATTERNS['insta'], url, re.IGNORECASE):
         return insta_url_handler
-    if re.match(f"({'|'.join((PATTERNS['tiktok'], PATTERNS['vreddit']))})", url, re.IGNORECASE):
+    if re.match(
+        f"({
+            '|'.join(
+                (PATTERNS['tiktok'], PATTERNS['vreddit'], PATTERNS['youtube'], PATTERNS['vimeo'])
+            )
+        })",
+        url,
+        re.IGNORECASE,
+    ):
         return ytdlp_url_handler
     if re.match(
         f"({'|'.join((PATTERNS['x'], PATTERNS['reddit'], PATTERNS['bluesky']))})",
@@ -318,7 +406,7 @@ def media_link_handler(message: Message):
     for url in message_urls(message):
         if url_handler := get_url_handler(url):
             try:
-                url_handler(message, [url])
+                url_handler(message, url)
             except Exception as e:
                 logger.exception("Crashed", exc_info=e)
                 raise

@@ -1,5 +1,5 @@
 pyTelegramBotAPI
-yt-dlp
+yt-dlp[curl-cffi]
 plumbum
 stamina
 instaloader
