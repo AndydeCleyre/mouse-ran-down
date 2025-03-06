@@ -69,11 +69,12 @@ LOOT_SEND_FUNC = {'video': bot.send_video, 'image': bot.send_photo, 'text': bot.
 LOOT_SEND_KEY = {'video': 'video', 'image': 'photo', 'text': 'text'}
 LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
 
+COLLAPSE_AT_CHARS = 300
 MAX_CAPTION_CHARS = 1024
 MAX_MEDIA_GROUP_MEMBERS = 10
+MAX_MEGABYTES = 50
 
 TIMEOUT = 120
-MAX_MEGABYTES = 50
 
 
 class LootItems(TypedDict):
@@ -121,7 +122,7 @@ def send_potentially_collapsed_text(message: Message, text: str):
     """Send text, as an expandable quotation if it's long, and split if very long."""
     for txt in smart_split(text):
         parse_mode = None
-        if len(txt) > MAX_CAPTION_CHARS:
+        if len(txt) >= COLLAPSE_AT_CHARS:
             txt = str_to_collapsed_quotation_html(txt)  # noqa: PLW2901
             parse_mode = 'HTML'
         bot.send_message(
@@ -142,6 +143,10 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
 
     text = '\n\n'.join(loot_items['text'])
     if len(text) <= MAX_CAPTION_CHARS:
+        if len(text) >= COLLAPSE_AT_CHARS:
+            text = str_to_collapsed_quotation_html(text)
+            media_group[0].parse_mode = 'HTML'
+
         media_group[0].caption = text
     else:
         send_potentially_collapsed_text(message, text)
@@ -159,9 +164,14 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
 def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items individually."""
     caption = None
+    parse_mode = None
     if len(loot_items['video'] + loot_items['image']) == 1 and loot_items['text']:
         text = '\n\n'.join(loot_items['text'])
         if len(text) <= MAX_CAPTION_CHARS:
+            if len(text) >= COLLAPSE_AT_CHARS:
+                text = str_to_collapsed_quotation_html(text)
+                parse_mode = 'HTML'
+
             caption = text
             loot_items['text'] = []
 
@@ -178,6 +188,7 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
                 chat_id=message.chat.id,
                 **{LOOT_SEND_KEY[filetype]: loot},
                 caption=caption,
+                parse_mode=parse_mode,
                 reply_parameters=ReplyParameters(message_id=message.id),
                 timeout=TIMEOUT,
             )
