@@ -99,8 +99,11 @@ def path_is_type(path: str, typestr: str) -> bool:
     log = logger.bind(path=path, target_type=typestr)
 
     filetype, _ = guess_file_type(path, strict=False)
-    if not filetype and path.endswith('.description'):
-        filetype = 'text'
+    if not filetype:
+        if path.endswith('.description'):
+            filetype = 'text'
+        elif path.endswith('.mkv'):
+            filetype = 'video'
 
     if filetype:
         return filetype.startswith(typestr)
