@@ -9,7 +9,7 @@ This is a Telegram bot.
 <img src="https://github.com/user-attachments/assets/9d68a581-f123-4ffb-aa1e-f65b99063eca" alt="playful image of mouse with clock" width="200"/>
 
 When added to a group, any shared public
-X/Reddit/Instagram/TikTok/Bluesky
+X/Reddit/Instagram/TikTok/Bluesky/YouTube/Vimeo
 links with videos will bring the videos
 directly into the chat, along with a preview image.
 For Instagram it will also do images and text.
