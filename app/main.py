@@ -258,7 +258,11 @@ def choose_ytdlp_format(url: str, max_height: int = 1080) -> str | None:
                     )
                     continue
 
-                logger.info("Checking candidate", target_height=height)
+                logger.info(
+                    "Checking candidate",
+                    target_height=height,
+                    format_id=candidate.get('format_id'),
+                )
                 if size := candidate.get('filesize') or candidate.get('filesize_approx'):
                     estimated_bytes = size
                 else:
@@ -302,10 +306,17 @@ def ytdlp_url_handler(message: Message, url: str):
             'writethumbnail': True,
             'writedescription': True,
             'format': vid_format,
+            'format_sort': ['res', 'ext:mp4:m4a'],
+            'final_ext': 'mp4',
             'max_filesize': MAX_MEGABYTES * 10**6,
             'skip_download': skip_download,
             'impersonate': ImpersonateTarget(),
+            'postprocessors': [
+                {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
+                {'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'},
+            ],
         }
+
         if COOKIES:
             params['cookiefile'] = COOKIES
 
