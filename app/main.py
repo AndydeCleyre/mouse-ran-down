@@ -307,7 +307,7 @@ def ytdlp_url_handler(message: Message, url: str):
             params['cookiefile'] = COOKIES
 
         with YoutubeDL(params=params) as ydl:
-            logger.info("Downloading videos", url=url, downloader='yt-dlp')
+            logger.info("Downloading video", url=url, downloader='yt-dlp')
             ydl.download([url])
 
         send_potential_media_groups(message, tmp, context=url)
