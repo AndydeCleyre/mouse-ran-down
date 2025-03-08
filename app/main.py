@@ -23,6 +23,7 @@ from telebot.types import (
     InputMediaVideo,
     LinkPreviewOptions,
     Message,
+    MessageEntity,
     ReplyParameters,
 )
 from telebot.util import smart_split
@@ -92,14 +93,19 @@ class LootItems(TypedDict):
     text: list[str]
 
 
+def get_entity_text(message_text: str, entity: MessageEntity) -> str:
+    """Get the text of an entity."""
+    return message_text.encode('utf-16-le')[
+        entity.offset * 2 : entity.offset * 2 + entity.length * 2
+    ].decode('utf-16-le')
+
+
 def message_urls(message: Message) -> Iterator[str]:
     """Yield all URLs in a message."""
     if message.entities:
         for ent in message.entities:
             if ent.type == 'url':
-                yield ent.url or cast(str, message.text).encode('utf-16-le')[
-                    ent.offset * 2 : ent.offset * 2 + ent.length * 2
-                ].decode('utf-16-le')
+                yield ent.url or get_entity_text(cast(str, message.text), ent)
 
 
 def path_is_type(path: str, typestr: str) -> bool:
@@ -243,6 +249,20 @@ def send_potential_media_groups(message: Message, loot_folder: LocalPath, contex
         send(message, cast(LootItems, loot_items_batch), context)
 
 
+def ytdlp_estimate_bytes(format_candidate: dict, duration: int | None = None) -> int | None:
+    """Estimate the size of a video format candidate."""
+    if size := format_candidate.get('filesize') or format_candidate.get('filesize_approx'):
+        return size
+    if (tbr := format_candidate.get('tbr')) and duration:
+        return int(duration * tbr * (1000 / 8))
+    logger.error(
+        "Failed to estimate filesize",
+        format_keys=list(format_candidate.keys()),
+        info_duration=duration,
+    )
+    return None
+
+
 def choose_ytdlp_format(url: str, max_height: int = 1080) -> str | None:
     """Choose the best format for the video."""
     template = 'bestvideo[height<={}]+bestaudio/best[height<={}]'
@@ -280,16 +300,9 @@ def choose_ytdlp_format(url: str, max_height: int = 1080) -> str | None:
                     target_height=height,
                     format_id=candidate.get('format_id'),
                 )
-                if size := candidate.get('filesize') or candidate.get('filesize_approx'):
-                    estimated_bytes = size
-                else:
-                    logger.error(
-                        "Bad filesize data",
-                        url=url,
-                        info_keys=info.keys(),
-                        info_filesize=info.get('filesize'),
-                        info_filesize_approx=info.get('filesize_approx'),
-                    )
+                estimated_bytes = ytdlp_estimate_bytes(candidate, info.get('duration'))
+                if not estimated_bytes:
+                    logger.error("Bad filesize data", url=url)
                     continue
 
                 logger.info(
@@ -431,13 +444,34 @@ def get_url_handler(url: str) -> Callable | None:
     return None
 
 
+def get_forced_url_handler(url: str) -> Callable:
+    """Return a handler for the URL no matter what."""
+    if ytdlp_url_has_video(url):
+        return ytdlp_url_handler
+    return gallerydl_url_handler
+
+
+def bot_mentioned(message: Message) -> bool:
+    """Return True if the bot was mentioned in the message."""
+    target = f"@{bot.get_me().username}"
+    if message.entities:
+        for ent in message.entities:
+            if ent.type == 'mention' and get_entity_text(cast(str, message.text), ent) == target:
+                return True
+    return False
+
+
 @bot.message_handler(func=bool)
 def media_link_handler(message: Message):
     """Download from any URLs that we handle and upload content to the chat."""
+    mentioned = bot_mentioned(message)
     for url in message_urls(message):
-        if url_handler := get_url_handler(url):
+        handler = get_url_handler(url)
+        if not handler and mentioned:
+            handler = get_forced_url_handler(url)
+        if handler:
             try:
-                url_handler(message, url)
+                handler(message, url)
             except Exception as e:
                 logger.exception("Crashed", exc_info=e)
                 raise
