@@ -56,7 +56,7 @@ PATTERNS = {
     'youtube': (
         r'https://(youtu\.be/[^/]+'
         r'|www\.youtube\.com/shorts/[^/]+'
-        r'|www\.youtube\.com/watch\?v=[^/]+)'
+        r'|(www|m)\.youtube\.com/watch\?v=[^/]+)'
     ),
     'vimeo': (
         r'https://(player\.vimeo\.com/video/[^/]+'
