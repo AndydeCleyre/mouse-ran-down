@@ -341,6 +341,8 @@ def ytdlp_url_handler(message: Message, url: str):
             'max_filesize': MAX_MEGABYTES * 10**6,
             'skip_download': skip_download,
             'impersonate': ImpersonateTarget(),
+            'noplaylist': True,
+            'playlist_items': '1:1',
             'postprocessors': [
                 {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
                 {'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'},
