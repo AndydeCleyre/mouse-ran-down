@@ -453,11 +453,13 @@ def get_forced_url_handler(url: str) -> Callable:
 
 def bot_mentioned(message: Message) -> bool:
     """Return True if the bot was mentioned in the message."""
-    target = f"@{bot.get_me().username}"
+    target = f"@{bot.get_me().username}".casefold()
     if message.entities:
         for ent in message.entities:
-            logger.debug("Entity found", entity=ent, type=ent.type, text=get_entity_text(cast(str, message.text), ent), target=target)
-            if ent.type == 'mention' and get_entity_text(cast(str, message.text), ent) == target:
+            if (
+                ent.type == 'mention'
+                and get_entity_text(cast(str, message.text), ent).casefold() == target
+            ):
                 logger.info("Mentioned")
                 return True
     return False
