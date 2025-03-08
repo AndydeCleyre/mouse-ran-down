@@ -17,7 +17,14 @@ from plumbum import LocalPath, local
 from plumbum.cmd import gallery_dl
 from telebot import TeleBot
 from telebot.formatting import escape_html
-from telebot.types import InputFile, InputMediaPhoto, InputMediaVideo, Message, ReplyParameters
+from telebot.types import (
+    InputFile,
+    InputMediaPhoto,
+    InputMediaVideo,
+    LinkPreviewOptions,
+    Message,
+    ReplyParameters,
+)
 from telebot.util import smart_split
 from yt_dlp import DownloadError, YoutubeDL
 from yt_dlp.networking.impersonate import ImpersonateTarget
@@ -130,6 +137,7 @@ def send_potentially_collapsed_text(message: Message, text: str):
             parse_mode=parse_mode,
             text=txt,
             reply_parameters=ReplyParameters(message_id=message.id),
+            link_preview_options=LinkPreviewOptions(is_disabled=True),
         )
 
 
