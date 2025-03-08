@@ -239,6 +239,8 @@ def choose_ytdlp_format(url: str, max_height: int = 1080) -> str | None:
     """Choose the best format for the video."""
     template = 'bestvideo[height<={}]+bestaudio/best[height<={}]'
     heights = [h for h in (1080, 720, 540, 480) if h <= max_height]
+    if not heights:
+        heights = [max_height]
 
     params = {}
     if COOKIES:
