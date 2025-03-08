@@ -456,7 +456,9 @@ def bot_mentioned(message: Message) -> bool:
     target = f"@{bot.get_me().username}"
     if message.entities:
         for ent in message.entities:
+            logger.debug("Entity found", entity=ent, type=ent.type)
             if ent.type == 'mention' and get_entity_text(cast(str, message.text), ent) == target:
+                logger.info("Mentioned")
                 return True
     return False
 
