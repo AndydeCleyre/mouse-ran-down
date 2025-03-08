@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Download videos from any sent instagram/reddit/bluesky/x links, and upload them to the chat."""
+"""Download videos from any sent popular video site links, and upload them to the chat."""
 
 import re
 from collections.abc import Callable, Iterator
@@ -52,7 +52,7 @@ PATTERNS = {
     'bluesky': r'https://bsky\.app/profile/[^/]+/post/[^/]+',
     'insta': r'https://www\.instagram\.com/([^/]+/)?(p|reel)/(?P<shortcode>[^/]+).*',
     'vreddit': r'https://v\.redd\.it/[^/]+',
-    'reddit': r'https://www\.reddit\.com/r/[^/]+/comments/[a-zA-Z0-9_/]+',
+    'reddit': r'https://www\.reddit\.com/r/[^/]+/(comments|s)/[a-zA-Z0-9_/]+',
     'youtube': (
         r'https://(youtu\.be/[^/]+'
         r'|www\.youtube\.com/shorts/[^/]+'
