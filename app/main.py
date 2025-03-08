@@ -242,11 +242,7 @@ def choose_ytdlp_format(url: str, max_height: int = 1080) -> str | None:
     if not heights:
         heights = [max_height]
 
-    params = {}
-    if COOKIES:
-        params['cookiefile'] = COOKIES
-
-    with YoutubeDL(params=params) as ydl:
+    with YoutubeDL(params={} if not COOKIES else {'cookiefile': COOKIES}) as ydl:
         info = ydl.extract_info(url, download=False)
         if not info:
             return None
