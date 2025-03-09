@@ -5,10 +5,10 @@ charset-normalizer==3.4.1  # via requests, -r app/requirements.txt
 curl-cffi==0.7.1          # via -r app/requirements.txt
 decorator==5.2.1          # via ipython
 executing==2.2.0          # via stack-data
-gallery-dl==1.29.0        # via -r app/requirements.txt
+gallery-dl==1.29.1        # via -r app/requirements.txt
 idna==3.10                # via requests, -r app/requirements.txt
 instaloader==4.14.1       # via -r app/requirements.txt
-ipython==9.0.1            # via -r dev-requirements.in
+ipython==9.0.2            # via -r dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.19.2              # via ipython
 matplotlib-inline==0.1.7  # via ipython
