@@ -10,7 +10,7 @@ pycparser==2.22           # via cffi
 pytelegrambotapi==4.26.0  # via -r requirements.in
 requests==2.32.3          # via gallery-dl, instaloader, pytelegrambotapi
 stamina==24.3.0           # via -r requirements.in
-structlog==25.1.0         # via -r requirements.in
+structlog==25.2.0         # via -r requirements.in
 tenacity==9.0.0           # via stamina
 urllib3==2.3.0            # via requests
 yt-dlp==2025.2.19         # via -r requirements.in
