@@ -217,7 +217,7 @@ def batch_loot_items(loot_items: LootItems) -> list[LootItems]:
     ]
 
     loot_items_batches = []
-    for media_batch in batched(media_items, MAX_MEDIA_GROUP_MEMBERS):
+    for media_batch in batched(media_items, MAX_MEDIA_GROUP_MEMBERS, strict=False):
         loot_items_batch = {'video': [], 'image': [], 'text': []}
         for filetype, item in media_batch:
             loot_items_batch[filetype].append(item)
