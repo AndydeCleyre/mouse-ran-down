@@ -4,6 +4,7 @@
 import re
 from collections.abc import Callable, Iterator
 from contextlib import suppress
+from http.cookiejar import MozillaCookieJar
 from itertools import batched
 from json import load
 from mimetypes import guess_file_type
@@ -390,6 +391,10 @@ def insta_url_handler(message: Message, url: str):
 
     with local.tempdir() as tmp:
         insta = instaloader.Instaloader(dirname_pattern=tmp / '{target}')
+
+        if COOKIES:
+            insta.context.update_cookies(MozillaCookieJar(filename=COOKIES))
+
         if match := re.match(PATTERNS['insta'], url, re.IGNORECASE):
             shortcode = match.group('shortcode')
             logger.info("Downloading insta", shortcode=shortcode, downloader='instaloader')
