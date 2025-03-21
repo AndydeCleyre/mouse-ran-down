@@ -25,7 +25,7 @@ pygments==2.19.1          # via ipython, ipython-pygments-lexers
 pyright==1.1.397          # via -r dev-requirements.in
 pytelegrambotapi==4.26.0  # via -r app/requirements.txt
 requests==2.32.3          # via gallery-dl, instaloader, pytelegrambotapi, -r app/requirements.txt
-ruff==0.11.0              # via -r dev-requirements.in
+ruff==0.11.1              # via -r dev-requirements.in
 ssort==0.14.0             # via -r dev-requirements.in
 stack-data==0.6.3         # via ipython
 stamina==25.1.0           # via -r app/requirements.txt
