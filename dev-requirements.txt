@@ -2,7 +2,7 @@ asttokens==3.0.0          # via stack-data
 certifi==2025.1.31        # via curl-cffi, requests, -r app/requirements.txt
 cffi==1.17.1              # via curl-cffi, -r app/requirements.txt
 charset-normalizer==3.4.1  # via requests, -r app/requirements.txt
-curl-cffi==0.7.1          # via -r app/requirements.txt
+curl-cffi==0.10.0         # via -r app/requirements.txt
 decorator==5.2.1          # via ipython
 executing==2.2.0          # via stack-data
 gallery-dl==1.29.2        # via -r app/requirements.txt
@@ -35,4 +35,4 @@ traitlets==5.14.3         # via ipython, matplotlib-inline
 typing-extensions==4.12.2  # via pyright
 urllib3==2.3.0            # via requests, -r app/requirements.txt
 wcwidth==0.2.13           # via prompt-toolkit
-yt-dlp==2025.3.21         # via -r app/requirements.txt
+yt-dlp==2025.3.25         # via -r app/requirements.txt
