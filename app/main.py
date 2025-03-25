@@ -100,6 +100,7 @@ def get_entity_text(message_text: str, entity: MessageEntity) -> str:
         entity.offset * 2 : entity.offset * 2 + entity.length * 2
     ].decode('utf-16-le')
 
+
 def message_urls(message: Message) -> Iterator[str]:
     """Yield all URLs in a message."""
     if message.entities:
