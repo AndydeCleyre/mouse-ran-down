@@ -100,12 +100,11 @@ def get_entity_text(message_text: str, entity: MessageEntity) -> str:
         entity.offset * 2 : entity.offset * 2 + entity.length * 2
     ].decode('utf-16-le')
 
-
 def message_urls(message: Message) -> Iterator[str]:
     """Yield all URLs in a message."""
     if message.entities:
         for ent in message.entities:
-            if ent.type == 'url':
+            if ent.type in ('url', 'text_link'):
                 yield ent.url or get_entity_text(cast(str, message.text), ent)
 
 
@@ -477,9 +476,11 @@ def media_link_handler(message: Message):
     """Download from any URLs that we handle and upload content to the chat."""
     mentioned = bot_mentioned(message)
     for url in message_urls(message):
+        log = logger.bind(url=url)
         handler = get_url_handler(url)
         if not handler and mentioned:
             handler = get_forced_url_handler(url)
+        log.info("Chose URL handler")
         if handler:
             try:
                 handler(message, url)
