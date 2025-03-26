@@ -32,7 +32,7 @@ stamina==25.1.0           # via -r app/requirements.txt
 structlog==25.2.0         # via -r app/requirements.txt
 tenacity==9.0.0           # via stamina, -r app/requirements.txt
 traitlets==5.14.3         # via ipython, matplotlib-inline
-typing-extensions==4.12.2  # via pyright
+typing-extensions==4.13.0  # via pyright
 urllib3==2.3.0            # via requests, -r app/requirements.txt
 wcwidth==0.2.13           # via prompt-toolkit
-yt-dlp==2025.3.25         # via -r app/requirements.txt
+yt-dlp==2025.3.26         # via -r app/requirements.txt
