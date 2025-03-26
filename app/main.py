@@ -64,7 +64,7 @@ PATTERNS = {
     'reddit': r'https://www\.reddit\.com/r/[^/]+/(comments|s)/[a-zA-Z0-9_/]+',
     'youtube': (
         r'https://(youtu\.be/[^/]+'
-        r'|www\.youtube\.com/shorts/[^/]+'
+        r'|(www\.)?youtube\.com/shorts/[^/]+'
         r'|(www|m)\.youtube\.com/watch\?v=[^/]+)'
     ),
     'vimeo': (
