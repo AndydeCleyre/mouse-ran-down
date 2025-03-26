@@ -481,7 +481,7 @@ def media_link_handler(message: Message):
         handler = get_url_handler(url)
         if not handler and mentioned:
             handler = get_forced_url_handler(url)
-        log.info("Chose URL handler")
+        log.info("Chose URL handler", handler=handler)
         if handler:
             try:
                 handler(message, url)
