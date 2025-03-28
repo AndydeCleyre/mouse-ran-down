@@ -14,7 +14,7 @@ import instaloader
 import stamina
 import structlog
 from credentials import TOKEN  # pyright: ignore [reportMissingImports]
-from instaloader.exceptions import BadResponseException
+from instaloader.exceptions import BadResponseException, ConnectionException
 from plumbum import LocalPath, local
 from plumbum.cmd import gallery_dl
 from telebot import TeleBot
@@ -402,7 +402,7 @@ def insta_url_handler(message: Message, url: str):
             log = log.bind(shortcode=shortcode)
             try:
                 post = instaloader.Post.from_shortcode(insta.context, shortcode)
-            except BadResponseException as e:
+            except (BadResponseException, ConnectionException) as e:
                 log.error("Bad instagram response", exception=str(e))
                 gallerydl_url_handler(message, url)
             else:
