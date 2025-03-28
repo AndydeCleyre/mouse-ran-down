@@ -14,6 +14,8 @@ import instaloader
 import stamina
 import structlog
 from credentials import TOKEN  # pyright: ignore [reportMissingImports]
+from instagrapi import Client as InstaClient
+from instagrapi.types import Media as InstaMedia
 from instaloader.exceptions import BadResponseException, ConnectionException
 from plumbum import LocalPath, local
 from plumbum.cmd import gallery_dl
@@ -33,6 +35,11 @@ from yt_dlp import DownloadError, YoutubeDL
 from yt_dlp.networking.impersonate import ImpersonateTarget
 
 try:
+    from credentials import INSTA_PW, INSTA_USER
+except ImportError:
+    INSTA_USER, INSTA_PW = None, None
+
+try:
     from credentials import COOKIES  # pyright: ignore [reportMissingImports]
 
     (local.path(__file__).up() / 'cookies.txt').write(COOKIES)
@@ -50,6 +57,8 @@ structlog.configure(
     ]
 )
 logger = structlog.get_logger()
+
+INSTA = None
 
 bot = TeleBot(TOKEN)
 PATTERNS = {
@@ -386,7 +395,7 @@ def gallerydl_url_handler(message: Message, url: str):
 
 
 @stamina.retry(on=Exception)
-def insta_url_handler(message: Message, url: str):
+def insta_url_handler_instaloader(message: Message, url: str) -> None:
     """Download Instagram posts and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
     log = logger.bind(downloader='instaloader')
@@ -404,12 +413,68 @@ def insta_url_handler(message: Message, url: str):
                 post = instaloader.Post.from_shortcode(insta.context, shortcode)
             except (BadResponseException, ConnectionException) as e:
                 log.error("Bad instagram response", exception=str(e))
-                gallerydl_url_handler(message, url)
+                return gallerydl_url_handler(message, url)
             else:
                 log.info("Downloading insta")
                 insta.download_post(post=post, target='loot')
 
                 send_potential_media_groups(message, tmp, context=shortcode)
+    return None
+
+
+def instagrapi_downloader(post_info: InstaMedia) -> Callable | None:
+    """
+    Return a function that downloads Instagram posts.
+
+    It takes a post ID (int) and folder (Path/str).
+    """
+    if not INSTA:
+        return None
+    downloader = None
+
+    media_type = post_info.media_type
+
+    if media_type == 8:  # noqa: PLR2004
+        downloader = INSTA.album_download
+    elif media_type == 1:
+        downloader = INSTA.photo_download
+    elif media_type == 2:  # noqa: PLR2004
+        product_type = post_info.product_type
+        if product_type == 'feed':
+            downloader = INSTA.video_download
+        elif product_type == 'igtv':
+            downloader = INSTA.igtv_download
+        elif product_type == 'clips':
+            downloader = INSTA.clip_download
+    return downloader
+
+
+@stamina.retry(on=Exception)
+def insta_url_handler(message: Message, url: str) -> None:
+    """Download Instagram posts and upload them to the chat."""
+    if not INSTA:
+        return insta_url_handler_instaloader(message, url)
+
+    bot.send_chat_action(chat_id=message.chat.id, action='record_video')
+    log = logger.bind(downloader='instagrapi')
+
+    post_id = INSTA.media_pk_from_url(url)
+    post_info = INSTA.media_info(post_id)
+
+    download = instagrapi_downloader(post_info)
+    if not download:
+        log.error("Unknown media type", post_info=post_info)
+        return insta_url_handler_instaloader(message, url)
+
+    log.info("Downloading insta")
+    with local.tempdir() as tmp:
+        try:
+            download(int(post_id), folder=tmp)  # pyright: ignore [reportArgumentType]
+        except Exception as e:
+            log.error("Instagrapi failed", exc_info=e)
+            return insta_url_handler_instaloader(message, url)
+        send_potential_media_groups(message, tmp, context=url)
+    return None
 
 
 @stamina.retry(on=Exception)
@@ -498,4 +563,16 @@ def media_link_handler(message: Message):
 
 
 if __name__ == '__main__':
+    logger.info("Initializing instagrapi")
+    if INSTA_USER and INSTA_PW:
+        try:
+            INSTA = InstaClient()
+            INSTA.login(INSTA_USER, INSTA_PW)
+        except Exception as e:
+            logger.exception("Failed to login", client='instagrapi', exc_info=e)
+            INSTA = None
+    else:
+        INSTA = None
+    logger.info("Finished initializing instagrapi", INSTA=INSTA)
+
     bot.infinity_polling(timeout=TIMEOUT, long_polling_timeout=TIMEOUT)

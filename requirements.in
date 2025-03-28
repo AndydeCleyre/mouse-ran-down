@@ -1,7 +1,9 @@
-pyTelegramBotAPI
-yt-dlp[curl-cffi]
-plumbum
-stamina
-instaloader
-structlog
 gallery-dl
+instagrapi
+  pillow
+instaloader
+plumbum
+pyTelegramBotAPI
+stamina
+structlog
+yt-dlp[curl-cffi]

@@ -1,16 +1,24 @@
+annotated-types==0.7.0    # via pydantic
 certifi==2025.1.31        # via curl-cffi, requests
 cffi==1.17.1              # via curl-cffi
 charset-normalizer==3.4.1  # via requests
 curl-cffi==0.10.0         # via yt-dlp
 gallery-dl==1.29.2        # via -r requirements.in
 idna==3.10                # via requests
+instagrapi==2.1.3         # via -r requirements.in
 instaloader==4.14.1       # via -r requirements.in
+pillow==11.1.0            # via -r requirements.in
 plumbum==1.9.0            # via -r requirements.in
 pycparser==2.22           # via cffi
+pycryptodomex==3.21.0     # via instagrapi
+pydantic==2.10.1          # via instagrapi
+pydantic-core==2.27.1     # via pydantic
+pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.26.0  # via -r requirements.in
-requests==2.32.3          # via gallery-dl, instaloader, pytelegrambotapi
+requests==2.32.3          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi
 stamina==25.1.0           # via -r requirements.in
 structlog==25.2.0         # via -r requirements.in
 tenacity==9.0.0           # via stamina
+typing-extensions==4.13.0  # via pydantic, pydantic-core
 urllib3==2.3.0            # via requests
-yt-dlp==2025.3.26         # via -r requirements.in
+yt-dlp==2025.3.27         # via -r requirements.in

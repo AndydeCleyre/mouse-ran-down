@@ -1,5 +1,6 @@
 -r app/requirements.txt
+ipython
 pyright
+rich
 ruff
 ssort
-ipython
