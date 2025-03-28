@@ -14,6 +14,7 @@ import instaloader
 import stamina
 import structlog
 from credentials import TOKEN  # pyright: ignore [reportMissingImports]
+from instaloader.exceptions import BadResponseException
 from plumbum import LocalPath, local
 from plumbum.cmd import gallery_dl
 from telebot import TeleBot
@@ -388,6 +389,7 @@ def gallerydl_url_handler(message: Message, url: str):
 def insta_url_handler(message: Message, url: str):
     """Download Instagram posts and upload them to the chat."""
     bot.send_chat_action(chat_id=message.chat.id, action='record_video')
+    log = logger.bind(downloader='instaloader')
 
     with local.tempdir() as tmp:
         insta = instaloader.Instaloader(dirname_pattern=tmp / '{target}')
@@ -397,12 +399,17 @@ def insta_url_handler(message: Message, url: str):
 
         if match := re.match(PATTERNS['insta'], url, re.IGNORECASE):
             shortcode = match.group('shortcode')
-            logger.info("Downloading insta", shortcode=shortcode, downloader='instaloader')
-            insta.download_post(
-                post=instaloader.Post.from_shortcode(insta.context, shortcode), target='loot'
-            )
+            log = log.bind(shortcode=shortcode)
+            try:
+                post = instaloader.Post.from_shortcode(insta.context, shortcode)
+            except BadResponseException as e:
+                log.error("Bad instagram response", exception=str(e))
+                gallerydl_url_handler(message, url)
+            else:
+                log.info("Downloading insta")
+                insta.download_post(post=post, target='loot')
 
-            send_potential_media_groups(message, tmp, context=shortcode)
+                send_potential_media_groups(message, tmp, context=shortcode)
 
 
 @stamina.retry(on=Exception)
