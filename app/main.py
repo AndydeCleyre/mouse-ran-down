@@ -35,7 +35,7 @@ from yt_dlp import DownloadError, YoutubeDL
 from yt_dlp.networking.impersonate import ImpersonateTarget
 
 try:
-    from credentials import INSTA_PW, INSTA_USER
+    from credentials import INSTA_PW, INSTA_USER  # pyright: ignore [reportMissingImports]
 except ImportError:
     INSTA_USER, INSTA_PW = None, None
 
