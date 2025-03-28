@@ -35,4 +35,4 @@ traitlets==5.14.3         # via ipython, matplotlib-inline
 typing-extensions==4.13.0  # via pyright
 urllib3==2.3.0            # via requests, -r app/requirements.txt
 wcwidth==0.2.13           # via prompt-toolkit
-yt-dlp==2025.3.26         # via -r app/requirements.txt
+yt-dlp==2025.3.27         # via -r app/requirements.txt
