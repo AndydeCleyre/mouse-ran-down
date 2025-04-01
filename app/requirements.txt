@@ -21,4 +21,4 @@ structlog==25.2.0         # via -r requirements.in
 tenacity==9.0.0           # via stamina
 typing-extensions==4.13.0  # via pydantic, pydantic-core
 urllib3==2.3.0            # via requests
-yt-dlp==2025.3.27         # via -r requirements.in
+yt-dlp==2025.3.31         # via -r requirements.in
