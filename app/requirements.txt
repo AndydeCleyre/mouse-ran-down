@@ -19,6 +19,6 @@ requests==2.32.3          # via gallery-dl, instagrapi, instaloader, pytelegramb
 stamina==25.1.0           # via -r requirements.in
 structlog==25.2.0         # via -r requirements.in
 tenacity==9.1.2           # via stamina
-typing-extensions==4.13.0  # via pydantic, pydantic-core
+typing-extensions==4.13.1  # via pydantic, pydantic-core
 urllib3==2.3.0            # via requests
 yt-dlp==2025.3.31         # via -r requirements.in
