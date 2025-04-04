@@ -274,14 +274,18 @@ def ytdlp_estimate_bytes(format_candidate: dict, duration: int | None = None) ->
     return None
 
 
-def choose_ytdlp_format(url: str, max_height: int = 1080) -> str | None:
+def choose_ytdlp_format(
+    url: str, max_height: int = 1080, *, ignore_cookies: bool = False
+) -> str | None:
     """Choose the best format for the video."""
     template = 'bestvideo[height<={}]+bestaudio/best[height<={}]'
     heights = [h for h in (1080, 720, 540, 480) if h <= max_height]
     if not heights:
         heights = [max_height]
 
-    with YoutubeDL(params={} if not COOKIES else {'cookiefile': COOKIES}) as ydl:
+    with YoutubeDL(
+        params={} if (not COOKIES or ignore_cookies) else {'cookiefile': COOKIES}
+    ) as ydl:
         info = ydl.extract_info(url, download=False)
         if not info:
             return None
@@ -338,7 +342,20 @@ def ytdlp_url_handler(message: Message, url: str):
 
     url = url.split('&', 1)[0]
 
-    skip_download = not (vid_format := choose_ytdlp_format(url))
+    ignore_cookies = False
+    try:
+        skip_download = not (vid_format := choose_ytdlp_format(url))
+    except DownloadError:
+        if COOKIES:
+            skip_download = not (vid_format := choose_ytdlp_format(url, ignore_cookies=True))
+            ignore_cookies = True
+            logger.info(
+                "This one doesn't work with our cookies, but does without them",
+                url=url,
+                downloader='yt-dlp',
+            )
+        else:
+            raise
 
     with local.tempdir() as tmp:
         params = {
@@ -360,7 +377,7 @@ def ytdlp_url_handler(message: Message, url: str):
             ],
         }
 
-        if COOKIES:
+        if COOKIES and not ignore_cookies:
             params['cookiefile'] = COOKIES
 
         with YoutubeDL(params=params) as ydl:
