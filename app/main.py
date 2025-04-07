@@ -8,7 +8,7 @@ from http.cookiejar import MozillaCookieJar
 from itertools import batched
 from json import load
 from mimetypes import guess_file_type
-from typing import Any, TypedDict, cast
+from typing import Any, Literal, TypedDict, cast
 
 import instaloader
 import stamina
@@ -83,7 +83,14 @@ PATTERNS = {
     ),
 }
 
-LOOT_ACTION = {'video': 'upload_video', 'image': 'upload_photo', 'text': 'typing'}
+Action = Literal['typing', 'record_video', 'upload_video', 'upload_photo']
+LootType = Literal['video', 'image', 'text']
+
+LOOT_ACTION: dict[LootType, Action] = {
+    'video': 'upload_video',
+    'image': 'upload_photo',
+    'text': 'typing',
+}
 LOOT_SEND_FUNC = {'video': bot.send_video, 'image': bot.send_photo, 'text': bot.send_message}
 LOOT_SEND_KEY = {'video': 'video', 'image': 'photo', 'text': 'text'}
 LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
@@ -144,23 +151,36 @@ def str_to_collapsed_quotation_html(text: str) -> str:
 
 def send_potentially_collapsed_text(message: Message, text: str):
     """Send text, as an expandable quotation if it's long, and split if very long."""
+    params = {
+        'chat_id': message.chat.id,
+        'reply_parameters': ReplyParameters(message_id=message.id),
+        'link_preview_options': LinkPreviewOptions(is_disabled=True),
+    }
+    if bc_id := message.business_connection_id:
+        params['business_connection_id'] = bc_id
+
     for txt in smart_split(text):
         parse_mode = None
         if len(txt) >= COLLAPSE_AT_CHARS:
             txt = str_to_collapsed_quotation_html(txt)  # noqa: PLW2901
             parse_mode = 'HTML'
-        bot.send_message(
-            chat_id=message.chat.id,
-            parse_mode=parse_mode,
-            text=txt,
-            reply_parameters=ReplyParameters(message_id=message.id),
-            link_preview_options=LinkPreviewOptions(is_disabled=True),
-        )
+
+        params.update({'parse_mode': parse_mode, 'text': txt})
+
+        bot.send_message(**params)
+
+
+def send_action(message: Message, action: Action) -> None:
+    """Send chat action, unless it's a business connection message."""
+    params = {'chat_id': message.chat.id, 'action': action}
+    if bc_id := message.business_connection_id:
+        params['business_connection_id'] = bc_id
+    bot.send_chat_action(**params)
 
 
 def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items as a media group."""
-    bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
+    send_action(message=message, action='upload_video')
 
     media_group = [InputMediaPhoto(img) for img in loot_items['image']] + [
         InputMediaVideo(vid) for vid in loot_items['video']
@@ -177,46 +197,55 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
         send_potentially_collapsed_text(message, text)
 
     logger.info("Uploading", loot=media_group, context=context)
-    bot.send_chat_action(chat_id=message.chat.id, action='upload_video')
-    bot.send_media_group(
-        chat_id=message.chat.id,
-        media=media_group,  # pyright: ignore [reportArgumentType]
-        reply_parameters=ReplyParameters(message_id=message.id),
-        timeout=TIMEOUT,
-    )
+    send_action(message=message, action='upload_video')
+
+    params = {
+        'chat_id': message.chat.id,
+        'media': media_group,  # pyright: ignore [reportArgumentType]
+        'reply_parameters': ReplyParameters(message_id=message.id),
+        'timeout': TIMEOUT,
+    }
+
+    if bc_id := message.business_connection_id:
+        params['business_connection_id'] = bc_id
+
+    bot.send_media_group(**params)
 
 
 def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
     """Send loot items individually."""
-    caption = None
-    parse_mode = None
+    params = {
+        'chat_id': message.chat.id,
+        'caption': None,
+        'parse_mode': None,
+        'reply_parameters': ReplyParameters(message_id=message.id),
+        'timeout': TIMEOUT,
+    }
+    if bc_id := message.business_connection_id:
+        params['business_connection_id'] = bc_id
+
     if len(loot_items['video'] + loot_items['image']) == 1 and loot_items['text']:
         text = '\n\n'.join(loot_items['text'])
         if len(text) <= MAX_CAPTION_CHARS:
             if len(text) >= COLLAPSE_AT_CHARS:
                 text = str_to_collapsed_quotation_html(text)
-                parse_mode = 'HTML'
+                params['parse_mode'] = 'HTML'
 
-            caption = text
+            params['caption'] = text
             loot_items['text'] = []
 
     for filetype, items in loot_items.items():
         for loot in cast(list, items):
-            bot.send_chat_action(chat_id=message.chat.id, action=LOOT_ACTION[filetype])
+            send_action(message=message, action=LOOT_ACTION[cast(LootType, filetype)])
             logger.info("Uploading", loot=loot, context=context)
 
             if filetype == 'text':
                 send_potentially_collapsed_text(message, loot)
                 continue
 
-            LOOT_SEND_FUNC[filetype](
-                chat_id=message.chat.id,
-                **{LOOT_SEND_KEY[filetype]: loot},
-                caption=caption,
-                parse_mode=parse_mode,
-                reply_parameters=ReplyParameters(message_id=message.id),
-                timeout=TIMEOUT,
-            )
+            params[LOOT_SEND_KEY[filetype]] = loot
+
+            LOOT_SEND_FUNC[filetype](**params)
 
 
 def batch_loot_items(loot_items: LootItems) -> list[LootItems]:
@@ -338,7 +367,7 @@ def choose_ytdlp_format(
 @stamina.retry(on=Exception)
 def ytdlp_url_handler(message: Message, url: str):
     """Download videos and upload them to the chat."""
-    bot.send_chat_action(chat_id=message.chat.id, action='record_video')
+    send_action(message=message, action='record_video')
 
     url = url.split('&', 1)[0]
 
@@ -390,7 +419,7 @@ def ytdlp_url_handler(message: Message, url: str):
 @stamina.retry(on=Exception)
 def gallerydl_url_handler(message: Message, url: str):
     """Download whatever we can and upload it to the chat."""
-    bot.send_chat_action(chat_id=message.chat.id, action='typing')
+    send_action(message=message, action='typing')
 
     with local.tempdir() as tmp:
         logger.info("Downloading whatever", url=url, downloader='gallery-dl')
@@ -414,7 +443,7 @@ def gallerydl_url_handler(message: Message, url: str):
 @stamina.retry(on=Exception)
 def insta_url_handler_instaloader(message: Message, url: str) -> None:
     """Download Instagram posts and upload them to the chat."""
-    bot.send_chat_action(chat_id=message.chat.id, action='record_video')
+    send_action(message=message, action='record_video')
     log = logger.bind(downloader='instaloader')
 
     with local.tempdir() as tmp:
@@ -472,7 +501,7 @@ def insta_url_handler(message: Message, url: str) -> None:
     if not INSTA:
         return insta_url_handler_instaloader(message, url)
 
-    bot.send_chat_action(chat_id=message.chat.id, action='record_video')
+    send_action(message=message, action='record_video')
     log = logger.bind(downloader='instagrapi')
 
     post_id = INSTA.media_pk_from_url(url)
@@ -561,6 +590,7 @@ def bot_mentioned(message: Message) -> bool:
     return False
 
 
+@bot.business_message_handler(func=bool)
 @bot.message_handler(func=bool)
 def media_link_handler(message: Message):
     """Download from any URLs that we handle and upload content to the chat."""
