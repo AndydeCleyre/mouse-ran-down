@@ -23,6 +23,7 @@ from telebot import TeleBot
 from telebot.formatting import escape_html
 from telebot.types import (
     InputFile,
+    InputMediaAudio,
     InputMediaPhoto,
     InputMediaVideo,
     LinkPreviewOptions,
@@ -85,14 +86,23 @@ PATTERNS = {
 
 Action = Literal['typing', 'record_video', 'upload_video', 'upload_photo']
 LootType = Literal['video', 'image', 'text']
+MediaGroup = list[InputMediaAudio | InputMediaPhoto | InputMediaVideo]
 
 LOOT_ACTION: dict[LootType, Action] = {
     'video': 'upload_video',
     'image': 'upload_photo',
     'text': 'typing',
 }
-LOOT_SEND_FUNC = {'video': bot.send_video, 'image': bot.send_photo, 'text': bot.send_message}
-LOOT_SEND_KEY = {'video': 'video', 'image': 'photo', 'text': 'text'}
+LOOT_SEND_FUNC: dict[LootType, Callable] = {
+    'video': bot.send_video,
+    'image': bot.send_photo,
+    'text': bot.send_message,
+}
+LOOT_SEND_KEY: dict[LootType, Literal['video', 'photo', 'text']] = {
+    'video': 'video',
+    'image': 'photo',
+    'text': 'text',
+}
 LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
 
 COLLAPSE_AT_CHARS = 300
@@ -149,33 +159,51 @@ def str_to_collapsed_quotation_html(text: str) -> str:
     return f"<blockquote expandable>{escape_html(text)}</blockquote>"
 
 
-def send_potentially_collapsed_text(message: Message, text: str):
-    """Send text, as an expandable quotation if it's long, and split if very long."""
+def send_reply_text(message: Message, text: str, **params: Any):  # noqa: ANN401
+    """Send text message as a reply, with link previews disabled by default."""
     params = {
         'chat_id': message.chat.id,
         'reply_parameters': ReplyParameters(message_id=message.id),
+        'business_connection_id': message.business_connection_id,
         'link_preview_options': LinkPreviewOptions(is_disabled=True),
+        'text': text,
+        **params,
     }
-    if bc_id := message.business_connection_id:
-        params['business_connection_id'] = bc_id
+    bot.send_message(**params)
 
+
+def send_media_group(message: Message, media_group: MediaGroup, **params: Any):  # noqa: ANN401
+    """Send media group as a reply."""
+    params = {
+        'chat_id': message.chat.id,
+        'reply_parameters': ReplyParameters(message_id=message.id),
+        'business_connection_id': message.business_connection_id,
+        'timeout': TIMEOUT,
+        'media': media_group,
+        **params,
+    }
+    bot.send_media_group(**params)
+
+
+def send_potentially_collapsed_text(message: Message, text: str):
+    """Send text, as an expandable quotation if it's long, and split if very long."""
     for txt in smart_split(text):
         parse_mode = None
+        text = txt
         if len(txt) >= COLLAPSE_AT_CHARS:
-            txt = str_to_collapsed_quotation_html(txt)  # noqa: PLW2901
+            text = str_to_collapsed_quotation_html(txt)
             parse_mode = 'HTML'
 
-        params.update({'parse_mode': parse_mode, 'text': txt})
-
-        bot.send_message(**params)
+        send_reply_text(message=message, text=text, parse_mode=parse_mode)
 
 
-def send_action(message: Message, action: Action) -> None:
-    """Send chat action, unless it's a business connection message."""
-    params = {'chat_id': message.chat.id, 'action': action}
-    if bc_id := message.business_connection_id:
-        params['business_connection_id'] = bc_id
-    bot.send_chat_action(**params)
+def send_action(message: Message, action: Action):
+    """Send chat action status."""
+    bot.send_chat_action(
+        chat_id=message.chat.id,
+        action=action,
+        business_connection_id=message.business_connection_id,
+    )
 
 
 def send_loot_items_as_media_group(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
@@ -199,30 +227,32 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
     logger.info("Uploading", loot=media_group, context=context)
     send_action(message=message, action='upload_video')
 
-    params = {
-        'chat_id': message.chat.id,
-        'media': media_group,  # pyright: ignore [reportArgumentType]
-        'reply_parameters': ReplyParameters(message_id=message.id),
-        'timeout': TIMEOUT,
-    }
-
-    if bc_id := message.business_connection_id:
-        params['business_connection_id'] = bc_id
-
-    bot.send_media_group(**params)
+    send_media_group(message=message, media_group=cast(MediaGroup, media_group))
 
 
-def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
-    """Send loot items individually."""
+def send_loot_item(
+    message: Message,
+    loot_type: LootType,
+    loot_item: InputFile | str,
+    **params: Any,  # noqa: ANN401
+):
+    """Send a single loot item."""
     params = {
         'chat_id': message.chat.id,
         'caption': None,
         'parse_mode': None,
         'reply_parameters': ReplyParameters(message_id=message.id),
         'timeout': TIMEOUT,
+        'business_connection_id': message.business_connection_id,
+        LOOT_SEND_KEY[loot_type]: loot_item,
+        **params,
     }
-    if bc_id := message.business_connection_id:
-        params['business_connection_id'] = bc_id
+    LOOT_SEND_FUNC[loot_type](**params)
+
+
+def send_loot_items_individually(message: Message, loot_items: LootItems, context: Any = None):  # noqa: ANN401
+    """Send loot items individually."""
+    params = {}
 
     if len(loot_items['video'] + loot_items['image']) == 1 and loot_items['text']:
         text = '\n\n'.join(loot_items['text'])
@@ -243,9 +273,9 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
                 send_potentially_collapsed_text(message, loot)
                 continue
 
-            params[LOOT_SEND_KEY[filetype]] = loot
-
-            LOOT_SEND_FUNC[filetype](**params)
+            send_loot_item(
+                message=message, loot_type=cast(LootType, filetype), loot_item=loot, **params
+            )
 
 
 def batch_loot_items(loot_items: LootItems) -> list[LootItems]:
@@ -441,7 +471,7 @@ def gallerydl_url_handler(message: Message, url: str):
 
 
 @stamina.retry(on=Exception)
-def insta_url_handler_instaloader(message: Message, url: str) -> None:
+def insta_url_handler_instaloader(message: Message, url: str):
     """Download Instagram posts and upload them to the chat."""
     send_action(message=message, action='record_video')
     log = logger.bind(downloader='instaloader')
@@ -459,13 +489,12 @@ def insta_url_handler_instaloader(message: Message, url: str) -> None:
                 post = instaloader.Post.from_shortcode(insta.context, shortcode)
             except (BadResponseException, ConnectionException) as e:
                 log.error("Bad instagram response", exception=str(e))
-                return gallerydl_url_handler(message, url)
+                gallerydl_url_handler(message, url)
             else:
                 log.info("Downloading insta")
                 insta.download_post(post=post, target='loot')
 
                 send_potential_media_groups(message, tmp, context=shortcode)
-    return None
 
 
 def instagrapi_downloader(post_info: InstaMedia) -> Callable | None:
@@ -496,10 +525,11 @@ def instagrapi_downloader(post_info: InstaMedia) -> Callable | None:
 
 
 @stamina.retry(on=Exception)
-def insta_url_handler(message: Message, url: str) -> None:
+def insta_url_handler(message: Message, url: str):
     """Download Instagram posts and upload them to the chat."""
     if not INSTA:
-        return insta_url_handler_instaloader(message, url)
+        insta_url_handler_instaloader(message, url)
+        return
 
     send_action(message=message, action='record_video')
     log = logger.bind(downloader='instagrapi')
@@ -510,7 +540,8 @@ def insta_url_handler(message: Message, url: str) -> None:
     download = instagrapi_downloader(post_info)
     if not download:
         log.error("Unknown media type", post_info=post_info)
-        return insta_url_handler_instaloader(message, url)
+        insta_url_handler_instaloader(message, url)
+        return
 
     log.info("Downloading insta")
     with local.tempdir() as tmp:
@@ -518,9 +549,9 @@ def insta_url_handler(message: Message, url: str) -> None:
             download(int(post_id), folder=tmp)  # pyright: ignore [reportArgumentType]
         except Exception as e:
             log.error("Instagrapi failed", exc_info=e)
-            return insta_url_handler_instaloader(message, url)
+            insta_url_handler_instaloader(message, url)
+            return
         send_potential_media_groups(message, tmp, context=url)
-    return None
 
 
 @stamina.retry(on=Exception)
