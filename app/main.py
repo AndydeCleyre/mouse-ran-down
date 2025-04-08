@@ -2,12 +2,13 @@
 """Download videos from any sent popular video site links, and upload them to the chat."""
 
 import re
+from collections import defaultdict
 from collections.abc import Callable, Iterator
 from contextlib import suppress
 from http.cookiejar import MozillaCookieJar
 from itertools import batched
 from json import load
-from mimetypes import guess_file_type
+from mimetypes import guess_file_type  # You'd better install mailcap!
 from typing import Any, Literal, TypedDict, cast
 
 import instaloader
@@ -82,28 +83,36 @@ PATTERNS = {
         r'https://(player\.vimeo\.com/video/[^/]+'
         r'|vimeo\.com/[0-9]+[^/]*)'
     ),
+    'soundcloud': r'https://soundcloud\.com/[^/]+/[^/]+',
+    'bandcamp': r'https://[^\.]+\.bandcamp\.com/track/.*',
 }
 
-Action = Literal['typing', 'record_video', 'upload_video', 'upload_photo']
-LootType = Literal['video', 'image', 'text']
-MediaGroup = list[InputMediaAudio | InputMediaPhoto | InputMediaVideo]
+Action = Literal[
+    'typing', 'record_video', 'record_voice', 'upload_voice', 'upload_video', 'upload_photo'
+]
+LootType = Literal['video', 'audio', 'image', 'text']
+MediaGroup = list[InputMediaPhoto | InputMediaVideo] | list[InputMediaAudio]
 
 LOOT_ACTION: dict[LootType, Action] = {
     'video': 'upload_video',
+    'audio': 'upload_voice',
     'image': 'upload_photo',
     'text': 'typing',
 }
 LOOT_SEND_FUNC: dict[LootType, Callable] = {
     'video': bot.send_video,
+    'audio': bot.send_audio,
     'image': bot.send_photo,
     'text': bot.send_message,
 }
-LOOT_SEND_KEY: dict[LootType, Literal['video', 'photo', 'text']] = {
+LOOT_SEND_KEY: dict[LootType, Literal['video', 'audio', 'photo', 'text']] = {
     'video': 'video',
+    'audio': 'audio',
     'image': 'photo',
     'text': 'text',
 }
-LOOT_WRAPPER = {'video': InputFile, 'image': InputFile, 'text': LocalPath.read}
+LOOT_WRAPPER: dict[LootType, Callable] = defaultdict(lambda: InputFile)
+LOOT_WRAPPER['text'] = LocalPath.read
 
 COLLAPSE_AT_CHARS = 300
 MAX_CAPTION_CHARS = 1024
@@ -114,9 +123,10 @@ TIMEOUT = 120
 
 
 class LootItems(TypedDict):
-    """Video, image, and text items downloaded from URLs."""
+    """Video, audio, image, and text items downloaded from URLs."""
 
     video: list[InputFile]
+    audio: list[InputFile]
     image: list[InputFile]
     text: list[str]
 
@@ -141,16 +151,13 @@ def path_is_type(path: str, typestr: str) -> bool:
     log = logger.bind(path=path, target_type=typestr)
 
     filetype, _ = guess_file_type(path, strict=False)
-    if not filetype:
-        if path.endswith('.description'):
-            filetype = 'text'
-        elif path.endswith('.mkv'):
-            filetype = 'video'
+    if not filetype and path.endswith('.description'):
+        filetype = 'text'
 
     if filetype:
         return filetype.startswith(typestr)
 
-    log.info("Found unidentified file")
+    log.info("Found unidentified file -- Is mailcap installed?")
     return False
 
 
@@ -210,9 +217,11 @@ def send_loot_items_as_media_group(message: Message, loot_items: LootItems, cont
     """Send loot items as a media group."""
     send_action(message=message, action='upload_video')
 
-    media_group = [InputMediaPhoto(img) for img in loot_items['image']] + [
-        InputMediaVideo(vid) for vid in loot_items['video']
-    ]
+    media_group = (
+        [InputMediaPhoto(img) for img in loot_items['image']]
+        + [InputMediaVideo(vid) for vid in loot_items['video']]
+        + [InputMediaAudio(aud) for aud in loot_items['audio']]
+    )
 
     text = '\n\n'.join(loot_items['text'])
     if len(text) <= MAX_CAPTION_CHARS:
@@ -254,7 +263,10 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
     """Send loot items individually."""
     params = {}
 
-    if len(loot_items['video'] + loot_items['image']) == 1 and loot_items['text']:
+    if (
+        len(loot_items['video'] + loot_items['image'] + loot_items['audio']) == 1
+        and loot_items['text']
+    ):
         text = '\n\n'.join(loot_items['text'])
         if len(text) <= MAX_CAPTION_CHARS:
             if len(text) >= COLLAPSE_AT_CHARS:
@@ -279,7 +291,7 @@ def send_loot_items_individually(message: Message, loot_items: LootItems, contex
 
 
 def batch_loot_items(loot_items: LootItems) -> list[LootItems]:
-    """Return a list of LootItems dicts batched by maximum media group size."""
+    """Return a list of LootItems dicts batched by maximum group size and compatible formats."""
     media_items = [
         (filetype, media_item)
         for filetype in ('video', 'image')
@@ -288,10 +300,19 @@ def batch_loot_items(loot_items: LootItems) -> list[LootItems]:
 
     loot_items_batches = []
     for media_batch in batched(media_items, MAX_MEDIA_GROUP_MEMBERS, strict=False):
-        loot_items_batch = {'video': [], 'image': [], 'text': []}
+        loot_items_batch = {'video': [], 'image': [], 'text': [], 'audio': []}
         for filetype, item in media_batch:
             loot_items_batch[filetype].append(item)
         loot_items_batches.append(loot_items_batch)
+
+    for audio_batch in batched(loot_items['audio'], MAX_MEDIA_GROUP_MEMBERS, strict=False):
+        loot_items_batch = {'video': [], 'image': [], 'text': [], 'audio': []}
+        loot_items_batch['audio'].extend(audio_batch)
+        loot_items_batches.append(loot_items_batch)
+
+    # preserve text if no media batches?:
+    if not loot_items_batches and loot_items['text']:
+        loot_items_batches.append({'video': [], 'image': [], 'text': [], 'audio': []})
     if loot_items_batches:
         loot_items_batches[0]['text'].append('\n\n'.join(loot_items['text']))
 
@@ -302,7 +323,7 @@ def send_potential_media_groups(message: Message, loot_folder: LocalPath, contex
     """Send all media from a directory as a reply."""
     # Regarding B023: https://github.com/astral-sh/ruff/issues/7847
     loot_items = {}
-    for filetype in ('video', 'image', 'text'):
+    for filetype in ('video', 'audio', 'image', 'text'):
         loot_items[filetype] = [
             LOOT_WRAPPER[filetype](loot_file)
             for loot_file in loot_folder.walk(
@@ -311,7 +332,11 @@ def send_potential_media_groups(message: Message, loot_folder: LocalPath, contex
         ]
 
     for loot_items_batch in batch_loot_items(cast(LootItems, loot_items)):
-        if (len(loot_items_batch['video']) + len(loot_items_batch['image'])) > 1:
+        if (
+            len(loot_items_batch['video'])
+            + len(loot_items_batch['image'])
+            + len(loot_items_batch['audio'])
+        ) > 1:
             send = send_loot_items_as_media_group
         else:
             send = send_loot_items_individually
@@ -337,7 +362,7 @@ def choose_ytdlp_format(
     url: str, max_height: int = 1080, *, ignore_cookies: bool = False
 ) -> str | None:
     """Choose the best format for the video."""
-    template = 'bestvideo[height<={}]+bestaudio/best[height<={}]'
+    template = 'bestvideo[height<={}]+bestaudio/best[height<={}]/mp3/m4a/bestaudio'
     heights = [h for h in (1080, 720, 540, 480) if h <= max_height]
     if not heights:
         heights = [max_height]
@@ -395,18 +420,18 @@ def choose_ytdlp_format(
 
 
 @stamina.retry(on=Exception)
-def ytdlp_url_handler(message: Message, url: str):
-    """Download videos and upload them to the chat."""
-    send_action(message=message, action='record_video')
+def ytdlp_url_handler(message: Message, url: str, media_type: Literal['video', 'audio'] = 'video'):
+    """Download media and upload to the chat."""
+    send_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
 
     url = url.split('&', 1)[0]
 
     ignore_cookies = False
     try:
-        skip_download = not (vid_format := choose_ytdlp_format(url))
+        skip_download = not (media_format := choose_ytdlp_format(url))
     except DownloadError:
         if COOKIES:
-            skip_download = not (vid_format := choose_ytdlp_format(url, ignore_cookies=True))
+            skip_download = not (media_format := choose_ytdlp_format(url, ignore_cookies=True))
             ignore_cookies = True
             logger.info(
                 "This one doesn't work with our cookies, but does without them",
@@ -422,17 +447,29 @@ def ytdlp_url_handler(message: Message, url: str):
             'outtmpl': {'default': '%(id)s.%(ext)s'},
             'writethumbnail': True,
             'writedescription': True,
-            'format': vid_format,
-            'format_sort': ['res', 'ext:mp4:m4a'],
-            'final_ext': 'mp4',
+            'writesubtitles': True,
+            'format': media_format,
+            'format_sort': ['res', 'ext:mp4:m4a' if media_type == 'video' else 'ext:mp3:m4a'],
+            'final_ext': 'mp4' if media_type == 'video' else 'mp3',
             'max_filesize': MAX_MEGABYTES * 10**6,
             'skip_download': skip_download,
             'impersonate': ImpersonateTarget(),
             'noplaylist': True,
             'playlist_items': '1:1',
+            'quiet': True,
             'postprocessors': [
                 {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
-                {'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'},
+                {'already_have_subtitle': False, 'key': 'FFmpegEmbedSubtitle'},
+                {'already_have_thumbnail': False, 'key': 'EmbedThumbnail'},
+                {
+                    'add_chapters': True,
+                    'add_infojson': 'if_exists',
+                    'add_metadata': True,
+                    'key': 'FFmpegMetadata',
+                },
+                {'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}
+                if media_type == 'video'
+                else {'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3'},
             ],
         }
 
@@ -440,10 +477,16 @@ def ytdlp_url_handler(message: Message, url: str):
             params['cookiefile'] = COOKIES
 
         with YoutubeDL(params=params) as ydl:
-            logger.info("Downloading video", url=url, downloader='yt-dlp')
+            logger.info("Downloading", media_type=media_type, url=url, downloader='yt-dlp')
             ydl.download([url])
 
         send_potential_media_groups(message, tmp, context=url)
+
+
+@stamina.retry(on=Exception)
+def ytdlp_url_handler_audio(message: Message, url: str):
+    """Download audio files and upload them to the chat."""
+    ytdlp_url_handler(message, url, media_type='audio')
 
 
 @stamina.retry(on=Exception)
@@ -454,7 +497,7 @@ def gallerydl_url_handler(message: Message, url: str):
     with local.tempdir() as tmp:
         logger.info("Downloading whatever", url=url, downloader='gallery-dl')
 
-        flags = ['--directory', tmp, '--write-info-json']
+        flags = ['--directory', tmp, '--write-info-json', '--quiet']
         if COOKIES:
             flags += ['--cookies', COOKIES]
 
@@ -555,56 +598,67 @@ def insta_url_handler(message: Message, url: str):
 
 
 @stamina.retry(on=Exception)
-def ytdlp_url_has_video(url: str) -> bool:
-    """Return True if the yt-dlp-suitable URL really has a video."""
+def ytdlp_get_extensions(url: str, *, ignore_cookies: bool = False) -> list[str]:
+    """Return a list of media file extensions available at the URL."""
     log = logger.bind(url=url)
 
     params = {}
-    if COOKIES:
+    if COOKIES and not ignore_cookies:
         params['cookiefile'] = COOKIES
 
     with YoutubeDL(params=params) as ydl:
         try:
-            ydl.extract_info(url, download=False)
+            info = ydl.extract_info(url, download=False)
         except DownloadError:
-            log.info("Video not found")
-            return False
+            log.info("Media not found")
+            if not ignore_cookies and COOKIES:
+                log.info("Checking once more without cookies")
+                return ytdlp_get_extensions(url, ignore_cookies=True)
+            return []
         else:
-            log.info("Video found")
-            return True
+            if info:
+                log.info("Media found")
+                return [*{f['ext'] for f in info['formats']}]
+            return []
 
 
-def get_url_handler(url: str) -> Callable | None:
-    """Return the best handler for the given URL."""
-    if re.match(PATTERNS['insta'], url, re.IGNORECASE):
-        return insta_url_handler
-    if re.match(
-        f"({
-            '|'.join(
-                (PATTERNS['tiktok'], PATTERNS['vreddit'], PATTERNS['youtube'], PATTERNS['vimeo'])
-            )
-        })",
-        url,
-        re.IGNORECASE,
-    ):
-        return ytdlp_url_handler
-    if re.match(
-        f"({'|'.join((PATTERNS['x'], PATTERNS['reddit'], PATTERNS['bluesky']))})",
-        url,
-        re.IGNORECASE,
-    ):
-        if ytdlp_url_has_video(url):
-            return ytdlp_url_handler
-        return gallerydl_url_handler
-
-    return None
+def matches_any(url: str, *pattern_names: str) -> bool:
+    """Return True if the URL matches any of the given named patterns from PATTERNS."""
+    return bool(
+        re.match(f"{'|'.join(PATTERNS[name] for name in pattern_names)}", url, re.IGNORECASE)
+    )
 
 
 def get_forced_url_handler(url: str) -> Callable:
     """Return a handler for the URL no matter what."""
-    if ytdlp_url_has_video(url):
+    if extensions := ytdlp_get_extensions(url):
+        logger.info("Found media extensions", extensions=extensions, url=url)
+        media = set()
+        for e in extensions:
+            if ft := guess_file_type(f"file.{e}", strict=False)[0]:
+                media.add(ft.split('/', 1)[0])
+            else:
+                media.add(e)
+        if unknown_extensions := media - {'video', 'audio'}:
+            logger.warning("Unknown extensions", unknown_extensions=unknown_extensions, url=url)
+        if 'video' not in media and 'audio' in media:
+            return ytdlp_url_handler_audio
         return ytdlp_url_handler
     return gallerydl_url_handler
+
+
+def get_url_handler(url: str) -> Callable | None:
+    """Return the best handler for the given URL."""
+    if matches_any(url, 'insta'):
+        return insta_url_handler
+    if matches_any(url, 'tiktok', 'vreddit', 'youtube', 'vimeo'):
+        return ytdlp_url_handler
+    if matches_any(url, 'x', 'reddit', 'bluesky'):
+        return get_forced_url_handler(url)
+    if matches_any(url, 'soundcloud', 'bandcamp'):
+        return ytdlp_url_handler_audio
+
+    return None
 
 
 def bot_mentioned(message: Message) -> bool:

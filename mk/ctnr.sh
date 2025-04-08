@@ -22,7 +22,7 @@ COPY () { buildah copy "$ctnr" "$@"; }
 
 # -- Distro Packages --
 RUN apk upgrade
-RUN apk add ffmpeg s6
+RUN apk add ffmpeg mailcap s6
 
 # -- Copy App --
 RUN mkdir -p "${appdir}"

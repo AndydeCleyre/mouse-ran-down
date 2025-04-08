@@ -9,16 +9,23 @@ This is a Telegram bot.
 <img src="https://github.com/user-attachments/assets/9d68a581-f123-4ffb-aa1e-f65b99063eca" alt="playful image of mouse with clock" width="200"/>
 
 When added to a group, any shared public
-X/Reddit/Instagram/TikTok/Bluesky/YouTube/Vimeo
-links with videos will bring the videos
+X/Reddit/Instagram/TikTok/Bluesky/YouTube/Vimeo/SoundCloud/Bandcamp
+posts with media will bring the media
 directly into the chat, along with a preview image.
-For Instagram it will also do images and text.
 
 You can also send links as direct (or forwarded) messages to the bot.
 
+If you have Telegram Premium or a Business account,
+you can add the bot to any or all of your one-on-one chats, as well.
+In that case, it will look to the other party as if you personally sent the media.
+
+Normally, entire accounts, playlists, and albums won't be loaded.
+You can insist that the bot try to load a link by including
+the bot's name in the same message (e.g. `@MouseRanDownBot`).
+
 Currently running at [@MouseRanDownBot](https://t.me/MouseRanDownBot).
 
-I do not guarantee any level of service or privacy, so you might like to run it yourself.
+I do not guarantee any level of service or privacy, so I encourage you to run it yourself.
 
 ## Credentials
 
