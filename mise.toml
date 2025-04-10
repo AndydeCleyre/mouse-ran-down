@@ -12,10 +12,9 @@ hide = true
 [tasks.bump-reqs]
 depends = ["ensure-uv"]
 run = [
-  "uv pip compile --python python -o app/requirements.txt --no-header --annotation-style=line -U requirements.in",
+  "uv pip compile --python python -o mouse_ran_down/requirements.txt --no-header --annotation-style=line -U requirements.in",
   "uv pip compile --python python -o dev-requirements.txt --no-header --annotation-style=line -U dev-requirements.in"
 ]
-alias = "reqs"
 
 [tasks.install]
 depends = ["ensure-uv"]
@@ -25,8 +24,8 @@ run = "uv pip install -p python -r dev-requirements.txt"
 depends = ["install"]
 run = [
   "shellcheck mk/*.sh start/*.sh",
-  "ssort              app/main.py",
-  "ruff format        app/main.py",
-  "ruff check --fix   app/main.py",
-  "pyright --warnings app/main.py"
+  "ssort              mouse_ran_down/*.py",
+  "ruff format        mouse_ran_down/*.py",
+  "ruff check --fix   mouse_ran_down/*.py",
+  "pyright --warnings mouse_ran_down/*.py"
 ]

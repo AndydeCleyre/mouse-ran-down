@@ -45,7 +45,7 @@ credentials=$(realpath "$credentials")
 # -- Pull, stop, and run the container --
 podman pull "${image}:${tag}"
 podman stop "$name" || true
-podman run --name "$name" --rm -d -v "$credentials":/app/credentials.py:ro "${image}:${tag}"
+podman run --name "$name" --rm -d -v "$credentials":/mrd/credentials.py:ro "${image}:${tag}"
 
 # -- Show logs --
 podman ps -a

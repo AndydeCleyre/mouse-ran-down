@@ -7,3 +7,4 @@ pyTelegramBotAPI
 stamina
 structlog
 yt-dlp[curl-cffi]
+  mutagen
