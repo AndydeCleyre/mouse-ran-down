@@ -12,7 +12,7 @@ fi
 
 # -- Variables --
 ctnr="$(buildah from docker.io/library/python:3.13-alpine)"
-appdir=/mouse_ran_down
+appdir=/app
 image=${1:-quay.io/andykluger/mouse-ran-down}
 
 # -- Functions --
@@ -26,13 +26,13 @@ RUN apk add ffmpeg mailcap s6
 
 # -- Copy App --
 tmp="$(mktemp -d)"
-git archive HEAD:mouse_ran_down | tar x --directory="$tmp"
+git archive HEAD | tar x --directory="$tmp"
 COPY "$tmp" "$appdir"
 rm -r "$tmp"
 
 # -- Python Packages --
 RUN python -m venv "${appdir}/.venv"
-RUN "${appdir}/.venv/bin/pip" install -r "${appdir}/requirements.txt"
+RUN "${appdir}/.venv/bin/pip" install "$appdir"
 
 # -- App Services --
 RUN mkdir -p "${appdir}/svcs/app/log" "${appdir}/logs/app" "${appdir}/svcs/logtailer"
@@ -67,6 +67,6 @@ buildah tag "$imageid" "$image:$(date +%Y.%m.%d-%s)"
 
 # -- Tips --
 printf '%s\n' \
-  "-- When running container, mount or copy credentials.py into ${appdir}/ --" \
+  "-- When running container, mount or copy credentials.py into ${appdir}/mouse_ran_down --" \
   '-- For example: --' \
-  "-- podman run --rm -d -v ./mouse_ran_down/credentials.py:${appdir}/credentials.py:ro $image  --"
+  "-- podman run --rm -d -v ./mouse_ran_down/credentials.py:${appdir}/mouse_ran_down/credentials.py:ro $image  --"

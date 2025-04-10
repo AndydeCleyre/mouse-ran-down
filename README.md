@@ -73,7 +73,7 @@ Otherwise podman will kill the container on logout.
 Run the container from a local image `quay.io/andykluger/mouse-ran-down` with:
 
 ```console
-$ podman run --rm -d -v ./mouse_ran_down/credentials.py:/mouse_ran_down/credentials.py:ro quay.io/andykluger/mouse-ran-down
+$ podman run --rm -d -v ./mouse_ran_down/credentials.py:/app/mouse_ran_down/credentials.py:ro quay.io/andykluger/mouse-ran-down
 ```
 
 ### From an image pushed to a registry
@@ -100,7 +100,7 @@ Or you could write an auto-update-friendly quadlet systemd service at
 AutoUpdate=registry
 ContainerName=mouse
 Image=quay.io/andykluger/mouse-ran-down:latest
-Volume=%h/mouse-ran-down/credentials.py:/mouse_ran_down/credentials.py:ro
+Volume=%h/mouse-ran-down/credentials.py:/app/mouse_ran_down/credentials.py:ro
 
 [Service]
 Restart=always
