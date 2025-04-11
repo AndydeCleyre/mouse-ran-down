@@ -246,7 +246,7 @@ class LinkHandlers:
                 'postprocessors': [
                     {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
                     {'already_have_subtitle': False, 'key': 'FFmpegEmbedSubtitle'},
-                    {'already_have_thumbnail': False, 'key': 'EmbedThumbnail'},
+                    {'already_have_thumbnail': True, 'key': 'EmbedThumbnail'},
                     {
                         'add_chapters': True,
                         'add_infojson': 'if_exists',
