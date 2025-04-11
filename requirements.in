@@ -2,6 +2,7 @@ gallery-dl
 instagrapi
   pillow
 instaloader
+nestedtext
 plumbum
 pyTelegramBotAPI
 stamina

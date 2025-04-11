@@ -45,7 +45,7 @@ importas OLDPATH PATH
 export PATH "${appdir}/.venv/bin:\${OLDPATH}"
 importas PATH PATH
 
-mouse-ran-down
+mouse-ran-down "${appdir}/credentials.nt"
 EOF
 
 <<EOF APPEND "${appdir}/svcs/app/log/run"
@@ -67,6 +67,6 @@ buildah tag "$imageid" "$image:$(date +%Y.%m.%d-%s)"
 
 # -- Tips --
 printf '%s\n' \
-  "-- When running container, mount or copy credentials.py into ${appdir}/mouse_ran_down --" \
+  "-- When running container, mount or copy credentials.nt into ${appdir}/ --" \
   '-- For example: --' \
-  "-- podman run --rm -d -v ./mouse_ran_down/credentials.py:${appdir}/mouse_ran_down/credentials.py:ro $image  --"
+  "-- podman run --rm -d -v ./credentials.nt:${appdir}/credentials.nt:ro $image  --"

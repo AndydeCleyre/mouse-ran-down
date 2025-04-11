@@ -1,3 +1,2 @@
-/mouse_ran_down/credentials.py*
-!/mouse_ran_down/credentials.py.example
-/mouse_ran_down/cookies.txt
+/credentials.*nt
+!/credentials.example.nt

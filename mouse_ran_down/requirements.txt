@@ -1,12 +1,16 @@
 annotated-types==0.7.0    # via pydantic
+arrow==1.3.0              # via inform
 certifi==2025.1.31        # via curl-cffi, requests
 cffi==1.17.1              # via curl-cffi
 charset-normalizer==3.4.1  # via requests
 curl-cffi==0.10.0         # via yt-dlp
 gallery-dl==1.29.3        # via -r requirements.in
 idna==3.10                # via requests
+inform==1.33              # via nestedtext
 instagrapi==2.1.3         # via -r requirements.in
 instaloader==4.14.1       # via -r requirements.in
+mutagen==1.47.0           # via -r requirements.in
+nestedtext==3.7           # via -r requirements.in
 pillow==11.1.0            # via -r requirements.in
 plumbum==1.9.0            # via -r requirements.in
 pycparser==2.22           # via cffi
@@ -15,10 +19,13 @@ pydantic==2.10.1          # via instagrapi
 pydantic-core==2.27.1     # via pydantic
 pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.26.0  # via -r requirements.in
+python-dateutil==2.9.0.post0  # via arrow
 requests==2.32.3          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi
+six==1.17.0               # via inform, python-dateutil
 stamina==25.1.0           # via -r requirements.in
 structlog==25.2.0         # via -r requirements.in
 tenacity==9.1.2           # via stamina
-typing-extensions==4.13.1  # via pydantic, pydantic-core
-urllib3==2.3.0            # via requests
+types-python-dateutil==2.9.0.20241206  # via arrow
+typing-extensions==4.13.2  # via pydantic, pydantic-core
+urllib3==2.4.0            # via requests
 yt-dlp==2025.3.31         # via -r requirements.in

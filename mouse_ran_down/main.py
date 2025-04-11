@@ -2,29 +2,17 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+import sys
+from tempfile import mkstemp
+from typing import TYPE_CHECKING, cast
 
-from .credentials import TOKEN  # pyright: ignore [reportMissingImports]
 from instagrapi import Client as InstaClient
-from plumbum import local
+from nestedtext import load as nt_load
 from telebot import TeleBot
 
 from .link_handling import LinkHandlers
 from .mrd_logging import StructLogger, get_logger
 from .sending import LootSender
-
-try:
-    from .credentials import INSTA_PW, INSTA_USER  # pyright: ignore [reportMissingImports]
-except ImportError:
-    INSTA_USER, INSTA_PW = None, None
-
-try:
-    from .credentials import COOKIES  # pyright: ignore [reportMissingImports]
-
-    (local.path(__file__).up() / 'cookies.txt').write(COOKIES)
-    COOKIES = str(local.path(__file__).up() / 'cookies.txt')
-except ImportError:
-    COOKIES = None
 
 if TYPE_CHECKING:
     from telebot.types import Message
@@ -46,14 +34,37 @@ def get_insta(user: str | None, pw: str | None, logger: StructLogger) -> InstaCl
     logger.info("Finished initializing instagrapi", insta=insta)
 
 
+def get_cookies_path(cookies_content: str | None, logger: StructLogger) -> str | None:
+    """Write a cookies file and return its path, or ``None`` if no cookies can be loaded."""
+    if cookies_content:
+        fd, cookies = mkstemp(prefix='cookies', suffix='.txt', text=True)
+        with open(fd, mode='w') as cookie_file:  # noqa: PTH123
+            cookie_file.write(cookies_content)
+        logger.info("Wrote cookies file", path=cookies)
+        return cookies
+    logger.info("No cookies found")
+    return None
+
+
+def load_config(path: str, logger: StructLogger) -> dict[str, str]:
+    """Load NestedText config file."""
+    logger.info("Loading credentials", path=path)
+    return cast(dict, nt_load(path))
+
+
 def main():
     """Start the bot."""
     logger = get_logger(json=False)
-    bot = TeleBot(TOKEN)
-    insta = get_insta(INSTA_USER, INSTA_PW, logger)
+    config = load_config(sys.argv[1], logger)
+
+    cookies = get_cookies_path(config.get('COOKIES'), logger)
+    insta = get_insta(config.get('INSTA_USER'), config.get('INSTA_PW'), logger)
+    bot = TeleBot(config['TOKEN'])
+    logger.info("Initialized bot")
+
     timeout = 120
     loot_sender = LootSender(bot=bot, logger=logger, timeout=timeout)
-    link_handlers = LinkHandlers(sender=loot_sender, logger=logger, insta=insta, cookies=COOKIES)
+    link_handlers = LinkHandlers(sender=loot_sender, logger=logger, insta=insta, cookies=cookies)
 
     @bot.business_message_handler(func=bool)
     @bot.message_handler(func=bool)

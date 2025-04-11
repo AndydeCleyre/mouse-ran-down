@@ -8,7 +8,7 @@ usage () {
   "  -i <image>: name of the image (default: quay.io/andykluger/mouse-ran-down)" \
   "  -t <tag>: tag of the image (default: latest)" \
   "  -c: remove any dangling images after starting the container" \
-  "  <credentials-file>: path to credentials.py (default: ./credentials.py)"
+  "  <credentials-file>: path to credentials.nt (default: ./credentials.nt)"
 }
 if [ "$1" = -h ] || [ "$1" = --help ]; then
   usage
@@ -39,13 +39,13 @@ name=${name:-mouse}
 image=${image:-quay.io/andykluger/mouse-ran-down}
 tag=${tag:-latest}
 clean=${clean:-false}
-credentials=${1:-$PWD/credentials.py}
+credentials=${1:-$PWD/credentials.nt}
 credentials=$(realpath "$credentials")
 
 # -- Pull, stop, and run the container --
 podman pull "${image}:${tag}"
 podman stop "$name" || true
-podman run --name "$name" --rm -d -v "$credentials":/mrd/credentials.py:ro "${image}:${tag}"
+podman run --name "$name" --rm -d -v "$credentials":/app/credentials.nt:ro "${image}:${tag}"
 
 # -- Show logs --
 podman ps -a

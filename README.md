@@ -29,13 +29,15 @@ I do not guarantee any level of service or privacy, so I encourage you to run it
 
 ## Credentials
 
-Copy `mouse_ran_down/credentials.py.example` to `mouse_ran_down/credentials.py` and insert at least a Telegram bot token.
+Copy `credentials.example.nt` to `credentials.nt` and insert at least a Telegram bot token.
+
+Comment out, delete, or use empty values for any unused fields.
 
 ### Telegram
 
-Use Telegram's BotFather to create a bot and get its token.
+Use Telegram's [@BotFather](https://t.me/BotFather) to create a bot and get its token.
 
-Ensure you give it permissions to read group messages by adjusting the privacy policy.
+Ensure you give it permission to read group messages by disabling privacy mode.
 
 ### Cookies
 
@@ -73,7 +75,7 @@ Otherwise podman will kill the container on logout.
 Run the container from a local image `quay.io/andykluger/mouse-ran-down` with:
 
 ```console
-$ podman run --rm -d -v ./mouse_ran_down/credentials.py:/app/mouse_ran_down/credentials.py:ro quay.io/andykluger/mouse-ran-down
+$ podman run --rm -d -v ./credentials.nt:/app/credentials.nt:ro quay.io/andykluger/mouse-ran-down
 ```
 
 ### From an image pushed to a registry
@@ -87,7 +89,7 @@ Usage: ./start/podman.sh [-n <name>] [-i <image>] [-t <tag>] [-c] [<credentials-
   -i <image>: name of the image (default: quay.io/andykluger/mouse-ran-down)
   -t <tag>: tag of the image (default: latest)
   -c: remove any dangling images after starting the container
-  <credentials-file>: path to credentials.py (default: ./credentials.py)
+  <credentials-file>: path to credentials.nt (default: ./credentials.nt)
 ```
 
 ### As an auto-updating Systemd service, pulling from a registry
@@ -100,7 +102,7 @@ Or you could write an auto-update-friendly quadlet systemd service at
 AutoUpdate=registry
 ContainerName=mouse
 Image=quay.io/andykluger/mouse-ran-down:latest
-Volume=%h/mouse-ran-down/credentials.py:/app/mouse_ran_down/credentials.py:ro
+Volume=%h/mouse-ran-down/credentials.nt:/app/credentials.nt:ro
 
 [Service]
 Restart=always
