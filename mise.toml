@@ -24,8 +24,8 @@ run = "uv pip install -p python -r dev-requirements.txt"
 depends = ["install"]
 run = [
   "shellcheck mk/*.sh start/*.sh",
-  "ssort              mouse_ran_down/*.py",
-  "ruff format        mouse_ran_down/*.py",
-  "ruff check --fix   mouse_ran_down/*.py",
-  "pyright --warnings mouse_ran_down/*.py"
+  "ssort",
+  "ruff format",
+  "ruff check --fix",
+  "pyright --warnings"
 ]
