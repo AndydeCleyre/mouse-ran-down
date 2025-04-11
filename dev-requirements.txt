@@ -30,19 +30,19 @@ pycryptodomex==3.21.0     # via instagrapi, -r app/requirements.txt
 pydantic==2.10.1          # via instagrapi, -r app/requirements.txt
 pydantic-core==2.27.1     # via pydantic, -r app/requirements.txt
 pygments==2.19.1          # via ipython, ipython-pygments-lexers, rich
-pyright==1.1.398          # via -r dev-requirements.in
+pyright==1.1.399          # via -r dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -r app/requirements.txt
 pytelegrambotapi==4.26.0  # via -r app/requirements.txt
 requests==2.32.3          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, -r app/requirements.txt
 rich==14.0.0              # via -r dev-requirements.in
-ruff==0.11.4              # via -r dev-requirements.in
+ruff==0.11.5              # via -r dev-requirements.in
 ssort==0.14.0             # via -r dev-requirements.in
 stack-data==0.6.3         # via ipython
 stamina==25.1.0           # via -r app/requirements.txt
 structlog==25.2.0         # via -r app/requirements.txt
 tenacity==9.1.2           # via stamina, -r app/requirements.txt
 traitlets==5.14.3         # via ipython, matplotlib-inline
-typing-extensions==4.13.1  # via pydantic, pydantic-core, pyright, -r app/requirements.txt
-urllib3==2.3.0            # via requests, -r app/requirements.txt
+typing-extensions==4.13.2  # via pydantic, pydantic-core, pyright, -r app/requirements.txt
+urllib3==2.4.0            # via requests, -r app/requirements.txt
 wcwidth==0.2.13           # via prompt-toolkit
 yt-dlp==2025.3.31         # via -r app/requirements.txt
