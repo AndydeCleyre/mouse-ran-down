@@ -32,6 +32,7 @@ def get_insta(user: str | None, pw: str | None, logger: StructLogger) -> InstaCl
         logger.info("Instagram credentials missing, instagrapi will not be used")
         insta = None
     logger.info("Finished initializing instagrapi", insta=insta)
+    return insta
 
 
 def get_cookies_path(cookies_content: str | None, logger: StructLogger) -> str | None:
