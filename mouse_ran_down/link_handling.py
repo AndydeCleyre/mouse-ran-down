@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING, Literal, cast
 import instaloader
 import stamina
 from instaloader.exceptions import BadResponseException, ConnectionException
-from plumbum import local
+from plumbum import ProcessExecutionError, local
 from plumbum.cmd import gallery_dl
 from yt_dlp import DownloadError, YoutubeDL
 from yt_dlp.networking.impersonate import ImpersonateTarget
@@ -287,7 +287,13 @@ class LinkHandlers:
             if self.cookies:
                 flags += ['--cookies', self.cookies]
 
-            gallery_dl(*flags, url)
+            try:
+                gallery_dl(*flags, url)
+            except ProcessExecutionError as e:
+                self.logger.error(
+                    "Failed to download", exc_info=e, url=url, downloader='gallery-dl'
+                )
+                return
 
             texts = []
             for json in tmp.walk(filter=lambda p: p.name == 'info.json'):
