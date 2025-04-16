@@ -30,7 +30,7 @@ pexpect==4.9.0            # via ipython
 pillow==11.2.1            # via -r mouse_ran_down/requirements.txt
 pip==25.0.1               # via flit
 plumbum==1.9.0            # via -r mouse_ran_down/requirements.txt
-prompt-toolkit==3.0.50    # via ipython
+prompt-toolkit==3.0.51    # via ipython
 ptyprocess==0.7.0         # via pexpect
 pure-eval==0.2.3          # via stack-data
 pycparser==2.22           # via cffi, -r mouse_ran_down/requirements.txt
