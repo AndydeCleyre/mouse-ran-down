@@ -283,7 +283,18 @@ class LinkHandlers:
         with local.tempdir() as tmp:
             self.logger.info("Downloading whatever", url=url, downloader='gallery-dl')
 
-            flags = ['--directory', tmp, '--write-info-json', '--quiet']
+            flags = [
+                '--directory',
+                tmp,
+                '--write-info-json',
+                '--option',
+                'extractor.twitter.text-tweets=true',
+                '--option',
+                'extractor.twitter.quoted=true',  # This may not work
+                '--option',
+                'extractor.twitter.retweets=true',  # This may not work
+                '--quiet',
+            ]
             if self.cookies:
                 flags += ['--cookies', self.cookies]
 
