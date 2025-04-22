@@ -206,7 +206,7 @@ class LinkHandlers:
         self, message: Message, url: str, media_type: Literal['video', 'audio'] = 'video'
     ):
         """Download media and upload to the chat."""
-        self.sender.send_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
+        self.sender.announce_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
 
         url = url.split('&', 1)[0]
 
@@ -244,7 +244,7 @@ class LinkHandlers:
                 'playlist_items': '1:1',
                 'quiet': True,
                 'postprocessors': [
-                    {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
+                    # {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
                     {'already_have_subtitle': False, 'key': 'FFmpegEmbedSubtitle'},
                     {'already_have_thumbnail': True, 'key': 'EmbedThumbnail'},
                     {
@@ -266,11 +266,13 @@ class LinkHandlers:
                 self.logger.info(
                     "Downloading", media_type=media_type, url=url, downloader='yt-dlp'
                 )
+                # TODO: redirect stderr, capture, and log
+                # TODO: make wrapper func / deco for this:
+                # self.ydl_download = self.log_stderr(ydl.download)
                 ydl.download([url])
 
             self.sender.send_potential_media_groups(message, tmp, context=url)
 
-    @stamina.retry(on=Exception)
     def ytdlp_url_handler_audio(self, message: Message, url: str):
         """Download audio files and upload them to the chat."""
         self.ytdlp_url_handler(message, url, media_type='audio')
@@ -278,7 +280,7 @@ class LinkHandlers:
     @stamina.retry(on=Exception)
     def gallerydl_url_handler(self, message: Message, url: str):
         """Download whatever we can and upload it to the chat."""
-        self.sender.send_action(message=message, action='typing')
+        self.sender.announce_action(message=message, action='typing')
 
         with local.tempdir() as tmp:
             self.logger.info("Downloading whatever", url=url, downloader='gallery-dl')
@@ -299,6 +301,7 @@ class LinkHandlers:
                 flags += ['--cookies', self.cookies]
 
             try:
+                # TODO: redirect stderr, capture, and log
                 gallery_dl(*flags, url)
             except ProcessExecutionError as e:
                 self.logger.error(
@@ -318,7 +321,7 @@ class LinkHandlers:
     @stamina.retry(on=Exception)
     def insta_url_handler_instaloader(self, message: Message, url: str):
         """Download Instagram posts and upload them to the chat."""
-        self.sender.send_action(message=message, action='record_video')
+        self.sender.announce_action(message=message, action='record_video')
         log = self.logger.bind(downloader='instaloader')
 
         with local.tempdir() as tmp:
@@ -337,6 +340,7 @@ class LinkHandlers:
                     self.gallerydl_url_handler(message, url)
                 else:
                     log.info("Downloading insta")
+                    # TODO: redirect stderr, capture, and log
                     insta.download_post(post=post, target='loot')
 
                     self.sender.send_potential_media_groups(message, tmp, context=shortcode)
@@ -374,7 +378,7 @@ class LinkHandlers:
             self.insta_url_handler_instaloader(message, url)
             return
 
-        self.sender.send_action(message=message, action='record_video')
+        self.sender.announce_action(message=message, action='record_video')
         log = self.logger.bind(downloader='instagrapi')
 
         post_id = self.insta.media_pk_from_url(url)
@@ -389,6 +393,7 @@ class LinkHandlers:
         log.info("Downloading insta")
         with local.tempdir() as tmp:
             try:
+                # TODO: redirect stderr, capture, and log
                 download(int(post_id), folder=tmp)  # pyright: ignore [reportArgumentType]
             except Exception as e:
                 log.error("Instagrapi failed", exc_info=e)
@@ -407,6 +412,7 @@ class LinkHandlers:
 
         with YoutubeDL(params=params) as ydl:
             try:
+                # TODO: redirect stderr, capture, and log?
                 info = ydl.extract_info(url, download=False)
             except DownloadError:
                 log.info("Media not found")
