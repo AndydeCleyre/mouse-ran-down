@@ -101,7 +101,7 @@ Or you could write an auto-update-friendly quadlet systemd service at
 [Container]
 AutoUpdate=registry
 ContainerName=mouse
-Image=quay.io/andykluger/mouse-ran-down:latest
+Image=quay.io/andykluger/mouse-ran-down:main
 Volume=%h/mouse-ran-down/credentials.nt:/app/credentials.nt:ro
 
 [Service]
