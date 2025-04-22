@@ -77,4 +77,4 @@ fi
 printf '%s\n' \
   "-- When running container, mount or copy credentials.nt into ${appdir}/ --" \
   '-- For example: --' \
-  "-- podman run --rm -d -v ./credentials.nt:${appdir}/credentials.nt:ro $image  --"
+  "-- podman run --rm -d -v ./credentials.nt:${appdir}/credentials.nt:ro ${image}:${branch}  --"

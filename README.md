@@ -87,7 +87,7 @@ $ ./start/podman.sh -h
 Usage: ./start/podman.sh [-n <name>] [-i <image>] [-t <tag>] [-c] [<credentials-file>]
   -n <name>: name of the container (default: mouse)
   -i <image>: name of the image (default: quay.io/andykluger/mouse-ran-down)
-  -t <tag>: tag of the image (default: latest)
+  -t <tag>: tag of the image (default: main)
   -c: remove any dangling images after starting the container
   <credentials-file>: path to credentials.nt (default: ./credentials.nt)
 ```
