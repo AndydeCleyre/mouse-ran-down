@@ -62,8 +62,16 @@ RUN chmod +x "${appdir}/svcs/app/run" "${appdir}/svcs/app/log/run" "${appdir}/sv
 buildah config --cmd "s6-svscan ${appdir}/svcs" "$ctnr"
 
 # -- Commit Image --
+branch="$(rev-parse --abbrev-ref HEAD)"
+revcount="$(git rev-list --count HEAD)"
+commit="$(git rev-parse --short HEAD)"
+taggish="$(git describe --tags)"
+
 imageid="$(buildah commit --rm "$ctnr" "$image")"
-buildah tag "$imageid" "$image:$(date +%Y.%m.%d-%s)"
+buildah tag "$imageid" "${image}:${branch}" "${image}:${revcount}.${commit}"
+if [ "$taggish" ]; then
+  buildah tag "$imageid" "${image}:${taggish}"
+fi
 
 # -- Tips --
 printf '%s\n' \
