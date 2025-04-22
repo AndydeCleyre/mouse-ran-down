@@ -62,7 +62,7 @@ RUN chmod +x "${appdir}/svcs/app/run" "${appdir}/svcs/app/log/run" "${appdir}/sv
 buildah config --cmd "s6-svscan ${appdir}/svcs" "$ctnr"
 
 # -- Commit Image --
-branch="$(rev-parse --abbrev-ref HEAD)"
+branch="$(git rev-parse --abbrev-ref HEAD)"
 revcount="$(git rev-list --count HEAD)"
 commit="$(git rev-parse --short HEAD)"
 taggish="$(git describe --tags)"
