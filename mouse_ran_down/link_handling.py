@@ -244,7 +244,7 @@ class LinkHandlers:
                 'playlist_items': '1:1',
                 'quiet': True,
                 'postprocessors': [
-                    # {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
+                    {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
                     {'already_have_subtitle': False, 'key': 'FFmpegEmbedSubtitle'},
                     {'already_have_thumbnail': True, 'key': 'EmbedThumbnail'},
                     {
