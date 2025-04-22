@@ -63,12 +63,11 @@ buildah config --cmd "s6-svscan ${appdir}/svcs" "$ctnr"
 
 # -- Commit Image --
 branch="$(git rev-parse --abbrev-ref HEAD)"
-revcount="$(git rev-list --count HEAD)"
 commit="$(git rev-parse --short HEAD)"
 taggish="$(git describe --tags)" || true
 
 imageid="$(buildah commit --rm "$ctnr" "$image")"
-buildah tag "$imageid" "${image}:${branch}" "${image}:${revcount}.${commit}"
+buildah tag "$imageid" "${image}:${branch}" "${image}:${commit}"
 if [ "$taggish" ]; then
   buildah tag "$imageid" "${image}:${taggish}"
 fi
