@@ -11,7 +11,7 @@ if [ "$1" = -h ] || [ "$1" = --help ]; then
 fi
 
 # -- Variables --
-ctnr="$(buildah from docker.io/library/python:3.13-alpine)"
+ctnr="$(buildah from ghcr.io/astral-sh/uv:python3.13-alpine)"
 appdir=/app
 image=${1:-quay.io/andykluger/mouse-ran-down}
 
@@ -31,8 +31,8 @@ COPY "$tmp" "$appdir"
 rm -r "$tmp"
 
 # -- Python Packages --
-RUN python -m venv "${appdir}/.venv"
-RUN "${appdir}/.venv/bin/pip" install "$appdir"
+RUN uv venv "${appdir}/.venv"
+RUN uv pip install --python "${appdir}/.venv/bin/python" "$appdir"
 
 # -- App Services --
 RUN mkdir -p "${appdir}/svcs/app/log" "${appdir}/logs/app" "${appdir}/svcs/logtailer"
@@ -64,7 +64,7 @@ buildah config --cmd "s6-svscan ${appdir}/svcs" "$ctnr"
 # -- Commit Image --
 branch="$(git rev-parse --abbrev-ref HEAD)"
 commit="$(git rev-parse --short HEAD)"
-taggish="$(git describe --tags)" || true
+taggish="$(git describe --tags 2>/dev/null)" || true
 
 imageid="$(buildah commit --rm "$ctnr" "$image")"
 buildah tag "$imageid" "${image}:${branch}" "${image}:${commit}"
