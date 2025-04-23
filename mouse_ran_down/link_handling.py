@@ -140,7 +140,12 @@ class LinkHandlers:
         return None
 
     def choose_ytdlp_format(
-        self, url: str, max_height: int = 1080, *, ignore_cookies: bool = False
+        self,
+        url: str,
+        max_height: int = 1080,
+        blocklist: list | None = None,
+        *,
+        ignore_cookies: bool = False,
     ) -> str | None:
         """Choose the best format for the video."""
         template = 'bestvideo[height<={}]+bestaudio/best[height<={}]/mp3/m4a/bestaudio'
@@ -157,6 +162,9 @@ class LinkHandlers:
 
             for height in tuple(heights):
                 fmt = template.format(height, height)
+                if fmt in (blocklist or []):
+                    continue
+
                 selector = ydl.build_format_selector(fmt)
                 candidate_gen = selector(info)
 
@@ -203,7 +211,11 @@ class LinkHandlers:
 
     @stamina.retry(on=Exception)
     def ytdlp_url_handler(
-        self, message: Message, url: str, media_type: Literal['video', 'audio'] = 'video'
+        self,
+        message: Message,
+        url: str,
+        media_type: Literal['video', 'audio'] = 'video',
+        skip_formats: list | None = None,
     ):
         """Download media and upload to the chat."""
         self.sender.announce_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
@@ -212,11 +224,15 @@ class LinkHandlers:
 
         ignore_cookies = False
         try:
-            skip_download = not (media_format := self.choose_ytdlp_format(url))
+            skip_download = not (
+                media_format := self.choose_ytdlp_format(url, blocklist=skip_formats)
+            )
         except DownloadError:
             if self.cookies:
                 skip_download = not (
-                    media_format := self.choose_ytdlp_format(url, ignore_cookies=True)
+                    media_format := self.choose_ytdlp_format(
+                        url, ignore_cookies=True, blocklist=skip_formats
+                    )
                 )
                 ignore_cookies = True
                 self.logger.info(
@@ -229,7 +245,7 @@ class LinkHandlers:
 
         with local.tempdir() as tmp:
             params = {
-                'paths': {'home': tmp},
+                'paths': {'home': str(tmp)},
                 'outtmpl': {'default': '%(id)s.%(ext)s'},
                 'writethumbnail': True,
                 'writedescription': True,
@@ -270,6 +286,20 @@ class LinkHandlers:
                 # TODO: make wrapper func / deco for this:
                 # self.ydl_download = self.log_stderr(ydl.download)
                 ydl.download([url])
+                if tmp // '*.part':
+                    self.logger.error(
+                        "Partially downloaded file(s) detected -- Bigger than expected?",
+                        files=tmp.list(),
+                        url=url,
+                        media_format=media_format,
+                    )
+                    self.ytdlp_url_handler(
+                        message,
+                        url,
+                        media_type=media_type,
+                        skip_formats=[*(skip_formats or []), media_format],
+                    )
+                    return
 
             self.sender.send_potential_media_groups(message, tmp, context=url)
 
