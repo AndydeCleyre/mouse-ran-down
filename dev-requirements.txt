@@ -38,13 +38,13 @@ pycryptodomex==3.21.0     # via instagrapi, -r mouse_ran_down/requirements.txt
 pydantic==2.10.1          # via instagrapi, -r mouse_ran_down/requirements.txt
 pydantic-core==2.27.1     # via pydantic, -r mouse_ran_down/requirements.txt
 pygments==2.19.1          # via ipython, ipython-pygments-lexers, rich
-pyright==1.1.399          # via -r dev-requirements.in
+pyright==1.1.400          # via -r dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -r mouse_ran_down/requirements.txt
 pytelegrambotapi==4.26.0  # via -r mouse_ran_down/requirements.txt
 python-dateutil==2.9.0.post0  # via arrow, -r mouse_ran_down/requirements.txt
 requests==2.32.3          # via flit, gallery-dl, instagrapi, instaloader, pytelegrambotapi, -r mouse_ran_down/requirements.txt
 rich==14.0.0              # via -r dev-requirements.in
-ruff==0.11.6              # via -r dev-requirements.in
+ruff==0.11.7              # via -r dev-requirements.in
 six==1.17.0               # via inform, python-dateutil, -r mouse_ran_down/requirements.txt
 ssort==0.14.0             # via -r dev-requirements.in
 stack-data==0.6.3         # via ipython
