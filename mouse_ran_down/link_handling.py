@@ -243,6 +243,15 @@ class LinkHandlers:
             else:
                 raise
 
+        if skip_formats and media_format in skip_formats:
+            self.logger.error(
+                "Final media format in skip list",
+                url=url,
+                media_format=media_format,
+                skip_formats=skip_formats,
+            )
+            return
+
         with local.tempdir() as tmp:
             params = {
                 'paths': {'home': str(tmp)},
@@ -319,6 +328,8 @@ class LinkHandlers:
                 '--directory',
                 tmp,
                 '--write-info-json',
+                '--option',
+                'extractor.twitter.tweet-endpoint=restid',  # https://github.com/mikf/gallery-dl/issues/7382
                 '--option',
                 'extractor.twitter.text-tweets=true',
                 '--option',
