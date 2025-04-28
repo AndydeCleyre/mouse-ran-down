@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from itertools import batched
 from mimetypes import guess_file_type  # You'd better install mailcap!
 from typing import TYPE_CHECKING, Any, Literal, cast, get_args
+from uuid import uuid4
 
 from PIL import Image
 from plumbum import LocalPath
@@ -74,17 +75,16 @@ class PathsBatch:
 def process_thumbnail(path: LocalPath) -> InputFile | None:
     """Process a thumbnail file into a properly formatted ``InputFile``."""
     img = Image.open(path)
-    thumb_path = path.with_suffix('.mouse-ran-down.jpg')
-    # TODO: more sophisticated naming
+    thumb_path = path
+
     if img.format != 'JPEG' or img.size > (320, 320) or int(path.stat().st_size) > MAX_THUMB_BYTES:
+        thumb_path = thumb_path.with_suffix(f".{uuid4()}.jpg")
         img.thumbnail((320, 320))
         img.save(thumb_path)
         if thumb_path.stat().st_size > MAX_THUMB_BYTES:
             return None
             # TODO: downscale
-            # TODO: ensure logging
-    else:
-        thumb_path = path
+
     return InputFile(thumb_path)
 
 
@@ -159,8 +159,6 @@ class LootSender:
             business_connection_id=message.business_connection_id,
         )
 
-    # TODO: try to eliminate casting
-
     def get_thumbnail_params(
         self, paths_batch: PathsBatch, item_path: LocalPath
     ) -> dict[str, Any]:
@@ -170,6 +168,10 @@ class LootSender:
             thumb_path := paths_batch.thumbnails.get(item_path)
         ):
             params['thumbnail'] = process_thumbnail(thumb_path)
+            if params['thumbnail'] is None:
+                self.logger.error(
+                    "Thumbnail still too big", item_path=item_path, thumb_path=thumb_path
+                )
         return params
 
     def paths_batch_to_media_group(
