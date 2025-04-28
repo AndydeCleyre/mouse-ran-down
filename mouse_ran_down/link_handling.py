@@ -229,7 +229,7 @@ class LinkHandlers:
                         url=url,
                         media_format=media_format,
                     )
-                    if heights := heights[1:]:
+                    if (heights := heights[1:]) and media_type == 'video':
                         self.ytdlp_url_handler(
                             message, url, media_type=media_type, heights=heights
                         )
