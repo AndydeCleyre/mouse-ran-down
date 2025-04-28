@@ -277,10 +277,11 @@ class LinkHandlers:
 
             texts = []
             for json in tmp.walk(filter=lambda p: p.name == 'info.json'):
+                data = load(json)
                 for key in ('title', 'content', 'selftext'):
                     with suppress(KeyError):
-                        texts.append(load(json)[key])
-                (json.parent / 'info.txt').write('\n\n'.join(texts))
+                        texts.append(data[key])
+            (tmp / 'json_info.txt').write('\n\n'.join(texts))
 
             self.sender.send_potential_media_groups(message, tmp, context=url)
 
