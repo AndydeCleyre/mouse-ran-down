@@ -23,6 +23,7 @@ COPY () { buildah copy "$ctnr" "$@"; }
 # -- Distro Packages --
 RUN apk upgrade
 RUN apk add ffmpeg mailcap s6
+RUN apk add --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing atomicparsley
 
 # -- Copy App --
 tmp="$(mktemp -d)"

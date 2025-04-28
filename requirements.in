@@ -7,5 +7,4 @@ plumbum
 pyTelegramBotAPI
 stamina
 structlog
-yt-dlp[curl-cffi]
-  mutagen
+yt-dlp[default,curl-cffi]
