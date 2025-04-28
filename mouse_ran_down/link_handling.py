@@ -158,7 +158,7 @@ class LinkHandlers:
         media_format = (
             f'bestvideo[height<={heights[0]}][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<={heights[0]}]+bestaudio/best[height<={heights[0]}]'
             if media_type == 'video'
-            else 'bestaudio'
+            else 'bestaudio[ext=mp3]/bestaudio'
         )
 
         params = {
