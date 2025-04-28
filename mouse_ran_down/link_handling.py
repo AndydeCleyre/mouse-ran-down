@@ -139,175 +139,100 @@ class LinkHandlers:
         )
         return None
 
-    def choose_ytdlp_format(
-        self,
-        url: str,
-        max_height: int = 1080,
-        blocklist: list | None = None,
-        *,
-        ignore_cookies: bool = False,
-    ) -> str | None:
-        """Choose the best format for the video."""
-        template = 'bestvideo[height<={}]+bestaudio/best[height<={}]/mp3/m4a/bestaudio'
-        heights = [h for h in (1080, 720, 540, 480) if h <= max_height]
-        if not heights:
-            heights = [max_height]
-
-        with YoutubeDL(
-            params={} if (not self.cookies or ignore_cookies) else {'cookiefile': self.cookies}
-        ) as ydl:
-            info = ydl.extract_info(url, download=False)
-            if not info:
-                return None
-
-            for height in tuple(heights):
-                fmt = template.format(height, height)
-                if fmt in (blocklist or []):
-                    continue
-
-                selector = ydl.build_format_selector(fmt)
-                candidate_gen = selector(info)
-
-                while True:
-                    try:
-                        candidate = next(candidate_gen)
-                    except StopIteration:
-                        break
-                    except KeyError as e:
-                        self.logger.error(
-                            "Couldn't build format selector",
-                            url=url,
-                            fmt=fmt,
-                            exc_type=type(e),
-                            exc_str=str(e),
-                        )
-                        continue
-
-                    self.logger.info(
-                        "Checking candidate",
-                        target_height=height,
-                        format_id=candidate.get('format_id'),
-                    )
-                    estimated_bytes = self.ytdlp_estimate_bytes(
-                        candidate, duration=info.get('duration')
-                    )
-                    if not estimated_bytes:
-                        self.logger.error("Bad filesize data", url=url)
-                        continue
-
-                    self.logger.info(
-                        "Estimated size",
-                        url=url,
-                        estimated_bytes=estimated_bytes,
-                        estimated_megabytes=estimated_bytes / 10**6,
-                    )
-                    if estimated_bytes / 10**6 < self.max_megabytes:
-                        return fmt
-                    heights.remove(height)
-
-        if heights:
-            return template.format(heights[0], heights[0])
-        return None
-
     @stamina.retry(on=Exception)
     def ytdlp_url_handler(
         self,
         message: Message,
         url: str,
+        *,
         media_type: Literal['video', 'audio'] = 'video',
-        skip_formats: list | None = None,
+        heights: list | None = None,
+        ignore_cookies: bool = False,
     ):
         """Download media and upload to the chat."""
         self.sender.announce_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
 
         url = url.split('&', 1)[0]
 
-        ignore_cookies = False
-        try:
-            skip_download = not (
-                media_format := self.choose_ytdlp_format(url, blocklist=skip_formats)
-            )
-        except DownloadError:
-            if self.cookies:
-                skip_download = not (
-                    media_format := self.choose_ytdlp_format(
-                        url, ignore_cookies=True, blocklist=skip_formats
-                    )
-                )
-                ignore_cookies = True
-                self.logger.info(
-                    "This one doesn't work with our cookies, but does without them",
-                    url=url,
-                    downloader='yt-dlp',
-                )
-            else:
-                raise
+        heights = [1080, 720, 540, 480] if heights is None else heights
+        media_format = (
+            f'bestvideo[height<={heights[0]}][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<={heights[0]}]+bestaudio/best[height<={heights[0]}]'
+            if media_type == 'video'
+            else 'bestaudio'
+        )
 
-        if skip_formats and media_format in skip_formats:
-            self.logger.error(
-                "Final media format in skip list",
-                url=url,
-                media_format=media_format,
-                skip_formats=skip_formats,
-            )
-            return
+        params = {
+            'outtmpl': {'default': '%(id)s.%(ext)s'},
+            'writethumbnail': True,
+            'writedescription': True,
+            'writesubtitles': True,
+            'format': media_format,
+            'final_ext': 'mp4' if media_type == 'video' else 'mp3',
+            'max_filesize': self.max_megabytes * 10**6,
+            'impersonate': ImpersonateTarget(),
+            'noplaylist': True,
+            'playlist_items': '1:1',
+            'quiet': True,
+            'postprocessors': [
+                {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
+                {'already_have_subtitle': False, 'key': 'FFmpegEmbedSubtitle'},
+                {'already_have_thumbnail': True, 'key': 'EmbedThumbnail'},
+                {
+                    'add_chapters': True,
+                    'add_infojson': 'if_exists',
+                    'add_metadata': True,
+                    'key': 'FFmpegMetadata',
+                },
+                {'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}
+                if media_type == 'video'
+                else {
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'mp3',
+                    'preferredquality': '128',
+                },
+            ],
+        }
+
+        if media_type == 'video':
+            params['merge_output_format'] = 'mp4'
+
+        if self.cookies and not ignore_cookies:
+            params['cookiefile'] = self.cookies
 
         with local.tempdir() as tmp:
-            params = {
-                'paths': {'home': str(tmp)},
-                'outtmpl': {'default': '%(id)s.%(ext)s'},
-                'writethumbnail': True,
-                'writedescription': True,
-                'writesubtitles': True,
-                'format': media_format,
-                'format_sort': ['res', 'ext:mp4:m4a' if media_type == 'video' else 'ext:mp3:m4a'],
-                'final_ext': 'mp4' if media_type == 'video' else 'mp3',
-                'max_filesize': self.max_megabytes * 10**6,
-                'skip_download': skip_download,
-                'impersonate': ImpersonateTarget(),
-                'noplaylist': True,
-                'playlist_items': '1:1',
-                'quiet': True,
-                'postprocessors': [
-                    {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
-                    {'already_have_subtitle': False, 'key': 'FFmpegEmbedSubtitle'},
-                    {'already_have_thumbnail': True, 'key': 'EmbedThumbnail'},
-                    {
-                        'add_chapters': True,
-                        'add_infojson': 'if_exists',
-                        'add_metadata': True,
-                        'key': 'FFmpegMetadata',
-                    },
-                    {'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}
-                    if media_type == 'video'
-                    else {'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3'},
-                ],
-            }
-
-            if self.cookies and not ignore_cookies:
-                params['cookiefile'] = self.cookies
+            params['paths'] = {'home': str(tmp)}
 
             with YoutubeDL(params=params) as ydl:
                 self.logger.info(
                     "Downloading", media_type=media_type, url=url, downloader='yt-dlp'
                 )
-                # TODO: redirect stderr, capture, and log
-                # TODO: make wrapper func / deco for this:
-                # self.ydl_download = self.log_stderr(ydl.download)
-                ydl.download([url])
+                try:
+                    ydl.download([url])
+                except DownloadError as e:
+                    self.logger.error(
+                        "Failed to download", media_type=media_type, url=url, exc_info=e
+                    )
+                    if self.cookies and not ignore_cookies:
+                        self.logger.info("Trying without cookies", url=url)
+                        self.ytdlp_url_handler(
+                            message,
+                            url,
+                            media_type=media_type,
+                            heights=heights,
+                            ignore_cookies=True,
+                        )
+                    return
                 if tmp // '*.part':
                     self.logger.error(
-                        "Partially downloaded file(s) detected -- Bigger than expected?",
+                        "Partial file(s) detected -- Bigger than expected?",
                         files=tmp.list(),
                         url=url,
                         media_format=media_format,
                     )
-                    self.ytdlp_url_handler(
-                        message,
-                        url,
-                        media_type=media_type,
-                        skip_formats=[*(skip_formats or []), media_format],
-                    )
+                    if heights := heights[1:]:
+                        self.ytdlp_url_handler(
+                            message, url, media_type=media_type, heights=heights
+                        )
                     return
 
             self.sender.send_potential_media_groups(message, tmp, context=url)
