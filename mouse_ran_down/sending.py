@@ -8,6 +8,7 @@ from mimetypes import guess_file_type  # You'd better install mailcap!
 from typing import TYPE_CHECKING, Any, Literal, cast, get_args
 
 from PIL import Image
+from plumbum import LocalPath
 from telebot.formatting import mcite
 from telebot.types import (
     InputFile,
@@ -25,7 +26,6 @@ from .mrd_logging import StructLogger, get_logger
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-    from plumbum import LocalPath
     from telebot import TeleBot
 
 
@@ -35,6 +35,8 @@ LootType = Literal['video', 'audio', 'image', 'text']
 Action = Literal[
     'typing', 'record_video', 'record_voice', 'upload_voice', 'upload_video', 'upload_photo'
 ]
+
+GatheredLootPaths = dict[LootType, list[LocalPath]]
 
 LOOT_ACTION: dict[LootType, Action] = {
     'video': 'upload_video',
@@ -74,7 +76,7 @@ def process_thumbnail(path: LocalPath) -> InputFile | None:
     img = Image.open(path)
     thumb_path = path.with_suffix('.mouse-ran-down.jpg')
     # TODO: more sophisticated naming
-    if img.format != 'JPEG' or img.size > (320, 320) or int(path.stat().size) > MAX_THUMB_BYTES:
+    if img.format != 'JPEG' or img.size > (320, 320) or int(path.stat().st_size) > MAX_THUMB_BYTES:
         img.thumbnail((320, 320))
         img.save(thumb_path)
         if thumb_path.stat().st_size > MAX_THUMB_BYTES:
@@ -290,28 +292,24 @@ class LootSender:
             thumb_params = self.get_thumbnail_params(paths_batch, fp)
             self.send_path_item(message, path=fp, context=context, **capt_params, **thumb_params)
 
-    def batch_paths(
-        self, loot_folder: LocalPath, *, keep_thumbnail_images: bool = True
-    ) -> list[PathsBatch]:
-        """
-        Return a list of ``PathsBatch`` objects.
-
-        Batches are made according to the max media group size, compatible media grouping formats,
-        and thumbnail guessing by filename.
-        """
-        batches: list[PathsBatch] = []
-
-        all_paths: dict[LootType, list[LocalPath]] = {
-            'video': [],
-            'image': [],
-            'text': [],
-            'audio': [],
-        }
+    def gather_loot_item_paths(self, loot_folder: LocalPath) -> GatheredLootPaths:
+        """Return a dict of loot item paths grouped into lists by LootType."""
+        all_paths: GatheredLootPaths = {'video': [], 'image': [], 'text': [], 'audio': []}
         for file_path in loot_folder.walk(filter=lambda p: p.is_file()):
             filetype = self.get_filetype(file_path)
             if filetype in ('video', 'image', 'text', 'audio'):
                 all_paths[filetype].append(file_path)
+        return all_paths
 
+    def assign_thumbnails(
+        self, all_paths: GatheredLootPaths, *, keep_thumbnail_images: bool = True
+    ) -> tuple[GatheredLootPaths, dict[LocalPath, LocalPath]]:
+        """
+        Return a possibly modified GatheredLootPaths and dict of media paths to thumb paths.
+
+        If keep_thumbnail_images is False,
+        those paths will be removed from the returned GatheredLootPaths.
+        """
         thumbnails: dict[LocalPath, LocalPath] = {}
         for image_path in tuple(all_paths['image']):
             if not image_path.suffix:
@@ -336,6 +334,22 @@ class LootSender:
                     all_paths['image'].remove(image_path)
                 continue
 
+        return all_paths, thumbnails
+
+    def batch_paths(
+        self, loot_folder: LocalPath, *, keep_thumbnail_images: bool = True
+    ) -> list[PathsBatch]:
+        """
+        Return a list of ``PathsBatch`` objects.
+
+        Batches are made according to the max media group size, compatible media grouping formats,
+        and thumbnail guessing by filename.
+        """
+        all_paths, thumbnails = self.assign_thumbnails(
+            self.gather_loot_item_paths(loot_folder), keep_thumbnail_images=keep_thumbnail_images
+        )
+
+        batches: list[PathsBatch] = []
         batches.extend(
             PathsBatch(audio=list(batch))
             for batch in batched(all_paths['audio'], self.max_media_group_members, strict=False)
