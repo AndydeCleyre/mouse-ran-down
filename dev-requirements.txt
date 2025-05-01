@@ -59,4 +59,4 @@ typing-extensions==4.13.2  # via pydantic, pydantic-core, pyright, -r mouse_ran_
 urllib3==2.4.0            # via requests, -r mouse_ran_down/requirements.txt
 wcwidth==0.2.13           # via prompt-toolkit
 websockets==15.0.1        # via -r mouse_ran_down/requirements.txt
-yt-dlp==2025.3.31         # via -r mouse_ran_down/requirements.txt
+yt-dlp==2025.4.30         # via -r mouse_ran_down/requirements.txt
