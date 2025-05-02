@@ -10,8 +10,8 @@ This is a Telegram bot.
 
 When added to a group, any shared public
 X/Reddit/Instagram/TikTok/Bluesky/YouTube/Vimeo/SoundCloud/Bandcamp
-posts with media will bring the media
-directly into the chat, along with a preview image.
+posts with media will be replied to with the media
+uploaded directly into the chat, along with a preview image.
 
 You can also send links as direct (or forwarded) messages to the bot.
 
@@ -47,6 +47,21 @@ You can get the cookie content in the right format with `yt-dlp`'s
 `--cookies` and `--cookies-from-browser` options,
 or a browser extension like [cookies.txt](https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/)
 (I can't vouch for the security of this or any extension).
+
+## Installing directly
+
+You can use `pip`/`pipx`/`uv`/`zpy` etc. to install the package from PyPI, e.g.:
+
+```console
+$ uv tool install mouse-ran-down
+```
+
+To run it effectively you'll need to install `ffmpeg` and `mailcap`,
+and you might benefit from installing `atomicparsley`.
+
+Run `mouse-ran-down --help` for usage.
+
+You may prefer to just use the container image from my registry (see below).
 
 ## Build the container image
 
