@@ -4,13 +4,10 @@ asttokens==3.0.0          # via stack-data
 brotli==1.1.0             # via -r mouse_ran_down/requirements.txt
 certifi==2025.4.26        # via curl-cffi, requests, -r mouse_ran_down/requirements.txt
 cffi==1.17.1              # via curl-cffi, -r mouse_ran_down/requirements.txt
-charset-normalizer==3.4.1  # via requests, -r mouse_ran_down/requirements.txt
+charset-normalizer==3.4.2  # via requests, -r mouse_ran_down/requirements.txt
 curl-cffi==0.10.0         # via -r mouse_ran_down/requirements.txt
 decorator==5.2.1          # via ipython
-docutils==0.21.2          # via flit
 executing==2.2.0          # via stack-data
-flit==3.12.0              # via -r dev-requirements.in
-flit-core==3.12.0         # via flit
 gallery-dl==1.29.5        # via -r mouse_ran_down/requirements.txt
 idna==3.10                # via requests, -r mouse_ran_down/requirements.txt
 inform==1.33              # via nestedtext, -r mouse_ran_down/requirements.txt
@@ -29,7 +26,6 @@ parso==0.8.4              # via jedi
 pathspec==0.12.1          # via ssort
 pexpect==4.9.0            # via ipython
 pillow==11.2.1            # via -r mouse_ran_down/requirements.txt
-pip==25.1                 # via flit
 plumbum==1.9.0            # via -r mouse_ran_down/requirements.txt
 prompt-toolkit==3.0.51    # via ipython
 ptyprocess==0.7.0         # via pexpect
@@ -43,7 +39,7 @@ pyright==1.1.400          # via -r dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -r mouse_ran_down/requirements.txt
 pytelegrambotapi==4.26.0  # via -r mouse_ran_down/requirements.txt
 python-dateutil==2.9.0.post0  # via arrow, -r mouse_ran_down/requirements.txt
-requests==2.32.3          # via flit, gallery-dl, instagrapi, instaloader, pytelegrambotapi, -r mouse_ran_down/requirements.txt
+requests==2.32.3          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, -r mouse_ran_down/requirements.txt
 rich==14.0.0              # via -r dev-requirements.in
 ruff==0.11.8              # via -r dev-requirements.in
 six==1.17.0               # via inform, python-dateutil, -r mouse_ran_down/requirements.txt
@@ -52,7 +48,6 @@ stack-data==0.6.3         # via ipython
 stamina==25.1.0           # via -r mouse_ran_down/requirements.txt
 structlog==25.3.0         # via -r mouse_ran_down/requirements.txt
 tenacity==9.1.2           # via stamina, -r mouse_ran_down/requirements.txt
-tomli-w==1.2.0            # via flit
 traitlets==5.14.3         # via ipython, matplotlib-inline
 types-python-dateutil==2.9.0.20241206  # via arrow, -r mouse_ran_down/requirements.txt
 typing-extensions==4.13.2  # via pydantic, pydantic-core, pyright, -r mouse_ran_down/requirements.txt
