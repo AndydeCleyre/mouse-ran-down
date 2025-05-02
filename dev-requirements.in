@@ -1,5 +1,4 @@
 -r mouse_ran_down/requirements.txt
-flit
 ipython
 pyright
 rich
