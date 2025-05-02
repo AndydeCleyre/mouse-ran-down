@@ -1,2 +1,3 @@
 /credentials.*nt
 !/credentials.example.nt
+/local-requirements.txt
