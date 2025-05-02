@@ -254,8 +254,6 @@ class LinkHandlers:
                 tmp,
                 '--write-info-json',
                 '--option',
-                'extractor.twitter.tweet-endpoint=restid',  # https://github.com/mikf/gallery-dl/issues/7382
-                '--option',
                 'extractor.twitter.text-tweets=true',
                 '--option',
                 'extractor.twitter.quoted=true',  # This may not work
