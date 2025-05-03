@@ -4,7 +4,7 @@ asttokens==3.0.0          # via stack-data
 brotli==1.1.0             # via -r mouse_ran_down/requirements.txt
 certifi==2025.4.26        # via curl-cffi, requests, -r mouse_ran_down/requirements.txt
 cffi==1.17.1              # via curl-cffi, -r mouse_ran_down/requirements.txt
-charset-normalizer==3.4.1  # via requests, -r mouse_ran_down/requirements.txt
+charset-normalizer==3.4.2  # via requests, -r mouse_ran_down/requirements.txt
 curl-cffi==0.10.0         # via -r mouse_ran_down/requirements.txt
 decorator==5.2.1          # via ipython
 docutils==0.21.2          # via flit
@@ -29,7 +29,7 @@ parso==0.8.4              # via jedi
 pathspec==0.12.1          # via ssort
 pexpect==4.9.0            # via ipython
 pillow==11.2.1            # via -r mouse_ran_down/requirements.txt
-pip==25.1                 # via flit
+pip==25.1.1               # via flit
 plumbum==1.9.0            # via -r mouse_ran_down/requirements.txt
 prompt-toolkit==3.0.51    # via ipython
 ptyprocess==0.7.0         # via pexpect
