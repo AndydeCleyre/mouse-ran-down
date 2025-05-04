@@ -37,7 +37,7 @@ pydantic-core==2.27.1     # via pydantic, -r mouse_ran_down/requirements.txt
 pygments==2.19.1          # via ipython, ipython-pygments-lexers, rich
 pyright==1.1.400          # via -r dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -r mouse_ran_down/requirements.txt
-pytelegrambotapi==4.26.0  # via -r mouse_ran_down/requirements.txt
+pytelegrambotapi==4.27.0  # via -r mouse_ran_down/requirements.txt
 python-dateutil==2.9.0.post0  # via arrow, -r mouse_ran_down/requirements.txt
 requests==2.32.3          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, -r mouse_ran_down/requirements.txt
 rich==14.0.0              # via -r dev-requirements.in

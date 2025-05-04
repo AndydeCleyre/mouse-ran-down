@@ -19,7 +19,7 @@ pycryptodomex==3.21.0     # via instagrapi, yt-dlp
 pydantic==2.10.1          # via instagrapi
 pydantic-core==2.27.1     # via pydantic
 pysocks==1.7.1            # via instagrapi
-pytelegrambotapi==4.26.0  # via -r requirements.in
+pytelegrambotapi==4.27.0  # via -r requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.32.3          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
 six==1.17.0               # via inform, python-dateutil
