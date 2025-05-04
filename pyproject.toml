@@ -38,6 +38,7 @@ mouse-ran-down = "mouse_ran_down.main:MouseRanDown"
 [tool.ruff]
 line-length = 99
 target-version = "py313"
+exclude = [".zpy"]
 
 [tool.ruff.format]
 quote-style = "preserve"
