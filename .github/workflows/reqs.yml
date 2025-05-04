@@ -12,6 +12,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           ref: develop
+          submodules: true
 
       - uses: jdx/mise-action@v2
 
