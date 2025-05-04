@@ -124,20 +124,6 @@ class LinkHandlers:
                     self.logger.error("Crashed", exc_info=e)
                     raise
 
-    def ytdlp_estimate_bytes(
-        self, format_candidate: dict, duration: int | None = None
-    ) -> int | None:
-        """Estimate the size of a video format candidate."""
-        if size := format_candidate.get('filesize') or format_candidate.get('filesize_approx'):
-            return size
-        if (tbr := format_candidate.get('tbr')) and duration:
-            return int(duration * tbr * (1000 / 8))
-        self.logger.error(
-            "Failed to estimate filesize",
-            format_keys=list(format_candidate.keys()),
-            info_duration=duration,
-        )
-        return None
 
     @stamina.retry(on=Exception)
     def ytdlp_url_handler(
