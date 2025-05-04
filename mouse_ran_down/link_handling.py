@@ -124,7 +124,6 @@ class LinkHandlers:
                     self.logger.error("Crashed", exc_info=e)
                     raise
 
-
     @stamina.retry(on=Exception)
     def ytdlp_url_handler(
         self,
@@ -190,7 +189,11 @@ class LinkHandlers:
 
             with YoutubeDL(params=params) as ydl:
                 self.logger.info(
-                    "Downloading", media_type=media_type, url=url, downloader='yt-dlp'
+                    "Downloading",
+                    media_type=media_type,
+                    url=url,
+                    downloader='yt-dlp',
+                    format=media_format,
                 )
                 try:
                     ydl.download([url])
