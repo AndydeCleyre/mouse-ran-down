@@ -124,21 +124,6 @@ class LinkHandlers:
                     self.logger.error("Crashed", exc_info=e)
                     raise
 
-    def ytdlp_estimate_bytes(
-        self, format_candidate: dict, duration: int | None = None
-    ) -> int | None:
-        """Estimate the size of a video format candidate."""
-        if size := format_candidate.get('filesize') or format_candidate.get('filesize_approx'):
-            return size
-        if (tbr := format_candidate.get('tbr')) and duration:
-            return int(duration * tbr * (1000 / 8))
-        self.logger.error(
-            "Failed to estimate filesize",
-            format_keys=list(format_candidate.keys()),
-            info_duration=duration,
-        )
-        return None
-
     @stamina.retry(on=Exception)
     def ytdlp_url_handler(
         self,
@@ -148,6 +133,7 @@ class LinkHandlers:
         media_type: Literal['video', 'audio'] = 'video',
         heights: list | None = None,
         ignore_cookies: bool = False,
+        embed_thumbnail: bool = True,
     ):
         """Download media and upload to the chat."""
         self.sender.announce_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
@@ -176,7 +162,6 @@ class LinkHandlers:
             'postprocessors': [
                 {'format': 'png', 'key': 'FFmpegThumbnailsConvertor', 'when': 'before_dl'},
                 {'already_have_subtitle': False, 'key': 'FFmpegEmbedSubtitle'},
-                {'already_have_thumbnail': True, 'key': 'EmbedThumbnail'},
                 {
                     'add_chapters': True,
                     'add_infojson': 'if_exists',
@@ -193,6 +178,11 @@ class LinkHandlers:
             ],
         }
 
+        if embed_thumbnail:
+            params['postprocessors'].append(
+                {'already_have_thumbnail': True, 'key': 'EmbedThumbnail'}
+            )
+
         if media_type == 'video':
             params['merge_output_format'] = 'mp4'
 
@@ -204,7 +194,11 @@ class LinkHandlers:
 
             with YoutubeDL(params=params) as ydl:
                 self.logger.info(
-                    "Downloading", media_type=media_type, url=url, downloader='yt-dlp'
+                    "Downloading",
+                    media_type=media_type,
+                    url=url,
+                    downloader='yt-dlp',
+                    format=media_format,
                 )
                 try:
                     ydl.download([url])
@@ -212,17 +206,36 @@ class LinkHandlers:
                     self.logger.error(
                         "Failed to download", media_type=media_type, url=url, exc_info=e
                     )
-                    if self.cookies and not ignore_cookies:
-                        self.logger.info("Trying without cookies", url=url)
+
+                    try_without_thumb = True
+                    try:
+                        if self.cookies and not ignore_cookies:
+                            self.logger.info("Trying without cookies", url=url)
+                            self.ytdlp_url_handler(
+                                message,
+                                url,
+                                media_type=media_type,
+                                heights=heights,
+                                ignore_cookies=True,
+                            )
+                    except DownloadError:
+                        pass
+                    else:
+                        try_without_thumb = False
+
+                    if try_without_thumb:
+                        self.logger.info("Trying without embedding thumbnail", url=url)
                         self.ytdlp_url_handler(
                             message,
                             url,
                             media_type=media_type,
                             heights=heights,
-                            ignore_cookies=True,
+                            ignore_cookies=ignore_cookies,
+                            embed_thumbnail=False,
                         )
+
                     return
-                if tmp // '*.part':
+                if (tmp // '*.part') or (media_type == 'video' and not (tmp // '*.mp4')):
                     self.logger.error(
                         "Partial file(s) detected -- Bigger than expected?",
                         files=tmp.list(),
@@ -231,7 +244,12 @@ class LinkHandlers:
                     )
                     if (heights := heights[1:]) and media_type == 'video':
                         self.ytdlp_url_handler(
-                            message, url, media_type=media_type, heights=heights
+                            message,
+                            url,
+                            media_type=media_type,
+                            heights=heights,
+                            ignore_cookies=ignore_cookies,
+                            embed_thumbnail=embed_thumbnail,
                         )
                     return
 
