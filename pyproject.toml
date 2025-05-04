@@ -10,7 +10,7 @@ dynamic = ["version", "description"]
 license = {file = "LICENSE"}
 urls = {Home = "https://github.com/AndydeCleyre/mouse-ran-down"}
 requires-python = ">=3.13"
-dependencies = ["  pillow", "gallery-dl", "instagrapi", "instaloader", "nestedtext", "plumbum", "pyTelegramBotAPI", "stamina", "structlog", "yt-dlp[default,curl-cffi]"]
+dependencies = ["gallery-dl>1.29.5", "instagrapi", "instaloader", "nestedtext", "pillow", "plumbum", "pyTelegramBotAPI", "stamina", "structlog", "yt-dlp[default,curl-cffi]"]
 keywords= [
   "Bandcamp",
   "Bluesky",
