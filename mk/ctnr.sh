@@ -33,7 +33,7 @@ rm -r "$tmp"
 
 # -- Python Packages --
 RUN uv venv "${appdir}/.venv"
-RUN uv pip install --python "${appdir}/.venv/bin/python" "$appdir"
+RUN uv pip install --python "${appdir}/.venv/bin/python" --constraints "${appdir}/mouse_ran_down/requirements.txt" "$appdir"
 
 # -- App Services --
 RUN mkdir -p "${appdir}/svcs/app/log" "${appdir}/logs/app" "${appdir}/svcs/logtailer"

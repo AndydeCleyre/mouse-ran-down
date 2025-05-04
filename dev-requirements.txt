@@ -8,7 +8,7 @@ charset-normalizer==3.4.2  # via requests, -r mouse_ran_down/requirements.txt
 curl-cffi==0.10.0         # via -r mouse_ran_down/requirements.txt
 decorator==5.2.1          # via ipython
 executing==2.2.0          # via stack-data
-gallery-dl==1.29.5        # via -r mouse_ran_down/requirements.txt
+gallery-dl==1.29.6        # via -r mouse_ran_down/requirements.txt
 idna==3.10                # via requests, -r mouse_ran_down/requirements.txt
 inform==1.33              # via nestedtext, -r mouse_ran_down/requirements.txt
 instagrapi==2.1.3         # via -r mouse_ran_down/requirements.txt

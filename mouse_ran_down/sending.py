@@ -80,6 +80,8 @@ def process_thumbnail(path: LocalPath) -> InputFile | None:
     if img.format != 'JPEG' or img.size > (320, 320) or int(path.stat().st_size) > MAX_THUMB_BYTES:
         thumb_path = thumb_path.with_suffix(f".{uuid4()}.jpg")
         img.thumbnail((320, 320))
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
         img.save(thumb_path)
         if thumb_path.stat().st_size > MAX_THUMB_BYTES:
             return None
