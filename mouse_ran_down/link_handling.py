@@ -7,7 +7,7 @@ from contextlib import suppress
 from http.cookiejar import MozillaCookieJar
 from json import load
 from mimetypes import guess_file_type  # You'd better install mailcap!
-from typing import TYPE_CHECKING, Literal, cast
+from typing import TYPE_CHECKING, Any, Literal, cast
 
 import instaloader
 import stamina
@@ -124,29 +124,65 @@ class LinkHandlers:
                     self.logger.error("Crashed", exc_info=e)
                     raise
 
-    @stamina.retry(on=Exception)
-    def ytdlp_url_handler(
+    def ytdlp_url_handler_modify_and_retry(
         self,
         message: Message,
         url: str,
         *,
-        media_type: Literal['video', 'audio'] = 'video',
-        heights: list | None = None,
-        ignore_cookies: bool = False,
-        embed_thumbnail: bool = True,
+        media_type: Literal['video', 'audio'],
+        heights: list | None,
+        ignore_cookies: bool,
+        embed_thumbnail: bool,
     ):
-        """Download media and upload to the chat."""
-        self.sender.announce_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
+        """
+        Desperately try some variant settings to download media after a failure.
 
-        url = url.split('&', 1)[0]
+        The passed args represent the *originally used* settings,
+        some of which will be changed in these subsequent attempts.
+        """
+        try_without_cookies = self.cookies and not ignore_cookies
+        try_without_thumb = embed_thumbnail
 
-        heights = [1080, 720, 540, 480] if heights is None else heights
-        media_format = (
-            f'bestvideo[height<={heights[0]}][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<={heights[0]}]+bestaudio/best[height<={heights[0]}]'
-            if media_type == 'video'
-            else 'bestaudio[ext=mp3]/bestaudio'
-        )
+        if try_without_cookies:
+            self.logger.info("Trying without cookies", url=url)
+            try:
+                self.ytdlp_url_handler(
+                    message,
+                    url,
+                    media_type=media_type,
+                    heights=heights,
+                    ignore_cookies=True,
+                    embed_thumbnail=embed_thumbnail,
+                    already_desperate=True,
+                )
+            except DownloadError:
+                if not try_without_thumb:
+                    raise
+            else:
+                try_without_thumb = False
 
+        if try_without_thumb:
+            self.logger.info("Trying without embedding thumbnail", url=url)
+            self.ytdlp_url_handler(
+                message,
+                url,
+                media_type=media_type,
+                heights=heights,
+                ignore_cookies=ignore_cookies,
+                embed_thumbnail=False,
+                already_desperate=True,
+            )
+
+    def get_ytdlp_params(
+        self,
+        *,
+        media_format: str,
+        media_type: Literal['video', 'audio'],
+        embed_thumbnail: bool,
+        ignore_cookies: bool,
+        folder: str,
+    ) -> dict[str, Any]:
+        """Get the parameters for ytdlp."""
         params = {
             'outtmpl': {'default': '%(id)s.%(ext)s'},
             'writethumbnail': True,
@@ -189,8 +225,41 @@ class LinkHandlers:
         if self.cookies and not ignore_cookies:
             params['cookiefile'] = self.cookies
 
+        params['paths'] = {'home': folder}
+
+        return params
+
+    def ytdlp_url_handler(  # noqa: PLR0913
+        self,
+        message: Message,
+        url: str,
+        *,
+        media_type: Literal['video', 'audio'] = 'video',
+        heights: list | None = None,
+        ignore_cookies: bool = False,
+        embed_thumbnail: bool = True,
+        already_desperate: bool = False,
+    ):
+        """Download media and upload to the chat."""
+        self.sender.announce_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
+
+        url = url.split('&', 1)[0]
+
+        heights = [1080, 720, 540, 480] if heights is None else heights
+        media_format = (
+            f'bestvideo[height<={heights[0]}][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<={heights[0]}]+bestaudio/best[height<={heights[0]}]'
+            if media_type == 'video'
+            else 'bestaudio[ext=mp3]/bestaudio'
+        )
+
         with local.tempdir() as tmp:
-            params['paths'] = {'home': str(tmp)}
+            params = self.get_ytdlp_params(
+                media_format=media_format,
+                media_type=media_type,
+                embed_thumbnail=embed_thumbnail,
+                ignore_cookies=ignore_cookies,
+                folder=str(tmp),
+            )
 
             with YoutubeDL(params=params) as ydl:
                 self.logger.info(
@@ -206,34 +275,15 @@ class LinkHandlers:
                     self.logger.error(
                         "Failed to download", media_type=media_type, url=url, exc_info=e
                     )
-
-                    try_without_thumb = True
-                    try:
-                        if self.cookies and not ignore_cookies:
-                            self.logger.info("Trying without cookies", url=url)
-                            self.ytdlp_url_handler(
-                                message,
-                                url,
-                                media_type=media_type,
-                                heights=heights,
-                                ignore_cookies=True,
-                            )
-                    except DownloadError:
-                        pass
-                    else:
-                        try_without_thumb = False
-
-                    if try_without_thumb:
-                        self.logger.info("Trying without embedding thumbnail", url=url)
-                        self.ytdlp_url_handler(
-                            message,
-                            url,
+                    if not already_desperate:
+                        self.ytdlp_url_handler_modify_and_retry(
+                            message=message,
+                            url=url,
                             media_type=media_type,
                             heights=heights,
                             ignore_cookies=ignore_cookies,
-                            embed_thumbnail=False,
+                            embed_thumbnail=embed_thumbnail,
                         )
-
                     return
                 if (tmp // '*.part') or (media_type == 'video' and not (tmp // '*.mp4')):
                     self.logger.error(
@@ -250,6 +300,7 @@ class LinkHandlers:
                             heights=heights,
                             ignore_cookies=ignore_cookies,
                             embed_thumbnail=embed_thumbnail,
+                            already_desperate=already_desperate,
                         )
                     return
 
