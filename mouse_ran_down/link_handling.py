@@ -332,6 +332,12 @@ class LinkHandlers:
                 'extractor.twitter.quoted=true',  # This may not work
                 '--option',
                 'extractor.twitter.retweets=true',  # This may not work
+                '--option',
+                'extractor.twitter.twitpic=true',
+                '--option',
+                'extractor.bluesky.quoted=true',
+                '--option',
+                'extractor.bluesky.reposts=true',
                 '--quiet',
             ]
             if self.cookies:
@@ -349,7 +355,7 @@ class LinkHandlers:
             texts = []
             for json in tmp.walk(filter=lambda p: p.name == 'info.json'):
                 data = load(json)
-                for key in ('title', 'content', 'selftext'):
+                for key in ('title', 'content', 'selftext', 'text'):
                     with suppress(KeyError):
                         texts.append(data[key])
             (tmp / 'json_info.txt').write('\n\n'.join(texts))
