@@ -302,6 +302,11 @@ class LootSender:
         for file_path in loot_folder.walk(filter=lambda p: p.is_file()):
             filetype = self.get_filetype(file_path)
             if filetype in ('video', 'image', 'text', 'audio'):
+                if filetype == 'image':
+                    img = Image.open(file_path)
+                    if img.getbbox() is None:
+                        self.logger.info("Skipping black image", path=file_path)
+                        continue
                 all_paths[filetype].append(file_path)
         return all_paths
 
