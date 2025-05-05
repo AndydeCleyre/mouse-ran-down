@@ -119,10 +119,14 @@ class LinkHandlers:
             log.info("Chose URL handler", handler=handler.__name__ if handler else None)
             if handler:
                 try:
+                    self.sender.react(message, '🫡')
                     handler(message, url)
                 except Exception as e:
                     self.logger.error("Crashed", exc_info=e)
+                    self.sender.react(message, '😢')
                     raise
+                else:
+                    self.sender.react(message, '😎')
 
     def ytdlp_url_handler_modify_and_retry(
         self,
@@ -284,7 +288,8 @@ class LinkHandlers:
                             ignore_cookies=ignore_cookies,
                             embed_thumbnail=embed_thumbnail,
                         )
-                    return
+                        return
+                    raise
                 if (tmp // '*.part') or (media_type == 'video' and not (tmp // '*.mp4')):
                     self.logger.error(
                         "Partial file(s) detected -- Bigger than expected?",
@@ -310,7 +315,6 @@ class LinkHandlers:
         """Download audio files and upload them to the chat."""
         self.ytdlp_url_handler(message, url, media_type='audio')
 
-    @stamina.retry(on=Exception)
     def gallerydl_url_handler(self, message: Message, url: str):
         """Download whatever we can and upload it to the chat."""
         self.sender.announce_action(message=message, action='typing')
@@ -340,7 +344,7 @@ class LinkHandlers:
                 self.logger.error(
                     "Failed to download", exc_info=e, url=url, downloader='gallery-dl'
                 )
-                return
+                raise
 
             texts = []
             for json in tmp.walk(filter=lambda p: p.name == 'info.json'):

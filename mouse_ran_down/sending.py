@@ -18,6 +18,7 @@ from telebot.types import (
     InputMediaVideo,
     LinkPreviewOptions,
     Message,
+    ReactionTypeEmoji,
     ReplyParameters,
 )
 from telebot.util import smart_split
@@ -115,6 +116,15 @@ class LootSender:
             'image': self.bot.send_photo,
             'text': self.bot.send_message,
         }
+
+    def react(self, message: Message, emoji: str):
+        """React to a message with an emoji."""
+        self.bot.set_message_reaction(
+            chat_id=message.chat.id,
+            message_id=message.id,
+            reaction=[ReactionTypeEmoji(emoji)],
+            is_big=True,
+        )
 
     def send_reply_text(self, message: Message, text: str, **params: Any):
         """Send text message as a reply, with link previews disabled by default."""
