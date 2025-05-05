@@ -36,6 +36,7 @@ def get_logger(*, json: bool = True) -> StructLogger:
         stringify_localpaths,
         structlog.processors.add_log_level,
         structlog.processors.TimeStamper(fmt='iso'),
+        structlog.processors.EventRenamer('@event'),
     ]
     if json:
         processors.append(structlog.processors.JSONRenderer(sort_keys=True))
