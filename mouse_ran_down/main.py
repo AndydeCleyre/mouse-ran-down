@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, cast
 
 from instagrapi import Client as InstaClient
 from nestedtext import load as nt_load
-from plumbum.cli import Application, ExistingFile, Range, SwitchAttr
+from plumbum.cli import Application, ExistingFile, Flag, Range, SwitchAttr
 from telebot import TeleBot
 
 from . import __version__
@@ -80,17 +80,21 @@ class MouseRanDown(Application):
 
     VERSION = __version__
 
-    timeout = SwitchAttr(
-        ['-t', '--timeout'],
-        Range(5, 300),  # pyright: ignore [reportArgumentType]
-        default=120,
-        argname='TIMEOUT',
-        help="Network timeout, in seconds",
+    timeout = cast(
+        int,
+        SwitchAttr(
+            ['t', 'timeout'],
+            Range(5, 300),  # pyright: ignore [reportArgumentType]
+            default=120,
+            argname='TIMEOUT',
+            help="Network timeout, in seconds",
+        ),
     )
+    json = cast(bool, Flag(['j', 'json'], help="Enable JSON output"))
 
     def main(self, CREDENTIALSFILE: ExistingFile):  # noqa: N803  # pyright: ignore [reportGeneralTypeIssues, reportIncompatibleMethodOverride]
         """Start the bot with the given credentials."""
-        logger = get_logger(json=False)
+        logger = get_logger(json=self.json)
         config = load_config(CREDENTIALSFILE, logger)
 
         cookies = get_cookies_path(config.get('COOKIES'), logger)
@@ -98,7 +102,7 @@ class MouseRanDown(Application):
         bot = TeleBot(config['TOKEN'])
         logger.info("Initialized bot")
 
-        loot_sender = LootSender(bot=bot, logger=logger, timeout=self.timeout)  # pyright: ignore [reportArgumentType]
+        loot_sender = LootSender(bot=bot, logger=logger, timeout=self.timeout)
         link_handlers = LinkHandlers(
             sender=loot_sender, logger=logger, insta=insta, cookies=cookies
         )
@@ -109,7 +113,7 @@ class MouseRanDown(Application):
             """Download from any URLs that we handle and upload content to the chat."""
             link_handlers.media_link_handler(message)
 
-        bot.infinity_polling(timeout=self.timeout, long_polling_timeout=self.timeout)  # pyright: ignore [reportArgumentType]
+        bot.infinity_polling(timeout=self.timeout, long_polling_timeout=self.timeout)
 
 
 MouseRanDown.unbind_switches('help-all')

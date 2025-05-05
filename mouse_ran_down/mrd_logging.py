@@ -39,8 +39,6 @@ def get_logger(*, json: bool = True) -> StructLogger:
     ]
     if json:
         processors.append(structlog.processors.JSONRenderer(sort_keys=True))
-        processors.insert(0, structlog.processors.dict_tracebacks)
     else:
-        # format_exc_info ?
         processors.append(structlog.dev.ConsoleRenderer(pad_event=24, pad_level=False))
     return structlog.get_logger(processors=processors)
