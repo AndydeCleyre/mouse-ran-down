@@ -94,6 +94,7 @@ class LinkHandlers:
             ),
             'soundcloud': r'https://soundcloud\.com/[^/]+/[^/]+',
             'bandcamp': r'https://[^\.]+\.bandcamp\.com/track/.*',
+            'mastodon': r'https://mastodon\.social/@[^/]+/\d+',
         }
 
     def bot_mentioned(self, message: Message) -> bool:
@@ -510,7 +511,7 @@ class LinkHandlers:
             return self.insta_url_handler
         if self.matches_any(url, 'tiktok', 'vreddit', 'youtube', 'vimeo'):
             return self.ytdlp_url_handler
-        if self.matches_any(url, 'x', 'reddit', 'bluesky'):
+        if self.matches_any(url, 'x', 'reddit', 'bluesky', 'mastodon'):
             return self.get_forced_url_handler(url)
         if self.matches_any(url, 'soundcloud', 'bandcamp'):
             return self.ytdlp_url_handler_audio
