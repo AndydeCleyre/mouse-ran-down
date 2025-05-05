@@ -117,11 +117,12 @@ class LinkHandlers:
             log = self.logger.bind(url=url)
             handler = self.get_url_handler(url)
             if not handler and mentioned:
+                self.sender.react(message, '🫡')
                 handler = self.get_forced_url_handler(url)
             log.info("Chose URL handler", handler=handler.__name__ if handler else None)
             if handler:
+                self.sender.react(message, '🫡')
                 try:
-                    self.sender.react(message, '🫡')
                     handler(message, url)
                 except Exception as e:
                     self.logger.error("Crashed", exc_info=e)
