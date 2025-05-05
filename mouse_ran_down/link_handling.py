@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING, Any, Literal, cast
 
 import instaloader
 import stamina
+from html2text import html2text
 from instaloader.exceptions import BadResponseException, ConnectionException
 from plumbum import ProcessExecutionError, local
 from plumbum.cmd import gallery_dl
@@ -355,9 +356,15 @@ class LinkHandlers:
             texts = []
             for json in tmp.walk(filter=lambda p: p.name == 'info.json'):
                 data = load(json)
-                for key in ('title', 'content', 'selftext', 'text'):
+                for key in ('title', 'selftext', 'text'):
                     with suppress(KeyError):
                         texts.append(data[key])
+                for key in ('content',):
+                    with suppress(KeyError):
+                        self.logger.debug(
+                            "Key: content -- is it HTML?", content=data[key], url=url
+                        )
+                        texts.append(html2text(data[key]))
             (tmp / 'json_info.txt').write('\n\n'.join(texts))
 
             self.sender.send_potential_media_groups(message, tmp, context=url)
