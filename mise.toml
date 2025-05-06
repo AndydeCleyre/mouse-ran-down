@@ -19,7 +19,7 @@ run = [
 
 [tasks.install]
 depends = ["ensure-uv"]
-run = "uv pip install -p python -r dev-requirements.txt"
+run = "uv pip install -p python -e '.[dev]' -c dev-requirements.txt"
 
 [tasks.fmt]
 depends = ["install"]
