@@ -30,7 +30,7 @@ def stringify_localpaths(
     return {k: (str(v) if isinstance(v, LocalPath) else v) for k, v in event_dict.items()}
 
 
-def get_logger(*, json: bool = True) -> StructLogger:
+def get_logger(*, json: bool = True, sentry: bool = False) -> StructLogger:
     """Get a configured structlog BindableLogger."""
     processors = [
         stringify_localpaths,
@@ -38,6 +38,15 @@ def get_logger(*, json: bool = True) -> StructLogger:
         structlog.processors.TimeStamper(fmt='iso'),
         structlog.processors.EventRenamer('@event'),
     ]
+    if sentry:
+        try:
+            from structlog_sentry import SentryProcessor
+        except ImportError:
+            print('ERROR: Sentry logging requires structlog_sentry and sentry-sdk.')
+            print("ERROR: Did you install the 'sentry' extras?")
+            print("Try: pip install 'mouse-ran-down[sentry]'")
+        else:
+            processors.append(SentryProcessor())
     if json:
         processors.append(structlog.processors.JSONRenderer(sort_keys=True))
     else:

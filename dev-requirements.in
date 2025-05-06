@@ -1,4 +1,5 @@
--r mouse_ran_down/requirements.txt
+-r sentry-requirements.in
+-c mouse_ran_down/requirements.txt
 ipython
 pyright
 rich

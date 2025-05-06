@@ -13,7 +13,7 @@ hide = true
 depends = ["ensure-uv"]
 run = [
   "zsh -c '. ./.zpy/zpy.plugin.zsh; pypc -y'",
-  "uv pip compile --python python -o mouse_ran_down/requirements.txt --no-header --annotation-style=line -U requirements.in",
+  "uv pip compile --python python -o mouse_ran_down/requirements.txt --no-header --annotation-style=line -U requirements.in sentry-requirements.in",
   "uv pip compile --python python -o dev-requirements.txt --no-header --annotation-style=line -U dev-requirements.in"
 ]
 

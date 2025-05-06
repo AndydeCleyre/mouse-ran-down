@@ -310,6 +310,8 @@ class LinkHandlers:
                             embed_thumbnail=embed_thumbnail,
                             already_desperate=already_desperate,
                         )
+                    else:
+                        raise DownloadError(f"Exhausted all resolutions for URL: {url}")
                     return
 
             self.sender.send_potential_media_groups(message, tmp, context=url)
@@ -367,6 +369,7 @@ class LinkHandlers:
                             "Key: content -- is it HTML?", content=data[key], url=url
                         )
                         texts.append(html2text(data[key]))
+                # TODO: recurse when data['embed']['$type'] == 'app.bsky.embed.record'
             (tmp / 'json_info.txt').write('\n\n'.join(texts))
 
             self.sender.send_potential_media_groups(message, tmp, context=url)
