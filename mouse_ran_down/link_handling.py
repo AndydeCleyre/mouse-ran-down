@@ -252,7 +252,7 @@ class LinkHandlers:
 
         url = url.split('&', 1)[0]
 
-        heights = [1080, 720, 540, 480] if heights is None else heights
+        heights = [1080, 720, 540, 480, 360, 240, 144] if heights is None else heights
         media_format = (
             f'bestvideo[height<={heights[0]}][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<={heights[0]}]+bestaudio/best[height<={heights[0]}]'
             if media_type == 'video'

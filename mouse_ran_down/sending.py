@@ -217,7 +217,7 @@ class LootSender:
 
         filetype, _ = guess_file_type(path, strict=False)
 
-        if not filetype and path.endswith('.description'):
+        if not filetype and path.endswith(('.description', '.message')):
             filetype = 'text'
 
         if isinstance(filetype, str):
