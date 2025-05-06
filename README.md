@@ -54,6 +54,7 @@ You can use `pip`/`pipx`/`uv`/`zpy` etc. to install the package from PyPI, e.g.:
 
 ```console
 $ uv tool install mouse-ran-down
+$ uv tool install 'mouse-ran-down[sentry]'  # for sentry/glitchtip integration
 ```
 
 To run it effectively you'll need to install `ffmpeg` and `mailcap`,
