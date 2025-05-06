@@ -30,7 +30,7 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ["ipython", "pyright", "rich", "ruff", "sentry-sdk", "ssort", "structlog-sentry"]
+dev = ["gallery-dl>1.29.5", "html2text", "instagrapi", "instaloader", "ipython", "nestedtext", "pillow", "plumbum", "pyTelegramBotAPI", "pyright", "rich", "ruff", "sentry-sdk", "ssort", "stamina", "structlog", "structlog-sentry", "yt-dlp[default,curl-cffi]"]
 sentry = ["sentry-sdk", "structlog-sentry"]
 
 [project.scripts]

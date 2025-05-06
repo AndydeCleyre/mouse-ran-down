@@ -1,5 +1,7 @@
 -r sentry-requirements.in
+-r requirements.in
 -c mouse_ran_down/requirements.txt
+
 ipython
 pyright
 rich
