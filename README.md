@@ -10,7 +10,7 @@ This is a Telegram bot.
 <img src="https://github.com/user-attachments/assets/9d68a581-f123-4ffb-aa1e-f65b99063eca" alt="playful image of mouse with clock" width="200"/>
 
 When added to a group, any shared public
-X/Reddit/Instagram/TikTok/Bluesky/YouTube/Vimeo/SoundCloud/Bandcamp
+X/Reddit/Instagram/TikTok/Bluesky/YouTube/Vimeo/SoundCloud/Bandcamp/Mastodon
 posts with media will be replied to with the media
 uploaded directly into the chat, along with a preview image.
 
