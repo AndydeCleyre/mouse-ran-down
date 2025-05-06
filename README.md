@@ -3,6 +3,7 @@
 [![Format and Lint](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/fmt_lint.yml/badge.svg)](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/fmt_lint.yml)
 [![Build and push to quay.io](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/ctnr.yml/badge.svg)](https://quay.io/andykluger/mouse-ran-down)
 [![Update requirements](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/reqs.yml/badge.svg)](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/reqs.yml)
+[![Publish to PyPI](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/pypi.yml/badge.svg)](https://github.com/AndydeCleyre/mouse-ran-down/actions/workflows/pypi.yml)
 
 This is a Telegram bot.
 
