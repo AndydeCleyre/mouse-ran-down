@@ -293,10 +293,16 @@ class LinkHandlers:
                         )
                         return
                     raise
-                if (tmp // '*.part') or (media_type == 'video' and not (tmp // '*.mp4')):
+                sizes_mb = [f.stat().st_size / 1000000 for f in tmp.list()]
+                if (
+                    (tmp // '*.part')
+                    or (media_type == 'video' and not (tmp // '*.mp4'))
+                    or any(mb > self.max_megabytes for mb in sizes_mb)
+                ):
                     self.logger.error(
-                        "Partial file(s) detected -- Bigger than expected?",
+                        "Partial or oversized file(s) detected -- Bigger than expected?",
                         files=tmp.list(),
+                        sizes_mb=sizes_mb,
                         url=url,
                         media_format=media_format,
                     )
