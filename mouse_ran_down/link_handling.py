@@ -82,7 +82,7 @@ class LinkHandlers:
             'bluesky': r'https://bsky\.app/profile/[^/]+/post/[^/]+',
             'insta': r'https://www\.instagram\.com/([^/]+/)?(p|reel)/(?P<shortcode>[^/]+).*',
             'vreddit': r'https://v\.redd\.it/[^/]+',
-            'reddit': r'https://www\.reddit\.com/(r|user)/[^/]+/(comments|s)/[a-zA-Z0-9_/]+',
+            'reddit': r'https://www\.reddit\.com/(r|user)/[^/]+/(comments|s)/[a-zA-Z0-9_/]+(\?.*)?',
             'youtube': (
                 r'https://(youtu\.be/[^/]+'
                 r'|(www\.)?youtube\.com/shorts/[^/]+'
