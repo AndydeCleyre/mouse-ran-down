@@ -5,7 +5,7 @@ usage () {
   printf '%s\n' \
   "Usage: $0 [-n <name>] [-i <image>] [-t <tag>] [-c] [<credentials-file>]" \
   "  -n <name>: name of the container (default: mouse)" \
-  "  -i <image>: name of the image (default: ghcr.io/andykluger/mouse-ran-down)" \
+  "  -i <image>: name of the image (default: ghcr.io/andydecleyre/mouse-ran-down)" \
   "  -t <tag>: tag of the image (default: main)" \
   "  -c: remove any dangling images after starting the container" \
   "  <credentials-file>: path to credentials.nt (default: ./credentials.nt)"
@@ -36,7 +36,7 @@ while getopts ":n:i:t:c" opt; do
 done
 shift $((OPTIND - 1))
 name=${name:-mouse}
-image=${image:-ghcr.io/andykluger/mouse-ran-down}
+image=${image:-ghcr.io/andydecleyre/mouse-ran-down}
 tag=${tag:-main}
 clean=${clean:-false}
 credentials=${1:-$PWD/credentials.nt}
