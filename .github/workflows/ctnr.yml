@@ -1,4 +1,4 @@
-name: Build and push to quay.io
+name: Build and push to ghcr.io
 on:
   push:
   schedule:
