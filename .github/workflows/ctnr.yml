@@ -11,20 +11,19 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: login to container registry
-        run: podman login -u "$QUAY_USER" -p "$QUAY_TOKEN" quay.io
+        run: podman login -u "$GITHUB_REPOSITORY_OWNER" -p "$TOKEN" ghcr.io
         env:
-          QUAY_USER: ${{ secrets.QUAY_USER }}
-          QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
+          TOKEN: ${{ secrets.PAT }}
 
       - name: build container
-        run: ./mk/ctnr.sh
+        run: ./mk/ctnr.sh "ghcr.io/$GITHUB_REPOSITORY"
 
       - name: push container images
         run: |
           echo "All images:"
           podman images
           echo "Matching images:"
-          podman images -n -f reference='andykluger/*' --format={{.Repository}}:{{.Tag}}
-          for img in $(podman images -n -f reference='andykluger/*' --format={{.Repository}}:{{.Tag}}); do
+          podman images -n -f reference="ghcr.io/$GITHUB_REPOSITORY" --format={{.Repository}}:{{.Tag}}
+          for img in $(podman images -n -f reference="ghcr.io/$GITHUB_REPOSITORY" --format={{.Repository}}:{{.Tag}}); do
             podman push "$img"
           done
