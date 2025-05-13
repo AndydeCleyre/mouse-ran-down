@@ -10,6 +10,7 @@ from uuid import uuid4
 
 from PIL import Image
 from plumbum import LocalPath
+from telebot.apihelper import ApiTelegramException
 from telebot.formatting import mcite
 from telebot.types import (
     InputFile,
@@ -119,12 +120,15 @@ class LootSender:
 
     def react(self, message: Message, emoji: str):
         """React to a message with an emoji."""
-        self.bot.set_message_reaction(
-            chat_id=message.chat.id,
-            message_id=message.id,
-            reaction=[ReactionTypeEmoji(emoji)],
-            is_big=True,
-        )
+        try:
+            self.bot.set_message_reaction(
+                chat_id=message.chat.id,
+                message_id=message.id,
+                reaction=[ReactionTypeEmoji(emoji)],
+                is_big=True,
+            )
+        except ApiTelegramException as e:
+            self.logger.error("Failed to react", message=message, emoji=emoji, exc_info=e)
 
     def send_reply_text(self, message: Message, text: str, **params: Any):
         """Send text message as a reply, with link previews disabled by default."""
