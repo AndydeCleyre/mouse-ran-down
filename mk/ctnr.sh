@@ -5,13 +5,18 @@ cd "$(dirname "$0")"/..
 if [ "$1" = -h ] || [ "$1" = --help ]; then
   printf '%s\n' \
   'Build a container image for Mouse Ran Down' \
-  "Usage: $0 [<image>]" \
+  "Usage: $0 [--connect-repo URL] [<image>]" \
   '  <image> defaults to ghcr.io/andydecleyre/mouse-ran-down'
   exit
 fi
 
 # -- Variables --
 ctnr="$(buildah from ghcr.io/astral-sh/uv:python3.13-alpine)"
+if [ "$1" = --connect-repo ]; then
+  shift
+  buildah config --label "org.opencontainers.image.source=$1" "$ctnr"
+  shift
+fi
 appdir=/app
 image=${1:-ghcr.io/andydecleyre/mouse-ran-down}
 

@@ -19,7 +19,7 @@ jobs:
           TOKEN: ${{ secrets.GHCR_PAT }}
 
       - name: build container
-        run: ./mk/ctnr.sh "$CTNR_IMG"
+        run: ./mk/ctnr.sh --connect-repo "$GITHUB_REPOSITORY" "$CTNR_IMG"
 
       - name: push container images
         run: |
