@@ -330,29 +330,26 @@ class LinkHandlers:
         """Download whatever we can and upload it to the chat."""
         self.sender.announce_action(message=message, action='typing')
 
+        flags = ['--write-info-json', '--quiet']
+        if self.cookies:
+            flags += ['--cookies', self.cookies]
+        options = (
+            'extractor.twitter.text-tweets=true',
+            'extractor.twitter.quoted=true',  # This may not work
+            'extractor.twitter.retweets=true',  # This may not work
+            'extractor.twitter.twitpic=true',
+            'extractor.bluesky.quoted=true',
+            'extractor.bluesky.reposts=true',
+            'extractor.reddit.recursion=1',
+            'extractor.reddit.selftext=true',
+        )
+        for o in options:
+            flags += ['--option', o]
+
         with local.tempdir() as tmp:
             self.logger.info("Downloading whatever", url=url, downloader='gallery-dl')
 
-            flags = [
-                '--directory',
-                tmp,
-                '--write-info-json',
-                '--option',
-                'extractor.twitter.text-tweets=true',
-                '--option',
-                'extractor.twitter.quoted=true',  # This may not work
-                '--option',
-                'extractor.twitter.retweets=true',  # This may not work
-                '--option',
-                'extractor.twitter.twitpic=true',
-                '--option',
-                'extractor.bluesky.quoted=true',
-                '--option',
-                'extractor.bluesky.reposts=true',
-                '--quiet',
-            ]
-            if self.cookies:
-                flags += ['--cookies', self.cookies]
+            flags += ['--directory', tmp]
 
             try:
                 # TODO: redirect stderr, capture, and log
