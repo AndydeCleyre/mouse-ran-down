@@ -9,7 +9,7 @@ jobs:
     steps:
 
       - name: Set container registry image name
-        run: echo "CTNR_IMG=$(echo "ghcr.io/${GITHUB_REPOSITORY}/mouse" | tr '[:upper:]' '[:lower:]')" >>$GITHUB_ENV
+        run: echo "CTNR_IMG=$(echo "ghcr.io/$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')" >>$GITHUB_ENV
 
       - uses: actions/checkout@v4
 

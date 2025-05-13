@@ -1,7 +1,7 @@
 # Mouse Ran Down
 
 [![Format and Lint](https://github.com/andydecleyre/mouse-ran-down/actions/workflows/fmt_lint.yml/badge.svg)](https://github.com/andydecleyre/mouse-ran-down/actions/workflows/fmt_lint.yml)
-[![Build and push to ghcr.io](https://github.com/andydecleyre/mouse-ran-down/actions/workflows/ctnr.yml/badge.svg)](https://ghcr.io/andydecleyre/mouse-ran-down/mouse)
+[![Build and push to ghcr.io](https://github.com/andydecleyre/mouse-ran-down/actions/workflows/ctnr.yml/badge.svg)](https://ghcr.io/andydecleyre/mouse-ran-down)
 [![Update requirements](https://github.com/andydecleyre/mouse-ran-down/actions/workflows/reqs.yml/badge.svg?branch=develop)](https://github.com/andydecleyre/mouse-ran-down/actions/workflows/reqs.yml)
 [![Publish to PyPI](https://github.com/andydecleyre/mouse-ran-down/actions/workflows/pypi.yml/badge.svg)](https://pypi.org/project/mouse_ran_down/)
 
@@ -73,7 +73,7 @@ Make container image with `./mk/ctnr.sh`:
 $ ./mk/ctnr.sh -h
 Build a container image for Mouse Ran Down
 Usage: ./mk/ctnr.sh [<image>]
-  <image> defaults to ghcr.io/andydecleyre/mouse-ran-down/mouse
+  <image> defaults to ghcr.io/andydecleyre/mouse-ran-down
 ```
 
 ## Run the container
@@ -89,10 +89,10 @@ Otherwise podman will kill the container on logout.
 
 ### From a local image
 
-Run the container from a local image `ghcr.io/andydecleyre/mouse-ran-down/mouse` with:
+Run the container from a local image `ghcr.io/andydecleyre/mouse-ran-down` with:
 
 ```console
-$ podman run --rm -d -v ./credentials.nt:/app/credentials.nt:ro ghcr.io/andydecleyre/mouse-ran-down/mouse
+$ podman run --rm -d -v ./credentials.nt:/app/credentials.nt:ro ghcr.io/andydecleyre/mouse-ran-down
 ```
 
 ### From an image pushed to a registry
@@ -103,7 +103,7 @@ $ podman run --rm -d -v ./credentials.nt:/app/credentials.nt:ro ghcr.io/andydecl
 $ ./start/podman.sh -h
 Usage: ./start/podman.sh [-n <name>] [-i <image>] [-t <tag>] [-c] [<credentials-file>]
   -n <name>: name of the container (default: mouse)
-  -i <image>: name of the image (default: ghcr.io/andydecleyre/mouse-ran-down/mouse)
+  -i <image>: name of the image (default: ghcr.io/andydecleyre/mouse-ran-down)
   -t <tag>: tag of the image (default: main)
   -c: remove any dangling images after starting the container
   <credentials-file>: path to credentials.nt (default: ./credentials.nt)
@@ -118,7 +118,7 @@ Or you could write an auto-update-friendly quadlet systemd service at
 [Container]
 AutoUpdate=registry
 ContainerName=mouse
-Image=ghcr.io/andydecleyre/mouse-ran-down/mouse:main
+Image=ghcr.io/andydecleyre/mouse-ran-down:main
 Volume=%h/mouse-ran-down/credentials.nt:/app/credentials.nt:ro
 
 [Service]
