@@ -6,14 +6,14 @@ if [ "$1" = -h ] || [ "$1" = --help ]; then
   printf '%s\n' \
   'Build a container image for Mouse Ran Down' \
   "Usage: $0 [<image>]" \
-  '  <image> defaults to ghcr.io/andydecleyre/mouse-ran-down'
+  '  <image> defaults to ghcr.io/andydecleyre/mouse-ran-down/mouse'
   exit
 fi
 
 # -- Variables --
 ctnr="$(buildah from ghcr.io/astral-sh/uv:python3.13-alpine)"
 appdir=/app
-image=${1:-ghcr.io/andydecleyre/mouse-ran-down}
+image=${1:-ghcr.io/andydecleyre/mouse-ran-down/mouse}
 
 # -- Functions --
 RUN () { buildah run --network host "$ctnr" "$@"; }
