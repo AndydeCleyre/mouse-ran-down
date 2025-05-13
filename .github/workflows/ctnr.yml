@@ -16,7 +16,7 @@ jobs:
       - name: login to container registry
         run: podman login -u "$GITHUB_REPOSITORY_OWNER" -p "$TOKEN" ghcr.io
         env:
-          TOKEN: ${{ secrets.PAT }}
+          TOKEN: ${{ secrets.GHCR_PAT }}
 
       - name: build container
         run: ./mk/ctnr.sh "$CTNR_IMG"
