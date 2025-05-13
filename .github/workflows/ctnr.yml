@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Set container registry image name
+        run: echo "CTNR_IMG=$(echo "ghcr.io/$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')" >>$GITHUB_ENV
+
       - uses: actions/checkout@v4
 
       - name: login to container registry
@@ -16,14 +19,14 @@ jobs:
           TOKEN: ${{ secrets.PAT }}
 
       - name: build container
-        run: ./mk/ctnr.sh "ghcr.io/$GITHUB_REPOSITORY"
+        run: ./mk/ctnr.sh "$CTNR_IMG"
 
       - name: push container images
         run: |
           echo "All images:"
           podman images
           echo "Matching images:"
-          podman images -n -f reference="ghcr.io/$GITHUB_REPOSITORY" --format={{.Repository}}:{{.Tag}}
-          for img in $(podman images -n -f reference="ghcr.io/$GITHUB_REPOSITORY" --format={{.Repository}}:{{.Tag}}); do
+          podman images -n -f reference="$CTNR_IMG" --format={{.Repository}}:{{.Tag}}
+          for img in $(podman images -n -f reference="$CTNR_IMG" --format={{.Repository}}:{{.Tag}}); do
             podman push "$img"
           done
