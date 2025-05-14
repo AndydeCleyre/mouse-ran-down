@@ -72,7 +72,7 @@ Make container image with `./mk/ctnr.sh`:
 ```console
 $ ./mk/ctnr.sh -h
 Build a container image for Mouse Ran Down
-Usage: ./mk/ctnr.sh [<image>]
+Usage: ./mk/ctnr.sh [--connect-repo URL] [<image>]
   <image> defaults to ghcr.io/andydecleyre/mouse-ran-down
 ```
 
