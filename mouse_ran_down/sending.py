@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from itertools import batched
 from mimetypes import guess_file_type  # You'd better install mailcap!
+from time import sleep
 from typing import TYPE_CHECKING, Any, Literal, cast, get_args
 from uuid import uuid4
 
@@ -99,16 +100,15 @@ class LootSender:
         bot: TeleBot,
         logger: StructLogger | None = None,
         collapse_at_chars: int = 300,
-        max_caption_chars: int = 1024,
-        max_media_group_members: int = 10,
         timeout: int = 120,
+        admin_chat_id: str | None = None,
     ):
         """Initialize the loot sender."""
         self.bot = bot
         self.logger = logger or get_logger()
         self.collapse_at_chars = collapse_at_chars
-        self.max_caption_chars = max_caption_chars
-        self.max_media_group_members = max_media_group_members
+        self.max_caption_chars = 1024
+        self.max_media_group_members = 10
         self.timeout = timeout
         self.loot_send_func: dict[LootType, Callable] = {
             'video': self.bot.send_video,
@@ -116,6 +116,30 @@ class LootSender:
             'image': self.bot.send_photo,
             'text': self.bot.send_message,
         }
+        self.admin_chat_id = admin_chat_id
+        self.admin_response: str = ""
+
+    def get_code_from_admin(self, timeout_seconds: float | None = 90) -> str:
+        """Get some verification code from the bot admin interactively."""
+        if not self.admin_chat_id:
+            self.logger.error("Admin not set")
+            return ""
+        self.admin_response = ""
+        self.bot.send_message(
+            chat_id=self.admin_chat_id,
+            text="You should have just received a verification code. Please send it here:",
+        )
+        seconds_waited = 0
+        self.logger.info("Waiting for verification code from admin")
+        while not self.admin_response:
+            sleep(1)
+            seconds_waited += 1
+            if timeout_seconds and seconds_waited >= timeout_seconds:
+                self.logger.error("Timeout waiting for verification code from admin")
+                break
+        else:
+            self.logger.info("Got verification code from admin")
+        return self.admin_response
 
     def react(self, message: Message, emoji: str):
         """React to a message with an emoji."""

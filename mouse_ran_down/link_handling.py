@@ -106,7 +106,7 @@ class LinkHandlers:
                     ent.type == 'mention'
                     and get_entity_text(cast(str, message.text), ent).casefold() == target
                 ):
-                    self.logger.info("Mentioned")
+                    self.logger.info("Mentioned", chat_id=message.chat.id)
                     return True
         return False
 

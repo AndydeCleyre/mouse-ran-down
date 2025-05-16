@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from tempfile import mkstemp
+from time import sleep
 from typing import TYPE_CHECKING, cast
 
 from instagrapi import Client as InstaClient
@@ -19,12 +21,22 @@ if TYPE_CHECKING:
     from telebot.types import Message
 
 
-def get_insta(user: str | None, pw: str | None, logger: StructLogger) -> InstaClient | None:
+def get_insta(
+    user: str | None, pw: str | None, logger: StructLogger, loot_sender: LootSender | None = None
+) -> InstaClient | None:
     """Initialize instagrapi, if we've got the credentials."""
     logger.info("Initializing instagrapi")
     if user and pw:
+        insta = InstaClient()
+
+        if loot_sender:
+
+            def challenge_code_handler(*args, **kwargs) -> str:  # noqa: ARG001, ANN002, ANN003
+                return loot_sender.get_code_from_admin()
+
+            insta.challenge_code_handler = challenge_code_handler
+
         try:
-            insta = InstaClient()
             insta.login(user, pw)
         except Exception as e:
             logger.error("Failed to login", client='instagrapi', exc_info=e)
@@ -76,6 +88,7 @@ class MouseRanDown(Application):
         TOKEN: 123456789:ASDFasdfASDF-asdf123ASDF
         INSTA_USER: user@example.com
         INSTA_PW: password goes here
+        TG_ADMIN_CHAT_ID: 12345678
         SENTRY_DSN: https://abc123@app.glitchtip.com/12345
         COOKIES:
           > # Netscape HTTP Cookie File
@@ -89,8 +102,10 @@ class MouseRanDown(Application):
         # Recommended for Instagram (any account risk is your own):
         #   - INSTA_USER
         #   - INSTA_PW
-        # Optional but helpful (and don't replace tabs with spaces):
+        #   - TG_ADMIN_CHAT_ID (tip: message the bot with its @username and check the logs)
+        # Recommended (and don't replace tabs with spaces):
         #   - COOKIES
+        # Optional:
         #   - SENTRY_DSN
     """
 
@@ -116,23 +131,54 @@ class MouseRanDown(Application):
             init_sentry(dsn)
         logger = get_logger(json=self.json, sentry=bool(dsn))
 
-        cookies = get_cookies_path(config.get('COOKIES'), logger)
-        insta = get_insta(config.get('INSTA_USER'), config.get('INSTA_PW'), logger)
         bot = TeleBot(config['TOKEN'])
         logger.info("Initialized bot")
 
-        loot_sender = LootSender(bot=bot, logger=logger, timeout=self.timeout)
+        loot_sender = LootSender(
+            bot=bot,
+            logger=logger,
+            timeout=self.timeout,
+            admin_chat_id=config.get('TG_ADMIN_CHAT_ID'),
+        )
+
+        cookies = get_cookies_path(config.get('COOKIES'), logger=logger)
+
         link_handlers = LinkHandlers(
-            sender=loot_sender, logger=logger, insta=insta, cookies=cookies
+            sender=loot_sender, logger=logger, insta=None, cookies=cookies
         )
 
         @bot.business_message_handler(func=bool)
         @bot.message_handler(func=bool)
-        def media_link_handler(message: Message):
+        def all_msg_handler(message: Message):
             """Download from any URLs that we handle and upload content to the chat."""
-            link_handlers.media_link_handler(message)
+            if (
+                loot_sender.admin_chat_id
+                and str(message.chat.id) == loot_sender.admin_chat_id
+                and message.text
+                and message.text.isnumeric()
+            ):
+                loot_sender.admin_response = message.text
+            else:
+                link_handlers.media_link_handler(message)
 
-        bot.infinity_polling(timeout=self.timeout, long_polling_timeout=self.timeout)
+        with ThreadPoolExecutor() as executor:
+            future = executor.submit(
+                bot.infinity_polling, timeout=self.timeout, long_polling_timeout=self.timeout
+            )
+
+            while not future.running():
+                logger.debug("Waiting for bot to start polling")
+                sleep(1)
+
+            insta = get_insta(
+                config.get('INSTA_USER'),
+                config.get('INSTA_PW'),
+                loot_sender=loot_sender,
+                logger=logger,
+            )
+            link_handlers.insta = insta
+
+            future.result()
 
 
 MouseRanDown.unbind_switches('help-all')
