@@ -482,7 +482,14 @@ class LinkHandlers:
             else:
                 if info:
                     log.info("Media found")
-                    return [*{f['ext'] for f in info['formats']}]
+                    if formats := info.get('formats', []):
+                        return [*{f['ext'] for f in formats}]
+                    log.warning("No 'formats' key", keys=info.keys())
+                    if entries := info.get('entries'):
+                        exts = []
+                        for entry in entries:
+                            exts.extend(f['ext'] for f in entry.get('formats', []))
+                            return list(set(exts))
                 return []
 
     def matches_any(self, url: str, *pattern_names: str) -> bool:
