@@ -178,7 +178,10 @@ class MouseRanDown(Application):
             )
             link_handlers.insta = insta
 
-            future.result()
+            try:
+                future.result()
+            except KeyboardInterrupt:
+                pass
 
 
 MouseRanDown.unbind_switches('help-all')
