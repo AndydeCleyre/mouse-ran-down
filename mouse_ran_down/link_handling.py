@@ -484,7 +484,6 @@ class LinkHandlers:
                     log.info("Media found")
                     if formats := info.get('formats', []):
                         return [*{f['ext'] for f in formats}]
-                    log.warning("No 'formats' key", keys=info.keys())
                     if entries := info.get('entries'):
                         exts = []
                         for entry in entries:
