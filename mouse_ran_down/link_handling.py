@@ -108,6 +108,7 @@ class LinkHandlers:
             insta = InstaClient()
 
             def challenge_code_handler(*args, **kwargs) -> str:  # noqa: ARG001, ANN002, ANN003
+                self.logger.info("Instagram challenge initiated")
                 return self.sender.get_code_from_admin()
 
             insta.challenge_code_handler = challenge_code_handler
