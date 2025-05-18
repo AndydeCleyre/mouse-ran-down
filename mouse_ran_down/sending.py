@@ -119,7 +119,7 @@ class LootSender:
         self.admin_chat_id = admin_chat_id
         self.admin_response: str = ""
 
-    def get_code_from_admin(self, timeout_seconds: float | None = 90) -> str:
+    def get_code_from_admin(self, timeout_seconds: float | None = 120) -> str:
         """Get some verification code from the bot admin interactively."""
         if not self.admin_chat_id:
             self.logger.error("Admin not set")
