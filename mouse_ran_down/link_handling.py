@@ -12,6 +12,8 @@ from typing import TYPE_CHECKING, Any, Literal, cast
 import instaloader
 import stamina
 from html2text import html2text
+from instagrapi import Client as InstaClient
+from instagrapi.exceptions import ChallengeRequired
 from instaloader.exceptions import BadResponseException, ConnectionException
 from plumbum import ProcessExecutionError, local
 from plumbum.cmd import gallery_dl
@@ -23,7 +25,6 @@ from .mrd_logging import StructLogger, get_logger
 if TYPE_CHECKING:
     from collections.abc import Callable, Iterator
 
-    from instagrapi import Client as InstaClient
     from instagrapi.types import Media as InstaMedia
     from telebot.types import Message, MessageEntity
 
@@ -52,26 +53,29 @@ class LinkHandlers:
         self,
         sender: LootSender,
         logger: StructLogger | None = None,
-        max_megabytes: int = 50,
         patterns: dict[str, str] | None = None,
         cookies: str | None = None,
-        insta: InstaClient | None = None,
+        insta_user: str | None = None,
+        insta_pw: str | None = None,
     ):
         """
         Initialize the link handlers.
 
         :param sender: The message sender to use.
         :param logger: The logger to use.
-        :param max_megabytes: The maximum number of megabytes we can upload.
         :param patterns: The regex patterns to use for matching URLs (``{sitename: regex, ...}``).
         :param cookies: The path to the cookies file, in Netscape format.
-        :param insta: The instagrapi client to use. If ``None``, will still try to use InstaLoader.
+        :param insta_user: The username of the Instagram account.
+        :param insta_pw: The password of the Instagram account.
         """
         self.sender = sender
-        self.max_megabytes = max_megabytes
         self.cookies = cookies
-        self.insta = insta
         self.logger = logger or get_logger()
+        self.insta_user = insta_user
+        self.insta_pw = insta_pw
+        # We need the bot up and running to properly initialize instagrapi
+        self.insta: InstaClient | None = None
+        self.max_megabytes: int = 50
         self.patterns = patterns or {
             'tiktok': (
                 r'https://(www\.tiktok\.com/'
@@ -96,6 +100,28 @@ class LinkHandlers:
             'bandcamp': r'https://[^\.]+\.bandcamp\.com/track/.*',
             'mastodon': r'https://mastodon\.social/@[^/]+/\d+',
         }
+
+    def get_insta(self) -> InstaClient | None:
+        """Initialize instagrapi, if we've got the credentials."""
+        self.logger.info("Initializing instagrapi")
+        if self.insta_user and self.insta_pw:
+            insta = InstaClient()
+
+            def challenge_code_handler(*args, **kwargs) -> str:  # noqa: ARG001, ANN002, ANN003
+                return self.sender.get_code_from_admin()
+
+            insta.challenge_code_handler = challenge_code_handler
+
+            try:
+                insta.login(self.insta_user, self.insta_pw)
+            except Exception as e:
+                self.logger.error("Failed to login", client='instagrapi', exc_info=e)
+                insta = None
+        else:
+            self.logger.info("Instagram credentials missing, instagrapi will not be used")
+            insta = None
+        self.logger.info("Finished initializing instagrapi", insta=insta)
+        return insta
 
     def bot_mentioned(self, message: Message) -> bool:
         """Return True if the bot was mentioned in the message."""
@@ -440,8 +466,13 @@ class LinkHandlers:
         self.sender.announce_action(message=message, action='record_video')
         log = self.logger.bind(downloader='instagrapi')
 
-        post_id = self.insta.media_pk_from_url(url)
-        post_info = self.insta.media_info(post_id)
+        try:
+            post_id = self.insta.media_pk_from_url(url)
+            post_info = self.insta.media_info(post_id)
+        except ChallengeRequired:
+            self.insta = self.get_insta()
+            self.insta_url_handler(message, url)
+            return
 
         download = self.instagrapi_downloader(post_info)
         if not download:
