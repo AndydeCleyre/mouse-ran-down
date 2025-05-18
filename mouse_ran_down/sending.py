@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from itertools import batched
+from json import loads
 from mimetypes import guess_file_type  # You'd better install mailcap!
 from time import sleep
 from typing import TYPE_CHECKING, Any, Literal, cast, get_args
@@ -11,6 +12,7 @@ from uuid import uuid4
 
 from PIL import Image
 from plumbum import LocalPath
+from plumbum.cmd import ffprobe
 from telebot.formatting import mcite
 from telebot.types import (
     InputFile,
@@ -90,6 +92,22 @@ def process_thumbnail(path: LocalPath) -> InputFile | None:
             # TODO: downscale
 
     return InputFile(thumb_path)
+
+
+def get_video_dimensions(path: LocalPath) -> tuple[int, int]:
+    """Get width and height of a video file."""
+    data = loads(
+        ffprobe(
+            '-select_streams',
+            'v',
+            '-show_entries',
+            'stream=width,height',
+            '-of',
+            'json',
+            str(path),
+        )
+    )
+    return data['streams'][0]['width'], data['streams'][0]['height']
 
 
 class LootSender:
@@ -224,10 +242,12 @@ class LootSender:
 
         media_group = []
         for fp in paths_batch.visual + paths_batch.audio:  # it won't have both
+            loot_type = self.get_loot_type(fp, context=context)
             thumb_params = self.get_thumbnail_params(paths_batch, fp)
-            media_group.append(
-                MEDIA[self.get_loot_type(fp, context=context)](InputFile(fp), **thumb_params)
-            )
+            video_params = {}
+            if loot_type == 'video':
+                video_params['width'], video_params['height'] = get_video_dimensions(fp)
+            media_group.append(MEDIA[loot_type](InputFile(fp), **thumb_params, **video_params))
 
         paths_batch, capt_params = self.potentially_captionize(paths_batch, media_group=True)
         if capt_params:
@@ -284,6 +304,8 @@ class LootSender:
         if loot_type == 'text':
             self.send_text_as_quote(message, path.read())
             return
+        if loot_type == 'video':
+            params['width'], params['height'] = get_video_dimensions(path)
 
         params = {
             'chat_id': message.chat.id,
