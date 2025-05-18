@@ -9,7 +9,6 @@ from tempfile import mkstemp
 from time import sleep
 from typing import TYPE_CHECKING, cast
 
-from instagrapi import Client as InstaClient
 from nestedtext import load as nt_load
 from plumbum.cli import Application, ExistingFile, Flag, Range, SwitchAttr
 from telebot import TeleBot
@@ -21,33 +20,6 @@ from .sending import LootSender
 
 if TYPE_CHECKING:
     from telebot.types import Message
-
-
-def get_insta(
-    user: str | None, pw: str | None, logger: StructLogger, loot_sender: LootSender | None = None
-) -> InstaClient | None:
-    """Initialize instagrapi, if we've got the credentials."""
-    logger.info("Initializing instagrapi")
-    if user and pw:
-        insta = InstaClient()
-
-        if loot_sender:
-
-            def challenge_code_handler(*args, **kwargs) -> str:  # noqa: ARG001, ANN002, ANN003
-                return loot_sender.get_code_from_admin()
-
-            insta.challenge_code_handler = challenge_code_handler
-
-        try:
-            insta.login(user, pw)
-        except Exception as e:
-            logger.error("Failed to login", client='instagrapi', exc_info=e)
-            insta = None
-    else:
-        logger.info("Instagram credentials missing, instagrapi will not be used")
-        insta = None
-    logger.info("Finished initializing instagrapi", insta=insta)
-    return insta
 
 
 def get_cookies_path(cookies_content: str | None, logger: StructLogger) -> str | None:
@@ -146,13 +118,21 @@ class MouseRanDown(Application):
         cookies = get_cookies_path(config.get('COOKIES'), logger=logger)
 
         link_handlers = LinkHandlers(
-            sender=loot_sender, logger=logger, insta=None, cookies=cookies
+            sender=loot_sender,
+            logger=logger,
+            cookies=cookies,
+            insta_user=config.get('INSTA_USER'),
+            insta_pw=config.get('INSTA_PW'),
         )
 
         @bot.business_message_handler(func=bool)
         @bot.message_handler(func=bool)
         def all_msg_handler(message: Message):
-            """Download from any URLs that we handle and upload content to the chat."""
+            """
+            Download from any URLs that we handle and upload content to the chat.
+
+            Sometimes just save an admin-sent verification code instead.
+            """
             if (
                 loot_sender.admin_chat_id
                 and str(message.chat.id) == loot_sender.admin_chat_id
@@ -172,13 +152,8 @@ class MouseRanDown(Application):
                 logger.debug("Waiting for bot to start polling")
                 sleep(1)
 
-            insta = get_insta(
-                config.get('INSTA_USER'),
-                config.get('INSTA_PW'),
-                loot_sender=loot_sender,
-                logger=logger,
-            )
-            link_handlers.insta = insta
+            # We need the bot up and running to properly initialize instagrapi
+            link_handlers.insta = link_handlers.get_insta()
 
             try:
                 future.result()
