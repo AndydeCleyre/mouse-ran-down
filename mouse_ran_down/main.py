@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from tempfile import mkstemp
 from time import sleep
@@ -181,7 +183,10 @@ class MouseRanDown(Application):
             try:
                 future.result()
             except KeyboardInterrupt:
-                pass
+                bot.stop_bot()
+                sys.stdout.flush()
+                sys.stderr.flush()
+                os._exit(0)
 
 
 MouseRanDown.unbind_switches('help-all')
