@@ -98,7 +98,7 @@ class LinkHandlers:
             ),
             'soundcloud': r'https://soundcloud\.com/[^/]+/[^/]+',
             'bandcamp': r'https://[^\.]+\.bandcamp\.com/track/.*',
-            'mastodon': r'https://mastodon\.social/@[^/]+/\d+',
+            'mastodon': r'https://[^/]+/@[^/]+/\d+',
         }
 
     def init_insta(self):
