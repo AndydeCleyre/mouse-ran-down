@@ -177,6 +177,29 @@ class LinkHandlers:
         try_without_cookies = self.cookies and not ignore_cookies
         try_without_thumb = embed_thumbnail
 
+        self.logger.info(
+            "Trying without subtitles",
+            url=url,
+            issue='https://github.com/yt-dlp/yt-dlp/issues/1134',
+        )
+        try:
+            self.ytdlp_url_handler(
+                message,
+                url,
+                media_type=media_type,
+                heights=heights,
+                ignore_cookies=ignore_cookies,
+                embed_thumbnail=embed_thumbnail,
+                embed_subtitles=False,
+                already_desperate=True,
+            )
+        except DownloadError:
+            if not (try_without_thumb or try_without_cookies):
+                raise
+        else:
+            try_without_thumb = False
+            try_without_cookies = False
+
         if try_without_cookies:
             self.logger.info("Trying without cookies", url=url)
             try:
@@ -187,6 +210,7 @@ class LinkHandlers:
                     heights=heights,
                     ignore_cookies=True,
                     embed_thumbnail=embed_thumbnail,
+                    embed_subtitles=False,
                     already_desperate=True,
                 )
             except DownloadError:
@@ -204,6 +228,7 @@ class LinkHandlers:
                 heights=heights,
                 ignore_cookies=ignore_cookies,
                 embed_thumbnail=False,
+                embed_subtitles=False,
                 already_desperate=True,
             )
 
@@ -213,6 +238,7 @@ class LinkHandlers:
         media_format: str,
         media_type: Literal['video', 'audio'],
         embed_thumbnail: bool,
+        embed_subtitles: bool,
         ignore_cookies: bool,
         folder: str,
     ) -> dict[str, Any]:
@@ -221,7 +247,7 @@ class LinkHandlers:
             'outtmpl': {'default': '%(id)s.%(ext)s'},
             'writethumbnail': True,
             'writedescription': True,
-            'writesubtitles': True,
+            'writesubtitles': embed_subtitles,
             'format': media_format,
             'final_ext': 'mp4' if media_type == 'video' else 'mp3',
             'max_filesize': self.max_megabytes * 10**6,
@@ -272,6 +298,7 @@ class LinkHandlers:
         heights: list | None = None,
         ignore_cookies: bool = False,
         embed_thumbnail: bool = True,
+        embed_subtitles: bool = True,
         already_desperate: bool = False,
     ):
         """Download media and upload to the chat."""
@@ -292,6 +319,7 @@ class LinkHandlers:
                 media_type=media_type,
                 embed_thumbnail=embed_thumbnail,
                 ignore_cookies=ignore_cookies,
+                embed_subtitles=embed_subtitles,
                 folder=str(tmp),
             )
 
@@ -341,6 +369,7 @@ class LinkHandlers:
                             heights=heights,
                             ignore_cookies=ignore_cookies,
                             embed_thumbnail=embed_thumbnail,
+                            embed_subtitles=embed_subtitles,
                             already_desperate=already_desperate,
                         )
                     else:
