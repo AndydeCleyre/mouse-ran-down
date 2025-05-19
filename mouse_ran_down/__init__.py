@@ -11,6 +11,7 @@ Currently enabled:
 - Vimeo
 - SoundCloud
 - Bandcamp
+- Mastodon
 """
 
 __version__ = '0.0.3'
