@@ -101,7 +101,7 @@ class LinkHandlers:
             'mastodon': r'https://mastodon\.social/@[^/]+/\d+',
         }
 
-    def get_insta(self) -> InstaClient | None:
+    def init_insta(self):
         """Initialize instagrapi, if we've got the credentials."""
         self.logger.info("Initializing instagrapi")
         if self.insta_user and self.insta_pw:
@@ -122,7 +122,7 @@ class LinkHandlers:
             self.logger.info("Instagram credentials missing, instagrapi will not be used")
             insta = None
         self.logger.info("Finished initializing instagrapi", insta=insta)
-        return insta
+        self.insta = insta
 
     def bot_mentioned(self, message: Message) -> bool:
         """Return True if the bot was mentioned in the message."""
@@ -471,7 +471,7 @@ class LinkHandlers:
             post_id = self.insta.media_pk_from_url(url)
             post_info = self.insta.media_info(post_id)
         except ChallengeRequired:
-            self.insta = self.get_insta()
+            self.init_insta()
             self.insta_url_handler(message, url)
             return
 

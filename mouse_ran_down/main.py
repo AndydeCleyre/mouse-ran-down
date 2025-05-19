@@ -153,7 +153,7 @@ class MouseRanDown(Application):
                 sleep(1)
 
             # We need the bot up and running to properly initialize instagrapi
-            link_handlers.insta = link_handlers.get_insta()
+            link_handlers.init_insta()
 
             try:
                 future.result()
