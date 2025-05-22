@@ -8,4 +8,4 @@ plumbum
 pyTelegramBotAPI
 stamina
 structlog
-yt-dlp[default,curl-cffi]
+yt-dlp[default,curl-cffi]>=2025.5.22

@@ -223,9 +223,6 @@ class LinkHandlers:
             'writethumbnail': True,
             'writedescription': True,
             'writesubtitles': True,
-            'extractor_args': {
-                'youtube': {'player_client': ['default', '-web']}
-            },  # https://github.com/yt-dlp/yt-dlp/issues/13075#issuecomment-2859155427
             'format': media_format,
             'final_ext': 'mp4' if media_type == 'video' else 'mp3',
             'max_filesize': self.max_megabytes * 10**6,

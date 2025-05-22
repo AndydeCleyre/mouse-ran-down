@@ -33,4 +33,4 @@ types-python-dateutil==2.9.0.20250516  # via arrow
 typing-extensions==4.13.2  # via pydantic, pydantic-core
 urllib3==2.4.0            # via requests, sentry-sdk, yt-dlp
 websockets==15.0.1        # via yt-dlp
-yt-dlp==2025.4.30         # via -r requirements.in
+yt-dlp==2025.5.22         # via -r requirements.in

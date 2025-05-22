@@ -57,4 +57,4 @@ typing-extensions==4.13.2  # via pydantic, pydantic-core, pyright, -c mouse_ran_
 urllib3==2.4.0            # via requests, sentry-sdk, yt-dlp, -c mouse_ran_down/requirements.txt
 wcwidth==0.2.13           # via prompt-toolkit
 websockets==15.0.1        # via yt-dlp, -c mouse_ran_down/requirements.txt
-yt-dlp==2025.4.30         # via -c mouse_ran_down/requirements.txt, -r requirements.in
+yt-dlp==2025.5.22         # via -c mouse_ran_down/requirements.txt, -r requirements.in
