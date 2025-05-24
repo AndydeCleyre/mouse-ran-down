@@ -5,7 +5,7 @@ certifi==2025.4.26        # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==1.17.1              # via curl-cffi
 charset-normalizer==3.4.2  # via requests
 curl-cffi==0.10.0         # via yt-dlp
-gallery-dl==1.29.6        # via -r requirements.in
+gallery-dl==1.29.7        # via -r requirements.in
 html2text==2025.4.15      # via -r requirements.in
 idna==3.10                # via requests
 inform==1.34              # via nestedtext
