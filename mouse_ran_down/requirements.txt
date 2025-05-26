@@ -9,16 +9,16 @@ gallery-dl==1.29.7        # via -r requirements.in
 html2text==2025.4.15      # via -r requirements.in
 idna==3.10                # via requests
 inform==1.34              # via nestedtext
-instagrapi==2.1.3         # via -r requirements.in
+instagrapi==2.1.5         # via -r requirements.in
 instaloader==4.14.1       # via -r requirements.in
 mutagen==1.47.0           # via yt-dlp
 nestedtext==3.7           # via -r requirements.in
 pillow==11.2.1            # via -r requirements.in
 plumbum==1.9.0            # via -r requirements.in
 pycparser==2.22           # via cffi
-pycryptodomex==3.21.0     # via instagrapi, yt-dlp
-pydantic==2.10.1          # via instagrapi
-pydantic-core==2.27.1     # via pydantic
+pycryptodomex==3.23.0     # via instagrapi, yt-dlp
+pydantic==2.11.5          # via instagrapi
+pydantic-core==2.33.2     # via pydantic
 pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.27.0  # via -r requirements.in
 python-dateutil==2.9.0.post0  # via arrow
@@ -30,7 +30,8 @@ structlog==25.3.0         # via structlog-sentry, -r requirements.in
 structlog-sentry==2.2.1   # via -r sentry-requirements.in
 tenacity==9.1.2           # via stamina
 types-python-dateutil==2.9.0.20250516  # via arrow
-typing-extensions==4.13.2  # via pydantic, pydantic-core
+typing-extensions==4.13.2  # via pydantic, pydantic-core, typing-inspection
+typing-inspection==0.4.1  # via pydantic
 urllib3==2.4.0            # via requests, sentry-sdk, yt-dlp
 websockets==15.0.1        # via yt-dlp
 yt-dlp==2025.5.22         # via -r requirements.in
