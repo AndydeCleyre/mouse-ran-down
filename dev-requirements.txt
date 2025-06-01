@@ -14,7 +14,7 @@ idna==3.10                # via requests, -c mouse_ran_down/requirements.txt
 inform==1.34              # via nestedtext, -c mouse_ran_down/requirements.txt
 instagrapi==2.1.5         # via -c mouse_ran_down/requirements.txt, -r requirements.in
 instaloader==4.14.1       # via -c mouse_ran_down/requirements.txt, -r requirements.in
-ipython==9.2.0            # via -r dev-requirements.in
+ipython==9.3.0            # via -r dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.19.2              # via ipython
 markdown-it-py==3.0.0     # via rich
