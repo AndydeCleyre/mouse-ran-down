@@ -40,7 +40,7 @@ pyright==1.1.401          # via -r dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c mouse_ran_down/requirements.txt
 pytelegrambotapi==4.27.0  # via -c mouse_ran_down/requirements.txt, -r requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c mouse_ran_down/requirements.txt
-requests==2.32.3          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c mouse_ran_down/requirements.txt
+requests==2.32.4          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c mouse_ran_down/requirements.txt
 rich==14.0.0              # via -r dev-requirements.in
 ruff==0.11.13             # via -r dev-requirements.in
 sentry-sdk==2.29.1        # via structlog-sentry, -c mouse_ran_down/requirements.txt, -r sentry-requirements.in
@@ -58,4 +58,4 @@ typing-inspection==0.4.1  # via pydantic, -c mouse_ran_down/requirements.txt
 urllib3==2.4.0            # via requests, sentry-sdk, yt-dlp, -c mouse_ran_down/requirements.txt
 wcwidth==0.2.13           # via prompt-toolkit
 websockets==15.0.1        # via yt-dlp, -c mouse_ran_down/requirements.txt
-yt-dlp==2025.5.22         # via -c mouse_ran_down/requirements.txt, -r requirements.in
+yt-dlp==2025.6.9          # via -c mouse_ran_down/requirements.txt, -r requirements.in

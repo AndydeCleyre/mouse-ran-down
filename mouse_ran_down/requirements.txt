@@ -22,7 +22,7 @@ pydantic-core==2.33.2     # via pydantic
 pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.27.0  # via -r requirements.in
 python-dateutil==2.9.0.post0  # via arrow
-requests==2.32.3          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
+requests==2.32.4          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
 sentry-sdk==2.29.1        # via structlog-sentry, -r sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==25.1.0           # via -r requirements.in
@@ -34,4 +34,4 @@ typing-extensions==4.14.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.1  # via pydantic
 urllib3==2.4.0            # via requests, sentry-sdk, yt-dlp
 websockets==15.0.1        # via yt-dlp
-yt-dlp==2025.5.22         # via -r requirements.in
+yt-dlp==2025.6.9          # via -r requirements.in
