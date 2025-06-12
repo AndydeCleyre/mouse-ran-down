@@ -522,6 +522,8 @@ class LinkHandlers:
                         for entry in entries:
                             exts.extend(f['ext'] for f in entry.get('formats', []))
                             return list(set(exts))
+                    if ext := info.get('ext'):
+                        return [ext]
                 return []
 
     def matches_any(self, url: str, *pattern_names: str) -> bool:
