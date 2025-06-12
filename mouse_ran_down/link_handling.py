@@ -13,7 +13,7 @@ import instaloader
 import stamina
 from html2text import html2text
 from instagrapi import Client as InstaClient
-from instagrapi.exceptions import ChallengeRequired
+from instagrapi.exceptions import ChallengeRequired, LoginRequired
 from instaloader.exceptions import BadResponseException, ConnectionException
 from plumbum import ProcessExecutionError, local
 from plumbum.cmd import gallery_dl
@@ -471,7 +471,7 @@ class LinkHandlers:
         try:
             post_id = self.insta.media_pk_from_url(url)
             post_info = self.insta.media_info(post_id)
-        except ChallengeRequired:
+        except (ChallengeRequired, LoginRequired):
             self.init_insta()
             self.insta_url_handler(message, url)
             return
