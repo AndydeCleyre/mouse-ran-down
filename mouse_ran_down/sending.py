@@ -403,7 +403,7 @@ class LootSender:
         return all_paths, thumbnails
 
     def batch_paths(
-        self, loot_folder: LocalPath, *, keep_thumbnail_images: bool = True
+        self, loot_folder: LocalPath, *, keep_thumbnail_images: bool = False
     ) -> list[PathsBatch]:
         """
         Return a list of ``PathsBatch`` objects.
