@@ -32,6 +32,6 @@ tenacity==9.1.2           # via stamina
 types-python-dateutil==2.9.0.20250516  # via arrow
 typing-extensions==4.14.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.1  # via pydantic
-urllib3==2.4.0            # via requests, sentry-sdk, yt-dlp
+urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp
 websockets==15.0.1        # via yt-dlp
 yt-dlp==2025.6.9          # via -r requirements.in
