@@ -40,7 +40,7 @@ def get_logger(*, json: bool = True, sentry: bool = False) -> StructLogger:
     ]
     if sentry:
         try:
-            from structlog_sentry import SentryProcessor
+            from structlog_sentry import SentryProcessor  # noqa: PLC0415
         except ImportError:
             print('ERROR: Sentry logging requires structlog_sentry and sentry-sdk.')
             print("ERROR: Did you install the 'sentry' extras?")

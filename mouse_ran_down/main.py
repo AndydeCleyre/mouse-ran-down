@@ -44,7 +44,7 @@ def load_config(path: str, logger: StructLogger | None = None) -> dict[str, str]
 def init_sentry(dsn: str):
     """Initialize Sentry."""
     try:
-        import sentry_sdk
+        import sentry_sdk  # noqa: PLC0415
     except ImportError:
         print('ERROR: Sentry logging requires structlog_sentry and sentry-sdk.')
         print("ERROR: Did you install the 'sentry' extras?")
