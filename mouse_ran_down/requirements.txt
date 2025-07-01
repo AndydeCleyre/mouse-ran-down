@@ -34,4 +34,4 @@ typing-extensions==4.14.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.1  # via pydantic
 urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp
 websockets==15.0.1        # via yt-dlp
-yt-dlp==2025.6.25         # via -r requirements.in
+yt-dlp==2025.6.30         # via -r requirements.in
