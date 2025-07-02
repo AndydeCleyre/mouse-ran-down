@@ -13,7 +13,7 @@ instagrapi==2.1.5         # via -r requirements.in
 instaloader==4.14.1       # via -r requirements.in
 mutagen==1.47.0           # via yt-dlp
 nestedtext==3.7           # via -r requirements.in
-pillow==11.2.1            # via -r requirements.in
+pillow==11.3.0            # via -r requirements.in
 plumbum==1.9.0            # via -r requirements.in
 pycparser==2.22           # via cffi
 pycryptodomex==3.23.0     # via instagrapi, yt-dlp
