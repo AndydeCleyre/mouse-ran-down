@@ -45,7 +45,7 @@ rich==14.0.0              # via -r dev-requirements.in
 ruff==0.12.2              # via -r dev-requirements.in
 sentry-sdk==2.32.0        # via structlog-sentry, -c mouse_ran_down/requirements.txt, -r sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c mouse_ran_down/requirements.txt
-ssort==0.14.0             # via -r dev-requirements.in
+ssort==0.15.0             # via -r dev-requirements.in
 stack-data==0.6.3         # via ipython
 stamina==25.1.0           # via -c mouse_ran_down/requirements.txt, -r requirements.in
 structlog==25.4.0         # via structlog-sentry, -c mouse_ran_down/requirements.txt, -r requirements.in
