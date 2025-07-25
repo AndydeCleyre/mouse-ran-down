@@ -17,7 +17,7 @@ instaloader==4.14.2       # via -r requirements.in
 moviepy==1.0.3            # via instagrapi
 mutagen==1.47.0           # via yt-dlp
 nestedtext==3.7           # via -r requirements.in
-numpy==2.3.1              # via imageio, moviepy
+numpy==2.3.2              # via imageio, moviepy
 pillow==11.3.0            # via imageio, -r requirements.in
 plumbum==1.9.0            # via -r requirements.in
 proglog==0.1.12           # via moviepy
