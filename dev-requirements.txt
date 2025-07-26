@@ -46,7 +46,7 @@ pysocks==1.7.1            # via instagrapi, -c mouse_ran_down/requirements.txt
 pytelegrambotapi==4.27.0  # via -c mouse_ran_down/requirements.txt, -r requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c mouse_ran_down/requirements.txt
 requests==2.32.4          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c mouse_ran_down/requirements.txt
-rich==14.0.0              # via -r dev-requirements.in
+rich==14.1.0              # via -r dev-requirements.in
 ruff==0.12.5              # via -r dev-requirements.in
 sentry-sdk==2.33.2        # via structlog-sentry, -c mouse_ran_down/requirements.txt, -r sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c mouse_ran_down/requirements.txt
