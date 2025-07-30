@@ -1,5 +1,5 @@
 aiohappyeyeballs==2.6.1   # via aiohttp
-aiohttp==3.12.14          # via pytelegrambotapi
+aiohttp==3.12.15          # via pytelegrambotapi
 aiosignal==1.4.0          # via aiohttp
 annotated-types==0.7.0    # via pydantic
 arrow==1.3.0              # via inform
@@ -41,7 +41,7 @@ pytelegrambotapi==4.28.0  # via -r requirements.in
 pytest==8.4.1             # via pytelegrambotapi
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.32.4          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp
-sentry-sdk==2.33.2        # via structlog-sentry, -r sentry-requirements.in
+sentry-sdk==2.34.0        # via structlog-sentry, -r sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==25.1.0           # via -r requirements.in
 structlog==25.4.0         # via structlog-sentry, -r requirements.in
