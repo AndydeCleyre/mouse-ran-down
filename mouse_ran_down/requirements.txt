@@ -16,7 +16,7 @@ html2text==2025.4.15      # via -r requirements.in
 idna==3.10                # via requests, yarl
 imageio==2.37.0           # via moviepy
 imageio-ffmpeg==0.6.0     # via moviepy
-inform==1.34              # via nestedtext
+inform==1.35              # via nestedtext
 iniconfig==2.1.0          # via pytest
 instagrapi==2.2.1         # via -r requirements.in
 instaloader==4.14.2       # via -r requirements.in
@@ -41,7 +41,7 @@ pytelegrambotapi==4.28.0  # via -r requirements.in
 pytest==8.4.1             # via pytelegrambotapi
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.32.4          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp
-sentry-sdk==2.34.0        # via structlog-sentry, -r sentry-requirements.in
+sentry-sdk==2.34.1        # via structlog-sentry, -r sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==25.1.0           # via -r requirements.in
 structlog==25.4.0         # via structlog-sentry, -r requirements.in
