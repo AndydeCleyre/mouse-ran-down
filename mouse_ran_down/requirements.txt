@@ -7,7 +7,7 @@ attrs==25.3.0             # via aiohttp
 brotli==1.1.0             # via yt-dlp
 certifi==2025.8.3         # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==1.17.1              # via curl-cffi
-charset-normalizer==3.4.2  # via requests
+charset-normalizer==3.4.3  # via requests
 curl-cffi==0.10.0         # via yt-dlp
 decorator==4.4.2          # via moviepy
 frozenlist==1.7.0         # via aiohttp, aiosignal
