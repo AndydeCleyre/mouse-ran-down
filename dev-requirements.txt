@@ -9,7 +9,7 @@ brotli==1.1.0             # via yt-dlp, -c mouse_ran_down/requirements.txt
 certifi==2025.8.3         # via curl-cffi, requests, sentry-sdk, yt-dlp, -c mouse_ran_down/requirements.txt
 cffi==1.17.1              # via curl-cffi, -c mouse_ran_down/requirements.txt
 charset-normalizer==3.4.3  # via requests, -c mouse_ran_down/requirements.txt
-curl-cffi==0.10.0         # via yt-dlp, -c mouse_ran_down/requirements.txt
+curl-cffi==0.13.0         # via yt-dlp, -c mouse_ran_down/requirements.txt
 decorator==4.4.2          # via ipython, moviepy, -c mouse_ran_down/requirements.txt
 executing==2.2.0          # via stack-data
 frozenlist==1.7.0         # via aiohttp, aiosignal, -c mouse_ran_down/requirements.txt
@@ -77,4 +77,4 @@ wcwidth==0.2.13           # via prompt-toolkit
 websockets==15.0.1        # via yt-dlp, -c mouse_ran_down/requirements.txt
 wheel==0.45.1             # via pytelegrambotapi, -c mouse_ran_down/requirements.txt
 yarl==1.20.1              # via aiohttp, -c mouse_ran_down/requirements.txt
-yt-dlp==2025.7.21         # via -c mouse_ran_down/requirements.txt, -r requirements.in
+yt-dlp==2025.8.11         # via -c mouse_ran_down/requirements.txt, -r requirements.in
