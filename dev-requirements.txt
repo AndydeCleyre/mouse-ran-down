@@ -25,11 +25,11 @@ instaloader==4.14.2       # via -c mouse_ran_down/requirements.txt, -r requireme
 ipython==9.4.0            # via -r dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.19.2              # via ipython
-markdown-it-py==3.0.0     # via rich
+markdown-it-py==4.0.0     # via rich
 matplotlib-inline==0.1.7  # via ipython
 mdurl==0.1.2              # via markdown-it-py
 moviepy==1.0.3            # via instagrapi, -c mouse_ran_down/requirements.txt
-multidict==6.6.3          # via aiohttp, yarl, -c mouse_ran_down/requirements.txt
+multidict==6.6.4          # via aiohttp, yarl, -c mouse_ran_down/requirements.txt
 mutagen==1.47.0           # via yt-dlp, -c mouse_ran_down/requirements.txt
 nestedtext==3.7           # via -c mouse_ran_down/requirements.txt, -r requirements.in
 nodeenv==1.9.1            # via pyright

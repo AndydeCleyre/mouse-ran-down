@@ -21,7 +21,7 @@ iniconfig==2.1.0          # via pytest
 instagrapi==2.2.1         # via -r requirements.in
 instaloader==4.14.2       # via -r requirements.in
 moviepy==1.0.3            # via instagrapi
-multidict==6.6.3          # via aiohttp, yarl
+multidict==6.6.4          # via aiohttp, yarl
 mutagen==1.47.0           # via yt-dlp
 nestedtext==3.7           # via -r requirements.in
 numpy==2.3.2              # via imageio, moviepy
