@@ -55,4 +55,4 @@ urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp
 websockets==15.0.1        # via yt-dlp
 wheel==0.45.1             # via pytelegrambotapi
 yarl==1.20.1              # via aiohttp
-yt-dlp==2025.8.20         # via -r requirements.in
+yt-dlp==2025.8.22         # via -r requirements.in
