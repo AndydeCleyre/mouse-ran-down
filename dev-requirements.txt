@@ -35,7 +35,7 @@ nestedtext==3.7           # via -c mouse_ran_down/requirements.txt, -r requireme
 nodeenv==1.9.1            # via pyright
 numpy==2.3.2              # via imageio, moviepy, -c mouse_ran_down/requirements.txt
 packaging==25.0           # via pytest, -c mouse_ran_down/requirements.txt
-parso==0.8.4              # via jedi
+parso==0.8.5              # via jedi
 pathspec==0.12.1          # via ssort
 pexpect==4.9.0            # via ipython
 pillow==11.3.0            # via imageio, -c mouse_ran_down/requirements.txt, -r requirements.in
