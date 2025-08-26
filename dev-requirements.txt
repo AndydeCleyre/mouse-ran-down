@@ -70,7 +70,7 @@ tenacity==9.1.2           # via stamina, -c mouse_ran_down/requirements.txt
 tqdm==4.67.1              # via moviepy, proglog, -c mouse_ran_down/requirements.txt
 traitlets==5.14.3         # via ipython, matplotlib-inline
 types-python-dateutil==2.9.0.20250822  # via arrow, -c mouse_ran_down/requirements.txt
-typing-extensions==4.14.1  # via pydantic, pydantic-core, pyright, typing-inspection, -c mouse_ran_down/requirements.txt
+typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c mouse_ran_down/requirements.txt
 typing-inspection==0.4.1  # via pydantic, -c mouse_ran_down/requirements.txt
 urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp, -c mouse_ran_down/requirements.txt
 wcwidth==0.2.13           # via prompt-toolkit
