@@ -42,7 +42,7 @@ pillow==11.3.0            # via imageio, -c mouse_ran_down/requirements.txt, -r 
 pluggy==1.6.0             # via pytest, -c mouse_ran_down/requirements.txt
 plumbum==1.9.0            # via -c mouse_ran_down/requirements.txt, -r requirements.in
 proglog==0.1.12           # via moviepy, -c mouse_ran_down/requirements.txt
-prompt-toolkit==3.0.51    # via ipython
+prompt-toolkit==3.0.52    # via ipython
 propcache==0.3.2          # via aiohttp, yarl, -c mouse_ran_down/requirements.txt
 ptyprocess==0.7.0         # via pexpect
 pure-eval==0.2.3          # via stack-data
@@ -77,4 +77,4 @@ wcwidth==0.2.13           # via prompt-toolkit
 websockets==15.0.1        # via yt-dlp, -c mouse_ran_down/requirements.txt
 wheel==0.45.1             # via pytelegrambotapi, -c mouse_ran_down/requirements.txt
 yarl==1.20.1              # via aiohttp, -c mouse_ran_down/requirements.txt
-yt-dlp==2025.8.22         # via -c mouse_ran_down/requirements.txt, -r requirements.in
+yt-dlp==2025.8.27         # via -c mouse_ran_down/requirements.txt, -r requirements.in
