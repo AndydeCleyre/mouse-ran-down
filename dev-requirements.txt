@@ -22,7 +22,7 @@ inform==1.35              # via nestedtext, -c mouse_ran_down/requirements.txt
 iniconfig==2.1.0          # via pytest, -c mouse_ran_down/requirements.txt
 instagrapi==2.2.1         # via -c mouse_ran_down/requirements.txt, -r requirements.in
 instaloader==4.14.2       # via -c mouse_ran_down/requirements.txt, -r requirements.in
-ipython==9.4.0            # via -r dev-requirements.in
+ipython==9.5.0            # via -r dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.19.2              # via ipython
 markdown-it-py==4.0.0     # via rich
