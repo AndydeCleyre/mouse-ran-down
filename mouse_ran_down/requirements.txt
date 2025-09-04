@@ -26,7 +26,7 @@ pycryptodomex==3.23.0     # via instagrapi, yt-dlp
 pydantic==2.11.7          # via instagrapi
 pydantic-core==2.33.2     # via pydantic
 pysocks==1.7.1            # via instagrapi
-pytelegrambotapi==4.29.0  # via -r requirements.in
+pytelegrambotapi==4.29.1  # via -r requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.32.4          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp
 sentry-sdk==2.35.2        # via structlog-sentry, -r sentry-requirements.in
