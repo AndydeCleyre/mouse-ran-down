@@ -48,7 +48,7 @@ python-dateutil==2.9.0.post0  # via arrow, -c mouse_ran_down/requirements.txt
 requests==2.32.4          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c mouse_ran_down/requirements.txt
 rich==14.1.0              # via -r dev-requirements.in
 ruff==0.12.12             # via -r dev-requirements.in
-sentry-sdk==2.36.0        # via structlog-sentry, -c mouse_ran_down/requirements.txt, -r sentry-requirements.in
+sentry-sdk==2.37.0        # via structlog-sentry, -c mouse_ran_down/requirements.txt, -r sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c mouse_ran_down/requirements.txt
 ssort==0.15.0             # via -r dev-requirements.in
 stack-data==0.6.3         # via ipython
@@ -64,4 +64,4 @@ typing-inspection==0.4.1  # via pydantic, -c mouse_ran_down/requirements.txt
 urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp, -c mouse_ran_down/requirements.txt
 wcwidth==0.2.13           # via prompt-toolkit
 websockets==15.0.1        # via yt-dlp, -c mouse_ran_down/requirements.txt
-yt-dlp==2025.8.27         # via -c mouse_ran_down/requirements.txt, -r requirements.in
+yt-dlp==2025.9.5          # via -c mouse_ran_down/requirements.txt, -r requirements.in
