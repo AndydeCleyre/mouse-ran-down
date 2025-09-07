@@ -6,7 +6,7 @@ cffi==1.17.1              # via curl-cffi
 charset-normalizer==3.4.3  # via requests
 curl-cffi==0.13.0         # via yt-dlp
 decorator==4.4.2          # via moviepy
-gallery-dl==1.30.5        # via -r requirements.in
+gallery-dl==1.30.6        # via -r requirements.in
 html2text==2025.4.15      # via -r requirements.in
 idna==3.10                # via requests
 imageio==2.37.0           # via moviepy
