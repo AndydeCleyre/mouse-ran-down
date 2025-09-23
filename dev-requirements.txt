@@ -62,6 +62,6 @@ types-python-dateutil==2.9.0.20250822  # via arrow, -c mouse_ran_down/requiremen
 typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c mouse_ran_down/requirements.txt
 typing-inspection==0.4.1  # via pydantic, -c mouse_ran_down/requirements.txt
 urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp, -c mouse_ran_down/requirements.txt
-wcwidth==0.2.13           # via prompt-toolkit
+wcwidth==0.2.14           # via prompt-toolkit
 websockets==15.0.1        # via yt-dlp, -c mouse_ran_down/requirements.txt
 yt-dlp==2025.9.5          # via -c mouse_ran_down/requirements.txt, -r requirements.in
