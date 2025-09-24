@@ -6,7 +6,7 @@ cffi==2.0.0               # via curl-cffi
 charset-normalizer==3.4.3  # via requests
 curl-cffi==0.13.0         # via yt-dlp
 decorator==4.4.2          # via moviepy
-gallery-dl==1.30.7        # via -r requirements.in
+gallery-dl==1.30.8        # via -r requirements.in
 html2text==2025.4.15      # via -r requirements.in
 idna==3.10                # via requests
 imageio==2.37.0           # via moviepy
@@ -41,4 +41,4 @@ typing-extensions==4.15.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.1  # via pydantic
 urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp
 websockets==15.0.1        # via yt-dlp
-yt-dlp==2025.9.5          # via -r requirements.in
+yt-dlp==2025.9.23         # via -r requirements.in
