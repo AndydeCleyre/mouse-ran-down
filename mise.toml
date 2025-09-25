@@ -1,25 +1,27 @@
 [tools]
 python = "3.13"
 shellcheck = "latest"
+uv = "latest"
+deno = "latest"
 
 [env._.python]
 venv = { path = ".venv", create = true }
 
-[tasks.ensure-uv]
-run = "command -v uv || python -m pip install uv"
-hide = true
+[vars]
+pip_compile = "uv pip compile -q --upgrade --no-header --annotation-style=line"
 
 [tasks.bump-reqs]
-depends = ["ensure-uv"]
 run = [
   "zsh -c '. ./.zpy/zpy.plugin.zsh; pypc -y'",
-  "uv pip compile --python python -o mouse_ran_down/requirements.txt --no-header --annotation-style=line -U requirements.in sentry-requirements.in",
-  "uv pip compile --python python -o dev-requirements.txt --no-header --annotation-style=line -U dev-requirements.in"
+  "{{vars.pip_compile}} reqs/requirements.in reqs/sentry-requirements.in -o mouse_ran_down/requirements.txt",
+  "{{vars.pip_compile}} reqs/dev-requirements.in                         -o dev-requirements.txt"
 ]
 
 [tasks.install]
-depends = ["ensure-uv"]
-run = "uv pip install -p python -e '.[dev]' -c dev-requirements.txt"
+run = [
+  "uv -q pip sync dev-requirements.txt",
+  "uv -q pip install -e '.[dev]' -c dev-requirements.txt",
+]
 
 [tasks.fmt]
 depends = ["install"]

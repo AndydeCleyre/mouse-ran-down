@@ -60,6 +60,7 @@ $ uv tool install 'mouse-ran-down[sentry]'  # for Sentry/GlitchTip integration
 
 To run it effectively you'll need to install `ffmpeg` and `mailcap`,
 and you might benefit from installing `atomicparsley`.
+If you want it to work with YouTube links, install `deno` as well.
 
 Run `mouse-ran-down --help` for usage.
 
