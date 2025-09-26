@@ -17,7 +17,7 @@ from instagrapi.exceptions import ChallengeRequired, LoginRequired
 from instaloader.exceptions import BadResponseException, ConnectionException
 from plumbum import ProcessExecutionError, local
 from plumbum.cmd import gallery_dl
-from yt_dlp import DownloadError, YoutubeDL
+from yt_dlp import DownloadError, YoutubeDL  # pyright: ignore [reportAttributeAccessIssue]
 from yt_dlp.networking.impersonate import ImpersonateTarget
 
 from .mrd_logging import StructLogger, get_logger
@@ -164,7 +164,7 @@ class LinkHandlers:
         url: str,
         *,
         media_type: Literal['video', 'audio'],
-        heights: list | None,
+        heights: list[int] | None,
         ignore_cookies: bool,
         embed_thumbnail: bool,
     ):
@@ -270,7 +270,7 @@ class LinkHandlers:
         url: str,
         *,
         media_type: Literal['video', 'audio'] = 'video',
-        heights: list | None = None,
+        heights: list[int] | None = None,
         ignore_cookies: bool = False,
         embed_thumbnail: bool = True,
         already_desperate: bool = False,
@@ -296,7 +296,7 @@ class LinkHandlers:
                 folder=str(tmp),
             )
 
-            with YoutubeDL(params=params) as ydl:
+            with YoutubeDL(params=params) as ydl:  # type: ignore
                 self.logger.info(
                     "Downloading",
                     media_type=media_type,
@@ -502,7 +502,7 @@ class LinkHandlers:
         if self.cookies and not ignore_cookies:
             params['cookiefile'] = self.cookies
 
-        with YoutubeDL(params=params) as ydl:
+        with YoutubeDL(params=params) as ydl:  # type: ignore
             try:
                 # TODO: redirect stderr, capture, and log?
                 info = ydl.extract_info(url, download=False)
