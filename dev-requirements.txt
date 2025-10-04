@@ -8,7 +8,7 @@ charset-normalizer==3.4.3  # via requests, -c reqs/../mouse_ran_down/requirement
 curl-cffi==0.13.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 decorator==4.4.2          # via ipython, moviepy, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.2.1          # via stack-data
-gallery-dl==1.30.8        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+gallery-dl==1.30.9        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.10                # via requests, -c reqs/../mouse_ran_down/requirements.txt
 imageio==2.37.0           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
