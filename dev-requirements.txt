@@ -2,7 +2,7 @@ annotated-types==0.7.0    # via pydantic, -c reqs/../mouse_ran_down/requirements
 arrow==1.3.0              # via inform, -c reqs/../mouse_ran_down/requirements.txt
 asttokens==3.0.0          # via stack-data
 brotli==1.1.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-certifi==2025.8.3         # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+certifi==2025.10.5        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 cffi==2.0.0               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.4.3  # via requests, -c reqs/../mouse_ran_down/requirements.txt
 curl-cffi==0.13.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
