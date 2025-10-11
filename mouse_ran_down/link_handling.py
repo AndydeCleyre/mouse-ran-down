@@ -89,7 +89,7 @@ class LinkHandlers:
             'reddit': r'https://(www|old)\.reddit\.com/(r|user)/[^/]+/(comments|s)/[a-zA-Z0-9_/]+(\?.*)?',
             'youtube': (
                 r'https://(youtu\.be/[^/]+'
-                r'|(www\.)?youtube\.com/shorts/[^/]+'
+                r'|(www\.)?youtube\.com/(shorts|clip)/[^/]+'
                 r'|(www|m)\.youtube\.com/watch\?v=[^/]+)'
             ),
             'vimeo': (
