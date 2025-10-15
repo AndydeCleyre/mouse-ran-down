@@ -3,7 +3,7 @@ arrow==1.3.0              # via inform
 brotli==1.1.0             # via yt-dlp
 certifi==2025.10.5        # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.0.0               # via curl-cffi
-charset-normalizer==3.4.3  # via requests
+charset-normalizer==3.4.4  # via requests
 curl-cffi==0.13.0         # via yt-dlp
 decorator==4.4.2          # via moviepy
 gallery-dl==1.30.10       # via -r reqs/requirements.in
@@ -41,4 +41,4 @@ typing-extensions==4.15.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.2  # via pydantic
 urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp
 websockets==15.0.1        # via yt-dlp
-yt-dlp==2025.9.26         # via -r reqs/requirements.in
+yt-dlp==2025.10.14        # via -r reqs/requirements.in
