@@ -26,11 +26,11 @@ moviepy==1.0.3            # via instagrapi, -c reqs/../mouse_ran_down/requiremen
 mutagen==1.47.0           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 nestedtext==3.7           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 nodeenv==1.9.1            # via pyright
-numpy==2.3.3              # via imageio, moviepy, -c reqs/../mouse_ran_down/requirements.txt
+numpy==2.3.4              # via imageio, moviepy, -c reqs/../mouse_ran_down/requirements.txt
 parso==0.8.5              # via jedi
 pathspec==0.12.1          # via ssort
 pexpect==4.9.0            # via ipython
-pillow==11.3.0            # via imageio, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+pillow==12.0.0            # via imageio, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 plumbum==1.9.0            # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 proglog==0.1.12           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 prompt-toolkit==3.0.52    # via ipython
@@ -48,7 +48,7 @@ python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirement
 requests==2.32.4          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==14.2.0              # via -r reqs/dev-requirements.in
 ruff==0.14.0              # via -r reqs/dev-requirements.in
-sentry-sdk==2.41.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
+sentry-sdk==2.42.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.15.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython
