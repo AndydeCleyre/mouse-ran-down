@@ -1,5 +1,5 @@
 annotated-types==0.7.0    # via pydantic
-arrow==1.3.0              # via inform
+arrow==1.4.0              # via inform
 brotli==1.1.0             # via yt-dlp
 certifi==2025.10.5        # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.0.0               # via curl-cffi
@@ -36,9 +36,9 @@ structlog==25.4.0         # via structlog-sentry, -r reqs/requirements.in
 structlog-sentry==2.2.1   # via -r reqs/sentry-requirements.in
 tenacity==9.1.2           # via stamina
 tqdm==4.67.1              # via moviepy, proglog
-types-python-dateutil==2.9.0.20251008  # via arrow
 typing-extensions==4.15.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.2  # via pydantic
+tzdata==2025.2            # via arrow
 urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp
 websockets==15.0.1        # via yt-dlp
 yt-dlp==2025.10.14        # via -r reqs/requirements.in
