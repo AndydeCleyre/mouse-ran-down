@@ -41,7 +41,7 @@ pycryptodomex==3.23.0     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/re
 pydantic==2.11.7          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pydantic-core==2.33.2     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 pygments==2.19.2          # via ipython, ipython-pygments-lexers, rich
-pyright==1.1.406          # via -r reqs/dev-requirements.in
+pyright==1.1.407          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pytelegrambotapi==4.29.1  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
