@@ -125,6 +125,7 @@ class MouseRanDown(Application):
             insta_pw=config.get('INSTA_PW'),
         )
 
+        @bot.channel_post_handler(func=bool)
         @bot.business_message_handler(func=bool)
         @bot.message_handler(func=bool)
         def all_msg_handler(message: Message):
