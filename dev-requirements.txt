@@ -31,7 +31,7 @@ parso==0.8.5              # via jedi
 pathspec==0.12.1          # via ssort
 pexpect==4.9.0            # via ipython
 pillow==12.0.0            # via imageio, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-plumbum==1.9.0            # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+plumbum==1.10.0           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 proglog==0.1.12           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 prompt-toolkit==3.0.52    # via ipython
 ptyprocess==0.7.0         # via pexpect

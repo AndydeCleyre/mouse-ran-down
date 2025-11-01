@@ -19,7 +19,7 @@ mutagen==1.47.0           # via yt-dlp
 nestedtext==3.7           # via -r reqs/requirements.in
 numpy==2.3.4              # via imageio, moviepy
 pillow==12.0.0            # via imageio, -r reqs/requirements.in
-plumbum==1.9.0            # via -r reqs/requirements.in
+plumbum==1.10.0           # via -r reqs/requirements.in
 proglog==0.1.12           # via moviepy
 pycparser==2.23           # via cffi
 pycryptodomex==3.23.0     # via instagrapi, yt-dlp
