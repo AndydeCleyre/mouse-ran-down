@@ -29,7 +29,7 @@ pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.29.1  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.32.4          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp
-sentry-sdk==2.44.0        # via structlog-sentry, -r reqs/sentry-requirements.in
+sentry-sdk==2.45.0        # via structlog-sentry, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==25.1.0           # via -r reqs/requirements.in
 structlog==25.5.0         # via structlog-sentry, -r reqs/requirements.in
