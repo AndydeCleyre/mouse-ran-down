@@ -47,7 +47,7 @@ pytelegrambotapi==4.29.1  # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.32.4          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==14.2.0              # via -r reqs/dev-requirements.in
-ruff==0.14.5              # via -r reqs/dev-requirements.in
+ruff==0.14.6              # via -r reqs/dev-requirements.in
 sentry-sdk==2.45.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.15.0             # via -r reqs/dev-requirements.in
