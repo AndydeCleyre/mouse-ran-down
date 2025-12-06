@@ -61,7 +61,7 @@ traitlets==5.14.3         # via ipython, matplotlib-inline
 typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c reqs/../mouse_ran_down/requirements.txt
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2025.2            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
-urllib3==2.5.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+urllib3==2.6.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.2.14           # via prompt-toolkit
 websockets==15.0.1        # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2025.11.12        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
