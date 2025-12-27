@@ -16,7 +16,7 @@ instagrapi @ git+https://github.com/subzeroid/instagrapi@6796a8639b7aa3bead5bbee
 instaloader==4.15         # via -r reqs/requirements.in
 moviepy==1.0.3            # via instagrapi
 mutagen==1.47.0           # via yt-dlp
-nestedtext==3.7           # via -r reqs/requirements.in
+nestedtext==3.8           # via -r reqs/requirements.in
 numpy==2.4.0              # via imageio, moviepy
 pillow==12.0.0            # via imageio, -r reqs/requirements.in
 plumbum==1.10.0           # via -r reqs/requirements.in

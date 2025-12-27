@@ -24,7 +24,7 @@ matplotlib-inline==0.2.1  # via ipython
 mdurl==0.1.2              # via markdown-it-py
 moviepy==1.0.3            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 mutagen==1.47.0           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-nestedtext==3.7           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 nodeenv==1.10.0           # via pyright
 numpy==2.4.0              # via imageio, moviepy, -c reqs/../mouse_ran_down/requirements.txt
 parso==0.8.5              # via jedi
