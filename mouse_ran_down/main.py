@@ -105,7 +105,7 @@ class MouseRanDown(Application):
             init_sentry(dsn)
         logger = get_logger(json=self.json, sentry=bool(dsn))
 
-        bot = TeleBot(config['TOKEN'])
+        bot = TeleBot(config['TOKEN'], threaded=False)
         logger.info("Initialized bot")
 
         loot_sender = LootSender(
