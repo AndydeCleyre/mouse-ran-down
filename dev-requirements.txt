@@ -16,7 +16,7 @@ imageio-ffmpeg==0.6.0     # via moviepy, -c reqs/../mouse_ran_down/requirements.
 inform==1.35              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@c4209b1603cc9de1ce92f617afe3a729afa7f654  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-ipython==9.8.0            # via -r reqs/dev-requirements.in
+ipython==9.9.0            # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.19.2              # via ipython
 markdown-it-py==4.0.0     # via rich
@@ -28,7 +28,7 @@ nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 nodeenv==1.10.0           # via pyright
 numpy==2.4.0              # via imageio, moviepy, -c reqs/../mouse_ran_down/requirements.txt
 parso==0.8.5              # via jedi
-pathspec==0.12.1          # via ssort
+pathspec==1.0.0           # via ssort
 pexpect==4.9.0            # via ipython
 pillow==12.1.0            # via imageio, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 plumbum==1.10.0           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
