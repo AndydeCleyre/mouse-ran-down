@@ -28,7 +28,7 @@ nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 nodeenv==1.10.0           # via pyright
 numpy==2.4.0              # via imageio, moviepy, -c reqs/../mouse_ran_down/requirements.txt
 parso==0.8.5              # via jedi
-pathspec==1.0.1           # via ssort
+pathspec==1.0.2           # via ssort
 pexpect==4.9.0            # via ipython
 pillow==12.1.0            # via imageio, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 plumbum==1.10.0           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
@@ -61,7 +61,7 @@ traitlets==5.14.3         # via ipython, matplotlib-inline
 typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c reqs/../mouse_ran_down/requirements.txt
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2025.3            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
-urllib3==2.6.2            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.2.14           # via prompt-toolkit
 websockets==15.0.1        # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2025.12.8         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
