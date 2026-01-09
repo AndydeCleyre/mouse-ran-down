@@ -41,14 +41,14 @@ pycryptodomex==3.23.0     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/re
 pydantic==2.12.4          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pydantic-core==2.41.5     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 pygments==2.19.2          # via ipython, ipython-pygments-lexers, rich
-pyright==1.1.407          # via -r reqs/dev-requirements.in
+pyright==1.1.408          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pytelegrambotapi==4.29.1  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.32.5          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==14.2.0              # via -r reqs/dev-requirements.in
-ruff==0.14.10             # via -r reqs/dev-requirements.in
-sentry-sdk==2.48.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
+ruff==0.14.11             # via -r reqs/dev-requirements.in
+sentry-sdk==2.49.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.16.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython
