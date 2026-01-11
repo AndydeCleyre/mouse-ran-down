@@ -13,7 +13,7 @@ html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 idna==3.11                # via requests, -c reqs/../mouse_ran_down/requirements.txt
 imageio==2.37.2           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 imageio-ffmpeg==0.6.0     # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
-inform==1.35              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
+inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@c4209b1603cc9de1ce92f617afe3a729afa7f654  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.9.0            # via -r reqs/dev-requirements.in
@@ -26,7 +26,7 @@ moviepy==1.0.3            # via instagrapi, -c reqs/../mouse_ran_down/requiremen
 mutagen==1.47.0           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 nodeenv==1.10.0           # via pyright
-numpy==2.4.0              # via imageio, moviepy, -c reqs/../mouse_ran_down/requirements.txt
+numpy==2.4.1              # via imageio, moviepy, -c reqs/../mouse_ran_down/requirements.txt
 parso==0.8.5              # via jedi
 pathspec==1.0.3           # via ssort
 pexpect==4.9.0            # via ipython
@@ -63,6 +63,6 @@ typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements
 tzdata==2025.3            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.2.14           # via prompt-toolkit
-websockets==15.0.1        # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+websockets==16.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2025.12.8         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 yt-dlp-ejs==0.3.2         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt

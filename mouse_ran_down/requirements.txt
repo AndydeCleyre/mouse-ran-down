@@ -11,13 +11,13 @@ html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.11                # via requests
 imageio==2.37.2           # via moviepy
 imageio-ffmpeg==0.6.0     # via moviepy
-inform==1.35              # via nestedtext
+inform==1.36              # via nestedtext
 instagrapi @ git+https://github.com/subzeroid/instagrapi@c4209b1603cc9de1ce92f617afe3a729afa7f654  # via -r reqs/requirements.in
 instaloader==4.15         # via -r reqs/requirements.in
 moviepy==1.0.3            # via instagrapi
 mutagen==1.47.0           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
-numpy==2.4.0              # via imageio, moviepy
+numpy==2.4.1              # via imageio, moviepy
 pillow==12.1.0            # via imageio, -r reqs/requirements.in
 plumbum==1.10.0           # via -r reqs/requirements.in
 proglog==0.1.12           # via moviepy
@@ -40,6 +40,6 @@ typing-extensions==4.15.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.2  # via pydantic
 tzdata==2025.3            # via arrow
 urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp
-websockets==15.0.1        # via yt-dlp
+websockets==16.0          # via yt-dlp
 yt-dlp==2025.12.8         # via -r reqs/requirements.in
 yt-dlp-ejs==0.3.2         # via yt-dlp
