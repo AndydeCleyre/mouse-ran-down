@@ -21,7 +21,7 @@ numpy==2.4.1              # via imageio, moviepy
 pillow==12.1.0            # via imageio, -r reqs/requirements.in
 plumbum==1.10.0           # via -r reqs/requirements.in
 proglog==0.1.12           # via moviepy
-pycparser==2.23           # via cffi
+pycparser==3.0            # via cffi
 pycryptodomex==3.23.0     # via instagrapi, yt-dlp
 pydantic==2.12.4          # via instagrapi
 pydantic-core==2.41.5     # via pydantic
