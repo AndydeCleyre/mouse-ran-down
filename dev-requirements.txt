@@ -8,7 +8,7 @@ charset-normalizer==3.4.4  # via requests, -c reqs/../mouse_ran_down/requirement
 curl-cffi==0.13.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 decorator==4.4.2          # via ipython, moviepy, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.2.1          # via stack-data
-gallery-dl==1.31.3        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+gallery-dl==1.31.4        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.11                # via requests, -c reqs/../mouse_ran_down/requirements.txt
 imageio==2.37.2           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
@@ -46,7 +46,7 @@ pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requiremen
 pytelegrambotapi==4.30.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.32.5          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-rich==14.2.0              # via -r reqs/dev-requirements.in
+rich==14.3.1              # via -r reqs/dev-requirements.in
 ruff==0.14.14             # via -r reqs/dev-requirements.in
 sentry-sdk==2.50.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
@@ -62,7 +62,7 @@ typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspec
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2025.3            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-wcwidth==0.3.2            # via prompt-toolkit
+wcwidth==0.3.5            # via prompt-toolkit
 websockets==16.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2025.12.8         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 yt-dlp-ejs==0.3.2         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
