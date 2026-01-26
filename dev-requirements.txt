@@ -62,7 +62,7 @@ typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspec
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2025.3            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-wcwidth==0.3.5            # via prompt-toolkit
+wcwidth==0.4.0            # via prompt-toolkit
 websockets==16.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2025.12.8         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 yt-dlp-ejs==0.3.2         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
