@@ -47,7 +47,7 @@ pytelegrambotapi==4.30.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.32.5          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==14.3.2              # via -r reqs/dev-requirements.in
-ruff==0.14.14             # via -r reqs/dev-requirements.in
+ruff==0.15.0              # via -r reqs/dev-requirements.in
 sentry-sdk==2.51.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.16.0             # via -r reqs/dev-requirements.in
@@ -56,7 +56,7 @@ stamina==25.2.0           # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 structlog==25.5.0         # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 structlog-sentry==2.2.1   # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 tenacity==9.1.2           # via stamina, -c reqs/../mouse_ran_down/requirements.txt
-tqdm==4.67.2              # via moviepy, proglog, -c reqs/../mouse_ran_down/requirements.txt
+tqdm==4.67.3              # via moviepy, proglog, -c reqs/../mouse_ran_down/requirements.txt
 traitlets==5.14.3         # via ipython, matplotlib-inline
 typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c reqs/../mouse_ran_down/requirements.txt
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
@@ -64,5 +64,5 @@ tzdata==2025.3            # via arrow, -c reqs/../mouse_ran_down/requirements.tx
 urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.5.3            # via prompt-toolkit
 websockets==16.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-yt-dlp==2026.1.31         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+yt-dlp==2026.2.4          # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 yt-dlp-ejs==0.4.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
