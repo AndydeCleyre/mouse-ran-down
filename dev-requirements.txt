@@ -27,7 +27,7 @@ mutagen==1.47.0           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.t
 nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 nodeenv==1.10.0           # via pyright
 numpy==2.4.2              # via imageio, moviepy, -c reqs/../mouse_ran_down/requirements.txt
-parso==0.8.5              # via jedi
+parso==0.8.6              # via jedi
 pathspec==1.0.4           # via ssort
 pexpect==4.9.0            # via ipython
 pillow==12.1.0            # via imageio, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
