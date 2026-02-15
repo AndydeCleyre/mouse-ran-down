@@ -43,7 +43,7 @@ pydantic-core==2.41.5     # via pydantic, -c reqs/../mouse_ran_down/requirements
 pygments==2.19.2          # via ipython, ipython-pygments-lexers, rich
 pyright==1.1.408          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
-pytelegrambotapi==4.30.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+pytelegrambotapi==4.31.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.32.5          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==14.3.2              # via -r reqs/dev-requirements.in
