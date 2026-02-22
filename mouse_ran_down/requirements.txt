@@ -41,5 +41,5 @@ typing-inspection==0.4.2  # via pydantic
 tzdata==2025.3            # via arrow
 urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp
 websockets==16.0          # via yt-dlp
-yt-dlp==2026.2.4          # via -r reqs/requirements.in
-yt-dlp-ejs==0.4.0         # via yt-dlp
+yt-dlp==2026.2.21         # via -r reqs/requirements.in
+yt-dlp-ejs==0.5.0         # via yt-dlp
