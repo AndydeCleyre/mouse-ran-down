@@ -90,7 +90,7 @@ class LinkHandlers:
             'youtube': (
                 r'https://(youtu\.be/[^/]+'
                 r'|(www\.)?youtube\.com/(shorts|clip)/[^/]+'
-                r'|(www|m)\.youtube\.com/watch\?v=[^/]+)'
+                r'|(www|m)\.youtube\.com/watch\?(.+&)*v=[^/]+)'
             ),
             'vimeo': (
                 r'https://(player\.vimeo\.com/video/[^/]+'
@@ -278,7 +278,7 @@ class LinkHandlers:
         """Download media and upload to the chat."""
         self.sender.announce_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
 
-        url = url.split('&', 1)[0]
+        # url = url.split('&', 1)[0]
 
         heights = [1080, 720, 540, 480, 360, 240, 144] if heights is None else heights
         media_format = (
