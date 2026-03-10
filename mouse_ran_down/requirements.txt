@@ -9,7 +9,7 @@ decorator==4.4.2          # via moviepy
 gallery-dl==1.31.9        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.11                # via requests
-imageio==2.37.2           # via moviepy
+imageio==2.37.3           # via moviepy
 imageio-ffmpeg==0.6.0     # via moviepy
 inform==1.36              # via nestedtext
 instagrapi @ git+https://github.com/subzeroid/instagrapi@557e2b2d1d96e5ed1c3722cc5856cac58670a32d  # via -r reqs/requirements.in
@@ -17,7 +17,7 @@ instaloader==4.15         # via -r reqs/requirements.in
 moviepy==1.0.3            # via instagrapi
 mutagen==1.47.0           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
-numpy==2.4.2              # via imageio, moviepy
+numpy==2.4.3              # via imageio, moviepy
 pillow==12.1.1            # via imageio, -r reqs/requirements.in
 plumbum==1.10.0           # via -r reqs/requirements.in
 proglog==0.1.12           # via moviepy
@@ -26,7 +26,7 @@ pycryptodomex==3.23.0     # via instagrapi, yt-dlp
 pydantic==2.12.5          # via instagrapi
 pydantic-core==2.41.5     # via pydantic
 pysocks==1.7.1            # via instagrapi
-pytelegrambotapi==4.31.0  # via -r reqs/requirements.in
+pytelegrambotapi==4.32.0  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.32.5          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp
 sentry-sdk==2.54.0        # via structlog-sentry, -r reqs/sentry-requirements.in
