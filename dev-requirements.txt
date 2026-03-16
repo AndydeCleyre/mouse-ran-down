@@ -4,7 +4,7 @@ asttokens==3.0.1          # via stack-data
 brotli==1.2.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 certifi==2026.2.25        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 cffi==2.0.0               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
-charset-normalizer==3.4.5  # via requests, -c reqs/../mouse_ran_down/requirements.txt
+charset-normalizer==3.4.6  # via requests, -c reqs/../mouse_ran_down/requirements.txt
 curl-cffi==0.14.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 decorator==4.4.2          # via ipython, moviepy, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.2.1          # via stack-data
