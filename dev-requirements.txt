@@ -48,7 +48,7 @@ python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirement
 requests==2.32.5          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==14.3.3              # via -r reqs/dev-requirements.in
 ruff==0.15.6              # via -r reqs/dev-requirements.in
-sentry-sdk==2.54.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
+sentry-sdk==2.55.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.16.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython
@@ -64,5 +64,5 @@ tzdata==2025.3            # via arrow, -c reqs/../mouse_ran_down/requirements.tx
 urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.6.0            # via prompt-toolkit
 websockets==16.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-yt-dlp==2026.3.13         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-yt-dlp-ejs==0.7.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+yt-dlp==2026.3.17         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+yt-dlp-ejs==0.8.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt

@@ -29,7 +29,7 @@ pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.32.0  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.32.5          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp
-sentry-sdk==2.54.0        # via structlog-sentry, -r reqs/sentry-requirements.in
+sentry-sdk==2.55.0        # via structlog-sentry, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==25.2.0           # via -r reqs/requirements.in
 structlog==25.5.0         # via structlog-sentry, -r reqs/requirements.in
@@ -41,5 +41,5 @@ typing-inspection==0.4.2  # via pydantic
 tzdata==2025.3            # via arrow
 urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp
 websockets==16.0          # via yt-dlp
-yt-dlp==2026.3.13         # via -r reqs/requirements.in
-yt-dlp-ejs==0.7.0         # via yt-dlp
+yt-dlp==2026.3.17         # via -r reqs/requirements.in
+yt-dlp-ejs==0.8.0         # via yt-dlp
