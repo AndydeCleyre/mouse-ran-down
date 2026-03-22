@@ -15,7 +15,7 @@ imageio==2.37.3           # via moviepy, -c reqs/../mouse_ran_down/requirements.
 imageio-ffmpeg==0.6.0     # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@557e2b2d1d96e5ed1c3722cc5856cac58670a32d  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-instaloader==4.15         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.10.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.19.2              # via ipython
