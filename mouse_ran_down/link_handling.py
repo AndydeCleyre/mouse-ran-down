@@ -278,11 +278,9 @@ class LinkHandlers:
         """Download media and upload to the chat."""
         self.sender.announce_action(message=message, action=f"record_{media_type}")  # pyright: ignore [reportArgumentType]
 
-        # url = url.split('&', 1)[0]
-
         heights = [1080, 720, 540, 480, 360, 240, 144] if heights is None else heights
         media_format = (
-            f'bestvideo[height<={heights[0]}][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<={heights[0]}]+bestaudio/best[height<={heights[0]}]'
+            f'bestvideo[vcodec~="^avc1"][height<={heights[0]}][ext=mp4]+bestaudio[ext=m4a]/best[vcodec~="^avc1"][height<={heights[0]}]'
             if media_type == 'video'
             else 'bestaudio[ext=mp3]/bestaudio'
         )
