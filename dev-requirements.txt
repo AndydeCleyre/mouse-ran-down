@@ -30,7 +30,7 @@ numpy==2.4.4              # via imageio, moviepy, -c reqs/../mouse_ran_down/requ
 parso==0.8.6              # via jedi
 pathspec==1.0.4           # via ssort
 pexpect==4.9.0            # via ipython
-pillow==12.1.1            # via imageio, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+pillow==12.2.0            # via imageio, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 plumbum==1.10.0           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 proglog==0.1.12           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 prompt-toolkit==3.0.52    # via ipython
