@@ -3,7 +3,7 @@ arrow==1.4.0              # via inform
 brotli==1.2.0             # via yt-dlp
 certifi==2026.2.25        # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.0.0               # via curl-cffi
-charset-normalizer==3.4.6  # via requests
+charset-normalizer==3.4.7  # via requests
 curl-cffi==0.14.0         # via yt-dlp
 decorator==4.4.2          # via moviepy
 gallery-dl==1.31.10       # via -r reqs/requirements.in
