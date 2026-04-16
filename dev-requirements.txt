@@ -14,7 +14,7 @@ idna==3.11                # via requests, -c reqs/../mouse_ran_down/requirements
 imageio==2.37.3           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 imageio-ffmpeg==0.6.0     # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@557e2b2d1d96e5ed1c3722cc5856cac58670a32d  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@fcd0a7a31d4c9b9c47dd5840c3cadd6d7338f336  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.10.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -38,14 +38,14 @@ ptyprocess==0.7.0         # via pexpect
 pure-eval==0.2.3          # via stack-data
 pycparser==3.0            # via cffi, -c reqs/../mouse_ran_down/requirements.txt
 pycryptodomex==3.23.0     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-pydantic==2.12.5          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
-pydantic-core==2.41.5     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
+pydantic==2.13.0          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
+pydantic-core==2.46.0     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 pygments==2.20.0          # via ipython, ipython-pygments-lexers, rich
 pyright==1.1.408          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pytelegrambotapi==4.33.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
-requests==2.32.5          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+requests==2.33.0          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
 ruff==0.15.10             # via -r reqs/dev-requirements.in
 sentry-sdk==2.58.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
