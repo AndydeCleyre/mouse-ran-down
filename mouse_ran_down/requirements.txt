@@ -12,7 +12,7 @@ idna==3.11                # via requests
 imageio==2.37.3           # via moviepy
 imageio-ffmpeg==0.6.0     # via moviepy
 inform==1.36              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@6318d470f30dedc8ffe8f5baba4045f8fb711b4f  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@91bbf3ee4d2d83a2e4ba250293c4bac77add7c5e  # via -r reqs/requirements.in
 instaloader==4.15.1       # via -r reqs/requirements.in
 moviepy==1.0.3            # via instagrapi
 mutagen==1.47.0           # via yt-dlp
@@ -23,8 +23,8 @@ plumbum==1.10.0           # via -r reqs/requirements.in
 proglog==0.1.12           # via moviepy
 pycparser==3.0            # via cffi
 pycryptodomex==3.23.0     # via instagrapi, yt-dlp
-pydantic==2.13.0          # via instagrapi
-pydantic-core==2.46.0     # via pydantic
+pydantic==2.13.2          # via instagrapi
+pydantic-core==2.46.2     # via pydantic
 pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.33.0  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
