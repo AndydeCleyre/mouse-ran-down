@@ -10,11 +10,11 @@ decorator==4.4.2          # via ipython, moviepy, -c reqs/../mouse_ran_down/requ
 executing==2.2.1          # via stack-data
 gallery-dl==1.31.10       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-idna==3.11                # via requests, -c reqs/../mouse_ran_down/requirements.txt
+idna==3.12                # via requests, -c reqs/../mouse_ran_down/requirements.txt
 imageio==2.37.3           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 imageio-ffmpeg==0.6.0     # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@6c2675e9124f4756978e45462fdf341cec413648  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@9e03f8becfd3cc99ed22e4d81fca8666cea26f23  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.10.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
