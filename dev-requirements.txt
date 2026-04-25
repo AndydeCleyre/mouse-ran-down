@@ -8,7 +8,7 @@ charset-normalizer==3.4.7  # via requests, -c reqs/../mouse_ran_down/requirement
 curl-cffi==0.14.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 decorator==4.4.2          # via ipython, moviepy, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.2.1          # via stack-data
-gallery-dl==1.31.10       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+gallery-dl==1.32.0        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.13                # via requests, -c reqs/../mouse_ran_down/requirements.txt
 imageio==2.37.3           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
@@ -47,7 +47,7 @@ pytelegrambotapi==4.33.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.33.0          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
-ruff==0.15.11             # via -r reqs/dev-requirements.in
+ruff==0.15.12             # via -r reqs/dev-requirements.in
 sentry-sdk==2.58.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.16.0             # via -r reqs/dev-requirements.in
@@ -60,7 +60,7 @@ tqdm==4.67.3              # via moviepy, proglog, -c reqs/../mouse_ran_down/requ
 traitlets==5.14.3         # via ipython, matplotlib-inline
 typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c reqs/../mouse_ran_down/requirements.txt
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
-tzdata==2026.1            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
+tzdata==2026.2            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.6.0            # via prompt-toolkit
 websockets==16.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
