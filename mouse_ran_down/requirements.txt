@@ -12,7 +12,7 @@ idna==3.13                # via requests
 imageio==2.37.3           # via moviepy
 imageio-ffmpeg==0.6.0     # via moviepy
 inform==1.36              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@b32fac0574e805fad8850c893e5e0e2c8bcdeba0  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@ad1a0488f7f771a91573a7a271c0515a3667abe5  # via -r reqs/requirements.in
 instaloader==4.15.1       # via -r reqs/requirements.in
 moviepy==1.0.3            # via instagrapi
 mutagen==1.47.0           # via yt-dlp

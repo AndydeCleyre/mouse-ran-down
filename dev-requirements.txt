@@ -14,7 +14,7 @@ idna==3.13                # via requests, -c reqs/../mouse_ran_down/requirements
 imageio==2.37.3           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 imageio-ffmpeg==0.6.0     # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@b32fac0574e805fad8850c893e5e0e2c8bcdeba0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@ad1a0488f7f771a91573a7a271c0515a3667abe5  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.10.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
