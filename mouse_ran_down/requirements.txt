@@ -6,13 +6,13 @@ cffi==2.0.0               # via curl-cffi
 charset-normalizer==3.4.7  # via requests
 curl-cffi==0.14.0         # via yt-dlp
 decorator==4.4.2          # via moviepy
-gallery-dl==1.32.0        # via -r reqs/requirements.in
+gallery-dl==1.32.1        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.13                # via requests
 imageio==2.37.3           # via moviepy
 imageio-ffmpeg==0.6.0     # via moviepy
 inform==1.36              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@a56ddc4759ffce2ce0c389b8789ea42ff3863818  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@6999044b01361b551b8965e7a6a1a9728826cec1  # via -r reqs/requirements.in
 instaloader==4.15.1       # via -r reqs/requirements.in
 moviepy==1.0.3            # via instagrapi
 mutagen==1.47.0           # via yt-dlp
