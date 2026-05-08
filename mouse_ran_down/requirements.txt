@@ -12,7 +12,7 @@ idna==3.13                # via requests
 imageio==2.37.3           # via moviepy
 imageio-ffmpeg==0.6.0     # via moviepy
 inform==1.36              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@bf7b58bd8c742150b5d126f70dd712cb7823d080  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@22260b736b7505c6fffd13dc3c12196622000edf  # via -r reqs/requirements.in
 instaloader==4.15.1       # via -r reqs/requirements.in
 moviepy==1.0.3            # via instagrapi
 mutagen==1.47.0           # via yt-dlp
@@ -23,8 +23,8 @@ plumbum==1.10.0           # via -r reqs/requirements.in
 proglog==0.1.12           # via moviepy
 pycparser==3.0            # via cffi
 pycryptodomex==3.23.0     # via instagrapi, yt-dlp
-pydantic==2.13.3          # via instagrapi
-pydantic-core==2.46.3     # via pydantic
+pydantic==2.13.4          # via instagrapi
+pydantic-core==2.46.4     # via pydantic
 pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.33.0  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
@@ -39,7 +39,7 @@ tqdm==4.67.3              # via moviepy, proglog
 typing-extensions==4.15.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.2  # via pydantic
 tzdata==2026.2            # via arrow
-urllib3==2.6.3            # via requests, sentry-sdk, yt-dlp
+urllib3==2.7.0            # via requests, sentry-sdk, yt-dlp
 websockets==16.0          # via yt-dlp
 yt-dlp==2026.3.17         # via -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp
