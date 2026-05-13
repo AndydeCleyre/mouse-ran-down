@@ -10,11 +10,11 @@ decorator==4.4.2          # via ipython, moviepy, -c reqs/../mouse_ran_down/requ
 executing==2.2.1          # via stack-data
 gallery-dl==1.32.1        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-idna==3.14                # via requests, -c reqs/../mouse_ran_down/requirements.txt
+idna==3.15                # via requests, -c reqs/../mouse_ran_down/requirements.txt
 imageio==2.37.3           # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 imageio-ffmpeg==0.6.0     # via moviepy, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@3594bb13a2b49cf9741cba466fa733453de30a42  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@dfc5aa0060d18bdfaed7aef78ced88a1aafad041  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.10.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -45,7 +45,7 @@ pyright==1.1.409          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pytelegrambotapi==4.33.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
-requests==2.33.1          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+requests==2.34.0          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
 ruff==0.15.12             # via -r reqs/dev-requirements.in
 sentry-sdk==2.59.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
