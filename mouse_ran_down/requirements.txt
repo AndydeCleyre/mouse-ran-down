@@ -12,7 +12,7 @@ idna==3.15                # via requests
 imageio==2.37.3           # via moviepy
 imageio-ffmpeg==0.6.0     # via moviepy
 inform==1.36              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@dfc5aa0060d18bdfaed7aef78ced88a1aafad041  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@d27872dbd698cca8a31ceb39b4eeed23c75e5b0f  # via -r reqs/requirements.in
 instaloader==4.15.1       # via -r reqs/requirements.in
 moviepy==1.0.3            # via instagrapi
 mutagen==1.47.0           # via yt-dlp
@@ -29,7 +29,7 @@ pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.33.0  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.34.0          # via gallery-dl, instagrapi, instaloader, moviepy, pytelegrambotapi, yt-dlp
-sentry-sdk==2.59.0        # via structlog-sentry, -r reqs/sentry-requirements.in
+sentry-sdk==2.60.0        # via structlog-sentry, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==26.1.0           # via -r reqs/requirements.in
 structlog==25.5.0         # via structlog-sentry, -r reqs/requirements.in
