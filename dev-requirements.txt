@@ -2,7 +2,7 @@ annotated-types==0.7.0    # via pydantic, -c reqs/../mouse_ran_down/requirements
 arrow==1.4.0              # via inform, -c reqs/../mouse_ran_down/requirements.txt
 asttokens==3.0.1          # via stack-data
 brotli==1.2.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-certifi==2026.4.22        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+certifi==2026.5.20        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 cffi==2.0.0               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.4.7  # via requests, -c reqs/../mouse_ran_down/requirements.txt
 curl-cffi==0.14.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
@@ -12,7 +12,7 @@ gallery-dl==1.32.1        # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.15                # via requests, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@3442023da7a106c23a15497837fbef82664d9217  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@c4096d4fc9ce03cec244f622afa54c4fdf52d5b3  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.13.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
