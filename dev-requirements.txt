@@ -10,9 +10,9 @@ decorator==5.3.1          # via ipython
 executing==2.2.1          # via stack-data
 gallery-dl==1.32.1        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-idna==3.15                # via requests, -c reqs/../mouse_ran_down/requirements.txt
+idna==3.16                # via requests, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@c4096d4fc9ce03cec244f622afa54c4fdf52d5b3  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@59d359ac02baae77557b4f089349a48ea948f3cb  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.13.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -43,7 +43,7 @@ pytelegrambotapi==4.33.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
-ruff==0.15.13             # via -r reqs/dev-requirements.in
+ruff==0.15.14             # via -r reqs/dev-requirements.in
 sentry-sdk==2.60.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.16.0             # via -r reqs/dev-requirements.in
