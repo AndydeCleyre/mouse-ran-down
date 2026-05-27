@@ -9,7 +9,7 @@ gallery-dl==1.32.1        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.16                # via requests
 inform==1.36              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@e940f84a41ddb7c74fc878bc03497a807490ea71  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@59a55283e5fca338e38818d17d6dd3eea5e7d868  # via -r reqs/requirements.in
 instaloader==4.15.1       # via -r reqs/requirements.in
 mutagen==1.47.0           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
