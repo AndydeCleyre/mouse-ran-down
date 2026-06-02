@@ -12,7 +12,7 @@ gallery-dl==1.32.1        # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.17                # via requests, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@8c1a390b6c12dde4d8b11b53ccde9403ec39cec7  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@4b0f45fcaa27468f7ce83dcc2dd6583283d8e799  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.14.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -37,7 +37,7 @@ pycryptodomex==3.23.0     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/re
 pydantic==2.13.4          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pydantic-core==2.46.4     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 pygments==2.20.0          # via ipython, ipython-pygments-lexers, rich
-pyright==1.1.409          # via -r reqs/dev-requirements.in
+pyright==1.1.410          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pytelegrambotapi==4.33.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
