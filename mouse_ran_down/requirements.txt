@@ -7,9 +7,9 @@ charset-normalizer==3.4.7  # via requests
 curl-cffi==0.14.0         # via yt-dlp
 gallery-dl==1.32.1        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
-idna==3.17                # via requests
+idna==3.18                # via requests
 inform==1.36              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@4b0f45fcaa27468f7ce83dcc2dd6583283d8e799  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@61096cc71844466b9619d57a8caa0fd8277d0ad1  # via -r reqs/requirements.in
 instaloader==4.15.1       # via -r reqs/requirements.in
 mutagen==1.47.0           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
