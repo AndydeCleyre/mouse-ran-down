@@ -17,7 +17,7 @@ gallery-dl==1.32.1        # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@7fc9587642fa61e55ddd5124075f5f63ca6f921b  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@52a8d5a96a1fd412ed6260c82cdad4c03c6ef70a  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.14.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -64,7 +64,7 @@ typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspec
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2026.2            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.7.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-wcwidth==0.7.0            # via prompt-toolkit
+wcwidth==0.8.0            # via prompt-toolkit
 websockets==16.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yarl==1.24.2              # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2026.3.17         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
