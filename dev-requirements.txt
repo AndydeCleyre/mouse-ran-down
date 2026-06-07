@@ -13,11 +13,11 @@ curl-cffi==0.14.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.t
 decorator==5.3.1          # via ipython
 executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
-gallery-dl==1.32.1        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+gallery-dl==1.32.2        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@52a8d5a96a1fd412ed6260c82cdad4c03c6ef70a  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@f90d810571905d401fa3b918c9f777ef7f8578d9  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.14.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -56,7 +56,7 @@ six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_do
 ssort==0.16.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython
 stamina==26.1.0           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-structlog==25.5.0         # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+structlog==26.1.0         # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 structlog-sentry==2.2.1   # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 tenacity==9.1.4           # via stamina, -c reqs/../mouse_ran_down/requirements.txt
 traitlets==5.15.1         # via ipython, matplotlib-inline

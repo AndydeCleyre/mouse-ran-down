@@ -10,11 +10,11 @@ cffi==2.0.0               # via curl-cffi
 charset-normalizer==3.4.7  # via requests
 curl-cffi==0.14.0         # via yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
-gallery-dl==1.32.1        # via -r reqs/requirements.in
+gallery-dl==1.32.2        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.18                # via requests, yarl
 inform==1.36              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@52a8d5a96a1fd412ed6260c82cdad4c03c6ef70a  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@f90d810571905d401fa3b918c9f777ef7f8578d9  # via -r reqs/requirements.in
 instaloader==4.15.1       # via -r reqs/requirements.in
 multidict==6.7.1          # via aiohttp, yarl
 mutagen==1.47.0           # via yt-dlp
@@ -33,7 +33,7 @@ requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegramb
 sentry-sdk==2.61.1        # via structlog-sentry, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==26.1.0           # via -r reqs/requirements.in
-structlog==25.5.0         # via structlog-sentry, -r reqs/requirements.in
+structlog==26.1.0         # via structlog-sentry, -r reqs/requirements.in
 structlog-sentry==2.2.1   # via -r reqs/sentry-requirements.in
 tenacity==9.1.4           # via stamina
 typing-extensions==4.15.0  # via pydantic, pydantic-core, typing-inspection
