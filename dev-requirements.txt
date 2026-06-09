@@ -17,7 +17,7 @@ gallery-dl==1.32.2        # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@e224bce77706024f230c19a58567bcdea704a627  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@94e02bcfed1dedf7c7776360626aabfc67138086  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.14.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -33,7 +33,7 @@ parso==0.8.7              # via jedi
 pathspec==1.1.1           # via ssort
 pexpect==4.9.0            # via ipython
 pillow==12.2.0            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-plumbum==2.0.0            # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+plumbum==2.0.1            # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 prompt-toolkit==3.0.52    # via ipython
 propcache==0.5.2          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
 psutil==7.2.2             # via ipython
@@ -51,7 +51,7 @@ python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirement
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
 ruff==0.15.16             # via -r reqs/dev-requirements.in
-sentry-sdk==2.61.1        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
+sentry-sdk==2.62.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.16.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython
