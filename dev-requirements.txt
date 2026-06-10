@@ -9,7 +9,7 @@ brotli==1.2.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.t
 certifi==2026.5.20        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 cffi==2.0.0               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.4.7  # via requests, -c reqs/../mouse_ran_down/requirements.txt
-curl-cffi==0.14.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+curl-cffi==0.15.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 decorator==5.3.1          # via ipython
 executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
@@ -17,14 +17,14 @@ gallery-dl==1.32.2        # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@94e02bcfed1dedf7c7776360626aabfc67138086  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@e402ef0aec5c3ed578ca7a72297716a6c620d718  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.14.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.20.0              # via ipython
-markdown-it-py==4.2.0     # via rich
+markdown-it-py==4.2.0     # via rich, -c reqs/../mouse_ran_down/requirements.txt
 matplotlib-inline==0.2.2  # via ipython
-mdurl==0.1.2              # via markdown-it-py
+mdurl==0.1.2              # via markdown-it-py, -c reqs/../mouse_ran_down/requirements.txt
 multidict==6.7.1          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
 mutagen==1.47.0           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
@@ -43,13 +43,13 @@ pycparser==3.0            # via cffi, -c reqs/../mouse_ran_down/requirements.txt
 pycryptodomex==3.23.0     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 pydantic==2.13.4          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pydantic-core==2.46.4     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
-pygments==2.20.0          # via ipython, ipython-pygments-lexers, rich
+pygments==2.20.0          # via ipython, ipython-pygments-lexers, rich, -c reqs/../mouse_ran_down/requirements.txt
 pyright==1.1.410          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pytelegrambotapi==4.34.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-rich==15.0.0              # via -r reqs/dev-requirements.in
+rich==15.0.0              # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/dev-requirements.in
 ruff==0.15.16             # via -r reqs/dev-requirements.in
 sentry-sdk==2.62.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
@@ -67,5 +67,5 @@ urllib3==2.7.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_r
 wcwidth==0.8.1            # via prompt-toolkit
 websockets==16.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yarl==1.24.2              # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
-yt-dlp==2026.3.17         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+yt-dlp==2026.6.9          # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
