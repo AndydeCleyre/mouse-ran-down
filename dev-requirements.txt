@@ -6,7 +6,7 @@ arrow==1.4.0              # via inform, -c reqs/../mouse_ran_down/requirements.t
 asttokens==3.0.1          # via stack-data
 attrs==26.1.0             # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 brotli==1.2.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-certifi==2026.5.20        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+certifi==2026.6.17        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 cffi==2.0.0               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.4.7  # via requests, -c reqs/../mouse_ran_down/requirements.txt
 curl-cffi==0.15.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
