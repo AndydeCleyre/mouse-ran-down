@@ -10,7 +10,7 @@ cffi==2.0.0               # via curl-cffi
 charset-normalizer==3.4.7  # via requests
 curl-cffi==0.15.0         # via yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
-gallery-dl==1.32.3        # via -r reqs/requirements.in
+gallery-dl==1.32.4        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.18                # via requests, yarl
 inform==1.36              # via nestedtext
