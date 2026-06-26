@@ -19,7 +19,7 @@ instaloader==4.15.1       # via -r reqs/requirements.in
 markdown-it-py==4.2.0     # via rich
 mdurl==0.1.2              # via markdown-it-py
 multidict==6.7.1          # via aiohttp, yarl
-mutagen==1.48.0           # via yt-dlp
+mutagen==1.48.1           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
 pillow==12.2.0            # via instagrapi, -r reqs/requirements.in
 plumbum==2.0.1            # via -r reqs/requirements.in
