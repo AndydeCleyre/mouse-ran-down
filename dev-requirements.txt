@@ -16,7 +16,7 @@ frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/re
 gallery-dl==1.32.4        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
-inform==1.36              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
+inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@d345f87fc31b28d8818458f19914150d988ee0c6  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.15.0           # via -r reqs/dev-requirements.in
