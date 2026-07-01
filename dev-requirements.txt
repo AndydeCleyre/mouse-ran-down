@@ -13,11 +13,11 @@ curl-cffi==0.15.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.t
 decorator==5.3.1          # via ipython
 executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
-gallery-dl==1.32.4        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+gallery-dl==1.32.5        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@20ebe5f475f808f705727d0d0e08786dd2e67ac9  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@09764e1dc2562fe2973ac1f90624e6643edfac21  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.15.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -51,7 +51,7 @@ python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirement
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/dev-requirements.in
 ruff==0.15.20             # via -r reqs/dev-requirements.in
-sentry-sdk==2.63.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
+sentry-sdk==2.64.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.16.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython
