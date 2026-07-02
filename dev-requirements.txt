@@ -1,4 +1,4 @@
-aiohappyeyeballs==2.6.2   # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
+aiohappyeyeballs==2.7.1   # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 aiohttp==3.14.1           # via pytelegrambotapi, -c reqs/../mouse_ran_down/requirements.txt
 aiosignal==1.4.0          # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 annotated-types==0.7.0    # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
@@ -17,7 +17,7 @@ gallery-dl==1.32.5        # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@09764e1dc2562fe2973ac1f90624e6643edfac21  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@866a837cd3ca7c0af0ba4f5394f86118cf781665  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.15.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -32,7 +32,7 @@ nodeenv==1.10.0           # via pyright
 parso==0.8.7              # via jedi
 pathspec==1.1.1           # via ssort
 pexpect==4.9.0            # via ipython
-pillow==12.2.0            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+pillow==12.3.0            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 plumbum==2.0.1            # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 prompt-toolkit==3.0.52    # via ipython
 propcache==0.5.2          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
