@@ -60,7 +60,7 @@ structlog==26.1.0         # via structlog-sentry, -c reqs/../mouse_ran_down/requ
 structlog-sentry==2.2.1   # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 tenacity==9.1.4           # via stamina, -c reqs/../mouse_ran_down/requirements.txt
 traitlets==5.15.1         # via ipython, matplotlib-inline
-typing-extensions==4.15.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c reqs/../mouse_ran_down/requirements.txt
+typing-extensions==4.16.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c reqs/../mouse_ran_down/requirements.txt
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2026.2            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.7.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
