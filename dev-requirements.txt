@@ -18,7 +18,7 @@ html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@866a837cd3ca7c0af0ba4f5394f86118cf781665  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-instaloader==4.15.1       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instaloader==4.15.2       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.15.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.20.0              # via ipython

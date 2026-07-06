@@ -15,7 +15,7 @@ html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.18                # via requests, yarl
 inform==1.37              # via nestedtext
 instagrapi @ git+https://github.com/subzeroid/instagrapi@866a837cd3ca7c0af0ba4f5394f86118cf781665  # via -r reqs/requirements.in
-instaloader==4.15.1       # via -r reqs/requirements.in
+instaloader==4.15.2       # via -r reqs/requirements.in
 markdown-it-py==4.2.0     # via rich
 mdurl==0.1.2              # via markdown-it-py
 multidict==6.7.1          # via aiohttp, yarl
