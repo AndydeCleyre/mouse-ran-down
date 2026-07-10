@@ -50,7 +50,7 @@ pytelegrambotapi==4.34.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/dev-requirements.in
-ruff==0.15.20             # via -r reqs/dev-requirements.in
+ruff==0.15.21             # via -r reqs/dev-requirements.in
 sentry-sdk==2.64.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.16.0             # via -r reqs/dev-requirements.in
@@ -65,7 +65,7 @@ typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements
 tzdata==2026.2            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.7.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.8.2            # via prompt-toolkit
-websockets==16.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+websockets==16.1          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yarl==1.24.2              # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2026.7.4          # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
