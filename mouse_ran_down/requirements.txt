@@ -34,7 +34,7 @@ pytelegrambotapi==4.35.0  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
 rich==15.0.0              # via curl-cffi
-sentry-sdk==2.65.0        # via structlog-sentry, -r reqs/sentry-requirements.in
+sentry-sdk==2.66.0        # via structlog-sentry, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==26.1.0           # via -r reqs/requirements.in
 structlog==26.1.0         # via structlog-sentry, -r reqs/requirements.in
