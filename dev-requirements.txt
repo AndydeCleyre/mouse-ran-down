@@ -13,7 +13,7 @@ curl-cffi==0.15.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.t
 decorator==5.3.1          # via ipython
 executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
-gallery-dl==1.32.6        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+gallery-dl==1.32.7        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
@@ -46,7 +46,7 @@ pydantic-core==2.46.4     # via pydantic, -c reqs/../mouse_ran_down/requirements
 pygments==2.20.0          # via ipython, ipython-pygments-lexers, rich, -c reqs/../mouse_ran_down/requirements.txt
 pyright==1.1.411          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
-pytelegrambotapi==4.35.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+pytelegrambotapi==4.36.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/dev-requirements.in

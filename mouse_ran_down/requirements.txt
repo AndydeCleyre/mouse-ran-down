@@ -10,7 +10,7 @@ cffi==2.1.0               # via curl-cffi
 charset-normalizer==3.4.9  # via requests
 curl-cffi==0.15.0         # via yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
-gallery-dl==1.32.6        # via -r reqs/requirements.in
+gallery-dl==1.32.7        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.18                # via requests, yarl
 inform==1.37              # via nestedtext
@@ -30,7 +30,7 @@ pydantic==2.13.4          # via instagrapi
 pydantic-core==2.46.4     # via pydantic
 pygments==2.20.0          # via rich
 pysocks==1.7.1            # via instagrapi
-pytelegrambotapi==4.35.0  # via -r reqs/requirements.in
+pytelegrambotapi==4.36.0  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
 rich==15.0.0              # via curl-cffi
