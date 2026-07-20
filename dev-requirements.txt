@@ -66,6 +66,6 @@ tzdata==2026.3            # via arrow, -c reqs/../mouse_ran_down/requirements.tx
 urllib3==2.7.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.8.2            # via prompt-toolkit
 websockets==16.1.1        # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-yarl==1.24.2              # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
+yarl==1.24.5              # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2026.7.4          # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
