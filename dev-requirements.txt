@@ -6,7 +6,7 @@ arrow==1.4.0              # via inform, -c reqs/../mouse_ran_down/requirements.t
 asttokens==3.0.2          # via stack-data
 attrs==26.1.0             # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 brotli==1.2.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-certifi==2026.6.17        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+certifi==2026.7.22        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 cffi==2.1.0               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.4.9  # via requests, -c reqs/../mouse_ran_down/requirements.txt
 curl-cffi==0.15.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
@@ -17,7 +17,7 @@ gallery-dl==1.32.7        # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@0759c11759c567a7914f51ace8dba953b0db5f79  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@7e145c0acdfa00daade4872ae2948aa4899a6253  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.2       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.15.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -33,7 +33,7 @@ parso==0.8.7              # via jedi
 pathspec==1.1.1           # via ssort
 pexpect==4.9.0            # via ipython
 pillow==12.3.0            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-plumbum==2.0.1            # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+plumbum==2.0.2            # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 prompt-toolkit==3.0.52    # via ipython
 propcache==0.5.2          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
 psutil==7.2.2             # via ipython
