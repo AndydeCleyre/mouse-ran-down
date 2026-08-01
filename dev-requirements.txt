@@ -10,7 +10,6 @@ certifi==2026.7.22        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs
 cffi==2.1.0               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.4.9  # via requests, -c reqs/../mouse_ran_down/requirements.txt
 curl-cffi==0.15.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-decorator==5.3.1          # via ipython
 executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
 gallery-dl==1.32.8        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
@@ -19,7 +18,7 @@ idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requir
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@1076125473e08a88ccbda353e0bf86c8bf703f70  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.3       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-ipython==9.15.0           # via -r reqs/dev-requirements.in
+ipython==9.16.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.20.0              # via ipython
 markdown-it-py==4.2.0     # via rich, -c reqs/../mouse_ran_down/requirements.txt
@@ -59,13 +58,13 @@ stamina==26.1.0           # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 structlog==26.1.0         # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 structlog-sentry==2.2.1   # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 tenacity==9.1.4           # via stamina, -c reqs/../mouse_ran_down/requirements.txt
-traitlets==5.15.1         # via ipython, matplotlib-inline
+traitlets==5.16.0         # via ipython, matplotlib-inline
 typing-extensions==4.16.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c reqs/../mouse_ran_down/requirements.txt
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2026.3            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.7.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.8.2            # via prompt-toolkit
-websockets==17.0          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+websockets==17.0.1        # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yarl==1.24.5              # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2026.7.4          # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
