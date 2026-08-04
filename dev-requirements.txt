@@ -7,7 +7,7 @@ asttokens==3.0.2          # via stack-data
 attrs==26.1.0             # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 brotli==1.2.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 certifi==2026.7.22        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-cffi==2.1.0               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
+cffi==2.1.1               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.4.9  # via requests, -c reqs/../mouse_ran_down/requirements.txt
 curl-cffi==0.15.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.2.1          # via stack-data
@@ -18,7 +18,7 @@ idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requir
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@632af6348b8a9804a52cc2aae45c737986abdb63  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.3       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-ipython==9.16.0           # via -r reqs/dev-requirements.in
+ipython==9.16.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.20.0              # via ipython
 markdown-it-py==4.2.0     # via rich, -c reqs/../mouse_ran_down/requirements.txt
@@ -52,13 +52,13 @@ rich==15.0.0              # via curl-cffi, -c reqs/../mouse_ran_down/requirement
 ruff==0.16.1              # via -r reqs/dev-requirements.in
 sentry-sdk==2.66.1        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
-ssort==0.16.0             # via -r reqs/dev-requirements.in
+ssort==0.17.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython
 stamina==26.1.0           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 structlog==26.1.0         # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 structlog-sentry==2.2.1   # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 tenacity==9.1.4           # via stamina, -c reqs/../mouse_ran_down/requirements.txt
-traitlets==5.16.0         # via ipython, matplotlib-inline
+traitlets==5.16.1         # via ipython, matplotlib-inline
 typing-extensions==4.16.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c reqs/../mouse_ran_down/requirements.txt
 typing-inspection==0.4.2  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2026.3            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
