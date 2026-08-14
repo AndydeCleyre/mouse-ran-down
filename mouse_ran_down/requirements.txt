@@ -30,11 +30,11 @@ pydantic==2.13.4          # via instagrapi
 pydantic-core==2.46.4     # via pydantic
 pygments==2.20.0          # via rich
 pysocks==1.7.1            # via instagrapi
-pytelegrambotapi==4.36.0  # via -r reqs/requirements.in
+pytelegrambotapi==4.36.1  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
 rich==15.0.0              # via curl-cffi
-sentry-sdk==2.67.1        # via structlog-sentry, -r reqs/sentry-requirements.in
+sentry-sdk==2.68.0        # via structlog-sentry, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==26.1.0           # via -r reqs/requirements.in
 structlog==26.1.0         # via structlog-sentry, -r reqs/requirements.in
