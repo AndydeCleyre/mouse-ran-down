@@ -7,14 +7,14 @@ attrs==26.1.0             # via aiohttp
 brotli==1.2.0             # via yt-dlp
 certifi==2026.7.22        # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.1.1               # via curl-cffi
-charset-normalizer==3.5.0  # via requests
+charset-normalizer==3.5.1  # via requests
 curl-cffi==0.15.0         # via yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
 gallery-dl==1.32.9        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.18                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@27e2ca48444843f845c951286bc762ac1dab7d9d  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@1def3f8368db7ef38c4e18d55d2308413a8965b5  # via -r reqs/requirements.in
 instaloader==4.15.3       # via -r reqs/requirements.in
 markdown-it-py==4.2.0     # via rich
 mdurl==0.1.2              # via markdown-it-py
