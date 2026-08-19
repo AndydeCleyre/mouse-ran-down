@@ -14,7 +14,7 @@ executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
 gallery-dl==1.32.9        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-idna==3.18                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
+idna==3.19                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@1def3f8368db7ef38c4e18d55d2308413a8965b5  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.3       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in

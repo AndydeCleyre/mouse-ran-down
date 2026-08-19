@@ -12,7 +12,7 @@ curl-cffi==0.15.0         # via yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
 gallery-dl==1.32.9        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
-idna==3.18                # via requests, yarl
+idna==3.19                # via requests, yarl
 inform==1.37              # via nestedtext
 instagrapi @ git+https://github.com/subzeroid/instagrapi@1def3f8368db7ef38c4e18d55d2308413a8965b5  # via -r reqs/requirements.in
 instaloader==4.15.3       # via -r reqs/requirements.in
