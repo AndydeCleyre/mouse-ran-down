@@ -8,7 +8,7 @@ brotli==1.2.0             # via yt-dlp
 certifi==2026.7.22        # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.1  # via requests
-curl-cffi==0.15.0         # via yt-dlp
+curl-cffi==0.16.0         # via yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
 gallery-dl==1.32.9        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
@@ -16,8 +16,6 @@ idna==3.19                # via requests, yarl
 inform==1.37              # via nestedtext
 instagrapi @ git+https://github.com/subzeroid/instagrapi@1def3f8368db7ef38c4e18d55d2308413a8965b5  # via -r reqs/requirements.in
 instaloader==4.15.3       # via -r reqs/requirements.in
-markdown-it-py==4.2.0     # via rich
-mdurl==0.1.2              # via markdown-it-py
 multidict==6.7.1          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
@@ -28,12 +26,10 @@ pycparser==3.0            # via cffi
 pycryptodomex==3.23.0     # via instagrapi, yt-dlp
 pydantic==2.13.4          # via instagrapi
 pydantic-core==2.46.4     # via pydantic
-pygments==2.21.0          # via rich
 pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.36.1  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
-rich==15.0.0              # via curl-cffi
 sentry-sdk==2.68.0        # via structlog-sentry, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==26.1.0           # via -r reqs/requirements.in
@@ -46,5 +42,5 @@ tzdata==2026.3            # via arrow
 urllib3==2.7.0            # via requests, sentry-sdk, yt-dlp
 websockets==17.0.1        # via yt-dlp
 yarl==1.24.5              # via aiohttp
-yt-dlp==2026.7.4          # via -r reqs/requirements.in
+yt-dlp==2026.8.19         # via -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp
