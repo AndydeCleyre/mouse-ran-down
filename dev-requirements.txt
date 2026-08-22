@@ -9,14 +9,14 @@ brotli==1.2.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.t
 certifi==2026.7.22        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 cffi==2.1.1               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.5.1  # via requests, -c reqs/../mouse_ran_down/requirements.txt
-curl-cffi==0.16.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+curl-cffi==0.16.1         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
 gallery-dl==1.32.9        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.19                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@1def3f8368db7ef38c4e18d55d2308413a8965b5  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@12374b269c5f107e5a718200ab1a07bbd88dd503  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.3       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.16.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
