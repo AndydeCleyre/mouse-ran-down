@@ -8,13 +8,13 @@ brotli==1.2.0             # via yt-dlp
 certifi==2026.7.22        # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.1  # via requests
-curl-cffi==0.16.1         # via yt-dlp
+curl-cffi==0.16.2         # via yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
 gallery-dl==1.32.9        # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.19                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@d5b72324b2b00cc0c922b4c7a631d96f42e7b88e  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@275d2f7c265d93d433b3c201af69170702586ae3  # via -r reqs/requirements.in
 instaloader==4.15.3       # via -r reqs/requirements.in
 multidict==6.7.1          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
