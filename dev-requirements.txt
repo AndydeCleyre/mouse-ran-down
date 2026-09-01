@@ -18,7 +18,7 @@ idna==3.19                # via requests, yarl, -c reqs/../mouse_ran_down/requir
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@af1cedd9bfce8903f8c66531a6b238559bba7ea7  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.3       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-ipython==9.17.0           # via -r reqs/dev-requirements.in
+ipython==9.17.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.20.0              # via ipython
 markdown-it-py==4.2.0     # via rich
