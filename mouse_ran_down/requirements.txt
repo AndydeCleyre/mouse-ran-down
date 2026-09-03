@@ -8,7 +8,7 @@ brotli==1.2.0             # via yt-dlp
 certifi==2026.7.22        # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.1  # via requests
-curl-cffi==0.16.2         # via yt-dlp
+curl-cffi==0.16.3         # via yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
 gallery-dl==1.32.10       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in

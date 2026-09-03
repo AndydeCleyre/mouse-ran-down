@@ -9,7 +9,7 @@ brotli==1.2.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.t
 certifi==2026.7.22        # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 cffi==2.1.1               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.5.1  # via requests, -c reqs/../mouse_ran_down/requirements.txt
-curl-cffi==0.16.2         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+curl-cffi==0.16.3         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
 gallery-dl==1.32.10       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
