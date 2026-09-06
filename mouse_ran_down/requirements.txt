@@ -14,7 +14,7 @@ gallery-dl==1.32.11       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.19                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@ecfdf5fd9da240a0cd52dfd91620dbb1aba6131e  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@c23bb018e2131a476979d30ab2d1fb08c774338c  # via -r reqs/requirements.in
 instaloader==4.15.3       # via -r reqs/requirements.in
 multidict==6.7.1          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
