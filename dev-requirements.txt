@@ -24,7 +24,7 @@ jedi==0.20.0              # via ipython
 markdown-it-py==4.2.0     # via rich
 matplotlib-inline==0.2.2  # via ipython
 mdurl==0.1.2              # via markdown-it-py
-multidict==6.7.1          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
+multidict==6.8.0          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
 mutagen==1.48.1           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 nodeenv==1.10.0           # via pyright
@@ -43,7 +43,7 @@ pycryptodomex==3.23.0     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/re
 pydantic==2.13.5          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pydantic-core==2.46.5     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 pygments==2.21.0          # via ipython, ipython-pygments-lexers, rich
-pyright==1.1.411          # via -r reqs/dev-requirements.in
+pyright==1.1.413          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pytelegrambotapi==4.36.1  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt

@@ -16,7 +16,7 @@ idna==3.19                # via requests, yarl
 inform==1.37              # via nestedtext
 instagrapi @ git+https://github.com/subzeroid/instagrapi@2c8f25183d7949d394a2f1d93065237a29983905  # via -r reqs/requirements.in
 instaloader==4.15.3       # via -r reqs/requirements.in
-multidict==6.7.1          # via aiohttp, yarl
+multidict==6.8.0          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
 pillow==12.3.0            # via instagrapi, -r reqs/requirements.in
