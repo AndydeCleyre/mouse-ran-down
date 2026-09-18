@@ -14,9 +14,9 @@ executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
 gallery-dl==1.32.12       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-idna==3.19                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
+idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@a3bdf800f68a22c80f1690657c9a4a35a85039ef  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@5c406534e79155d6cbf6f2997f17f4cc6d1e3b89  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.3       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.17.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -63,7 +63,7 @@ typing-extensions==4.16.0  # via pydantic, pydantic-core, pyright, typing-inspec
 typing-inspection==0.4.4  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2026.4            # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.8.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-wcwidth==0.8.3            # via prompt-toolkit
+wcwidth==0.8.4            # via prompt-toolkit
 websockets==17.1          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yarl==1.25.1              # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2026.8.19         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
