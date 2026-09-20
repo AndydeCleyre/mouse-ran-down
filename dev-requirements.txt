@@ -12,11 +12,11 @@ charset-normalizer==3.5.1  # via requests, -c reqs/../mouse_ran_down/requirement
 curl-cffi==0.16.3         # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.2.1          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
-gallery-dl==1.32.12       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+gallery-dl==1.32.13       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@436d51a30f535eca2e6bd80ee67ba4fc4becbbe1  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@3f636a498617c3359131015dc4c842915b02f598  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.3       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.17.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython

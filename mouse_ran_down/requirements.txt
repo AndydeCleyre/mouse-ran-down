@@ -10,11 +10,11 @@ cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.1  # via requests
 curl-cffi==0.16.3         # via instagrapi, yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
-gallery-dl==1.32.12       # via -r reqs/requirements.in
+gallery-dl==1.32.13       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.20                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@436d51a30f535eca2e6bd80ee67ba4fc4becbbe1  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@3f636a498617c3359131015dc4c842915b02f598  # via -r reqs/requirements.in
 instaloader==4.15.3       # via -r reqs/requirements.in
 multidict==6.9.0          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
