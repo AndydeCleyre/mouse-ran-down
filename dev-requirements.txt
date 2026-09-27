@@ -27,7 +27,7 @@ mdurl==0.1.2              # via markdown-it-py
 multidict==6.9.1          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
 mutagen==1.48.1           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-nodeenv==1.10.0           # via pyright
+nodeenv==1.11.0           # via pyright
 parso==0.8.7              # via jedi
 pathspec==1.1.1           # via ssort
 pexpect==4.9.0            # via ipython
