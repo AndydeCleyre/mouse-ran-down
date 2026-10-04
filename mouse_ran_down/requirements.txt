@@ -10,11 +10,11 @@ cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.2  # via requests
 curl-cffi==0.16.3         # via instagrapi, yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
-gallery-dl==1.32.14       # via -r reqs/requirements.in
+gallery-dl==1.32.15       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.20                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@157eaacb9f5b2d5a4b308807b3b16fcd388d7e23  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@a4e3be2450ed2fb1e74ca6932d80d0b19eeefb4c  # via -r reqs/requirements.in
 instaloader==4.15.3       # via -r reqs/requirements.in
 multidict==6.9.1          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
@@ -40,7 +40,7 @@ typing-extensions==4.16.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.4  # via pydantic
 tzdata==2026.5            # via arrow
 urllib3==2.8.0            # via requests, sentry-sdk, yt-dlp
-websockets==17.1          # via yt-dlp
+websockets==17.2          # via yt-dlp
 yarl==1.25.1              # via aiohttp
 yt-dlp==2026.8.19         # via -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp
