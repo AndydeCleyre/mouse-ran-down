@@ -10,7 +10,7 @@ cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.2  # via requests
 curl-cffi==0.16.3         # via instagrapi, yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
-gallery-dl==1.32.15       # via -r reqs/requirements.in
+gallery-dl==1.32.16       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.20                # via requests, yarl
 inform==1.37              # via nestedtext
@@ -22,7 +22,7 @@ nestedtext==3.8           # via -r reqs/requirements.in
 pillow==12.3.0            # via instagrapi, -r reqs/requirements.in
 plumbum==2.0.2            # via -r reqs/requirements.in
 propcache==0.5.4          # via aiohttp, yarl
-pycparser==3.0            # via cffi
+pycparser==3.1            # via cffi
 pycryptodomex==3.24.0     # via instagrapi, yt-dlp
 pydantic==2.13.5          # via instagrapi
 pydantic-core==2.46.5     # via pydantic
