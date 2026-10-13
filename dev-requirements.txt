@@ -16,11 +16,11 @@ gallery-dl==1.32.16       # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@b802cc4f177bf169f986656b7424862986d5b744  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-instaloader==4.15.3       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@a3b7538b1a230861cd4f43e75694fbf00950aea8  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instaloader==4.15.4       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.17.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
-jedi==0.20.0              # via ipython
+jedi==0.20.1              # via ipython
 markdown-it-py==4.2.0     # via rich
 matplotlib-inline==0.2.2  # via ipython
 mdurl==0.1.2              # via markdown-it-py
@@ -50,7 +50,7 @@ python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirement
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
 ruff==0.17.0              # via -r reqs/dev-requirements.in
-sentry-sdk==2.71.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
+sentry-sdk==2.72.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.17.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython

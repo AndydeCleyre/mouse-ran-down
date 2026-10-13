@@ -14,8 +14,8 @@ gallery-dl==1.32.16       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.20                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@b802cc4f177bf169f986656b7424862986d5b744  # via -r reqs/requirements.in
-instaloader==4.15.3       # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@a3b7538b1a230861cd4f43e75694fbf00950aea8  # via -r reqs/requirements.in
+instaloader==4.15.4       # via -r reqs/requirements.in
 multidict==7.1.0          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
@@ -30,7 +30,7 @@ pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.37.0  # via -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
-sentry-sdk==2.71.0        # via structlog-sentry, -r reqs/sentry-requirements.in
+sentry-sdk==2.72.0        # via structlog-sentry, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil
 stamina==26.1.0           # via -r reqs/requirements.in
 structlog==26.1.0         # via structlog-sentry, -r reqs/requirements.in
