@@ -12,11 +12,11 @@ charset-normalizer==3.5.2  # via requests, -c reqs/../mouse_ran_down/requirement
 curl-cffi==0.16.3         # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.3.0          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
-gallery-dl==1.32.16       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+gallery-dl==1.32.17       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@1076ce2135878434a678ba4ceba2b17c6fe27f1a  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@f22be21a2e669915f2fa270ae4f26ebe24b15ba8  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.4       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.17.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -45,7 +45,7 @@ pydantic-core==2.46.5     # via pydantic, -c reqs/../mouse_ran_down/requirements
 pygments==2.21.0          # via ipython, ipython-pygments-lexers, rich
 pyright==1.1.414          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
-pytelegrambotapi==4.37.0  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+pytelegrambotapi==4.37.1  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 python-dateutil==2.9.0.post0  # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
