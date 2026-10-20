@@ -5,7 +5,7 @@ annotated-types==0.8.0    # via pydantic
 arrow==1.4.0              # via inform
 attrs==26.1.0             # via aiohttp
 brotli==1.2.0             # via yt-dlp
-certifi==2026.10.18       # via curl-cffi, requests, sentry-sdk, yt-dlp
+certifi==2026.10.19       # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.2  # via requests
 curl-cffi==0.16.3         # via instagrapi, yt-dlp
@@ -14,7 +14,7 @@ gallery-dl==1.32.17       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.20                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@59107b13e200dc7b32f93c4671601fcaff8f494c  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@302888a804c9ebdbdc8bc6606d070e80fd044f2e  # via -r reqs/requirements.in
 instaloader==4.15.4       # via -r reqs/requirements.in
 multidict==7.1.0          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
@@ -40,7 +40,7 @@ typing-extensions==4.16.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.4  # via pydantic
 tzdata==2026.5            # via arrow
 urllib3==2.8.0            # via requests, sentry-sdk, yt-dlp
-websockets==17.2          # via yt-dlp
+websockets==17.3          # via yt-dlp
 yarl==1.25.1              # via aiohttp
 yt-dlp==2026.8.19         # via -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp
