@@ -5,7 +5,7 @@ annotated-types==0.8.0    # via pydantic, -c reqs/../mouse_ran_down/requirements
 arrow==1.4.0              # via inform, -c reqs/../mouse_ran_down/requirements.txt
 asttokens==3.0.2          # via stack-data
 attrs==26.1.0             # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
-brotli==1.2.0             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+brotli==1.2.1             # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 certifi==2026.10.19       # via curl-cffi, requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 cffi==2.1.1               # via curl-cffi, -c reqs/../mouse_ran_down/requirements.txt
 charset-normalizer==3.5.2  # via requests, -c reqs/../mouse_ran_down/requirements.txt
@@ -16,7 +16,7 @@ gallery-dl==1.32.17       # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@1af863cae4dd087a6b248c3eea8da61f6ba7b398  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@da8c34fcf8b5b8ec2d7ab33be36892afd7b489d1  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.15.4       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.17.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -38,7 +38,7 @@ propcache==0.5.4          # via aiohttp, yarl, -c reqs/../mouse_ran_down/require
 psutil==7.2.2             # via ipython
 ptyprocess==0.7.0         # via pexpect
 pure-eval==0.2.4          # via stack-data
-pycparser==3.11           # via cffi, -c reqs/../mouse_ran_down/requirements.txt
+pycparser==3.12           # via cffi, -c reqs/../mouse_ran_down/requirements.txt
 pycryptodomex==3.24.1     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 pydantic==2.13.5          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pydantic-core==2.46.5     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
@@ -49,7 +49,7 @@ pytelegrambotapi==4.37.1  # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 python-dateutil==3.0.0    # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
-ruff==0.17.1              # via -r reqs/dev-requirements.in
+ruff==0.17.2              # via -r reqs/dev-requirements.in
 sentry-sdk==2.73.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.17.0             # via -r reqs/dev-requirements.in
