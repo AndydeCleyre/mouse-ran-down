@@ -5,7 +5,7 @@ annotated-types==0.8.0    # via pydantic
 arrow==1.4.0              # via inform
 attrs==26.1.0             # via aiohttp
 brotli==1.2.1             # via yt-dlp
-certifi==2026.10.19       # via curl-cffi, requests, sentry-sdk, yt-dlp
+certifi==2026.10.23       # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.2  # via requests
 curl-cffi==0.16.3         # via instagrapi, yt-dlp
@@ -14,12 +14,12 @@ gallery-dl==1.32.17       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.20                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@da8c34fcf8b5b8ec2d7ab33be36892afd7b489d1  # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@75d4d609124a4354dde0539fa39b8d3e858b5910  # via -r reqs/requirements.in
 instaloader==4.15.4       # via -r reqs/requirements.in
 multidict==7.1.0          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
-pillow==12.3.0            # via instagrapi, -r reqs/requirements.in
+pillow==13.0.0            # via instagrapi, -r reqs/requirements.in
 plumbum==2.0.2            # via -r reqs/requirements.in
 propcache==0.5.4          # via aiohttp, yarl
 pycparser==3.12           # via cffi
