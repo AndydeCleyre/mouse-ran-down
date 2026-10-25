@@ -14,9 +14,9 @@ gallery-dl==1.32.17       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.20                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@75d4d609124a4354dde0539fa39b8d3e858b5910  # via -r reqs/requirements.in
-instaloader==4.15.4       # via -r reqs/requirements.in
-multidict==7.1.0          # via aiohttp, yarl
+instagrapi @ git+https://github.com/subzeroid/instagrapi@d8f36d56266ed04e51dec0460f5d9ea5094367e4  # via -r reqs/requirements.in
+instaloader==4.15.5       # via -r reqs/requirements.in
+multidict==7.2.1          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
 pillow==13.0.0            # via instagrapi, -r reqs/requirements.in

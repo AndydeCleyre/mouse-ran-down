@@ -16,15 +16,15 @@ gallery-dl==1.32.17       # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@75d4d609124a4354dde0539fa39b8d3e858b5910  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-instaloader==4.15.4       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@d8f36d56266ed04e51dec0460f5d9ea5094367e4  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instaloader==4.15.5       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.17.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.20.1              # via ipython
 markdown-it-py==4.2.0     # via rich
 matplotlib-inline==0.2.2  # via ipython
 mdurl==0.1.2              # via markdown-it-py
-multidict==7.1.0          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
+multidict==7.2.1          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
 mutagen==1.48.1           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 nodeenv==1.11.0           # via pyright
@@ -63,7 +63,7 @@ typing-extensions==4.16.0  # via pydantic, pydantic-core, pyright, typing-inspec
 typing-inspection==0.4.4  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2026.5            # via arrow, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.8.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-wcwidth==0.9.3            # via prompt-toolkit
+wcwidth==0.9.4            # via prompt-toolkit
 websockets==17.3          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yarl==1.25.1              # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2026.10.21        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
