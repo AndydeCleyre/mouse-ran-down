@@ -8,14 +8,14 @@ brotli==1.2.1             # via yt-dlp
 certifi==2026.10.23       # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.2  # via requests
-curl-cffi==0.16.3         # via instagrapi, yt-dlp
+curl-cffi==0.17.0         # via instagrapi, yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
 gallery-dl==1.32.18       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.20                # via requests, yarl
 inform==1.37              # via nestedtext
-instagrapi @ git+https://github.com/subzeroid/instagrapi@dc817ebf82d00f72fffd31313b195991ea964604  # via -r reqs/requirements.in
-instaloader==4.15.5       # via -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@28f0279648c9bc4676c94e4c5b21bbf16275827e  # via -r reqs/requirements.in
+instaloader==4.16         # via -r reqs/requirements.in
 multidict==7.2.1          # via aiohttp, yarl
 mutagen==1.48.1           # via yt-dlp
 nestedtext==3.8           # via -r reqs/requirements.in
@@ -24,8 +24,8 @@ plumbum==2.0.2            # via -r reqs/requirements.in
 propcache==0.5.4          # via aiohttp, yarl
 pycparser==3.12           # via cffi
 pycryptodomex==3.24.1     # via instagrapi, yt-dlp
-pydantic==2.13.5          # via instagrapi
-pydantic-core==2.46.5     # via pydantic
+pydantic==2.14.1          # via instagrapi
+pydantic-core==2.50.1     # via pydantic
 pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.37.1  # via -r reqs/requirements.in
 python-dateutil==3.0.0    # via arrow
@@ -42,5 +42,5 @@ tzdata==2026.5            # via arrow, python-dateutil
 urllib3==2.8.0            # via requests, sentry-sdk, yt-dlp
 websockets==17.3          # via yt-dlp
 yarl==1.25.1              # via aiohttp
-yt-dlp==2026.10.21        # via -r reqs/requirements.in
+yt-dlp==2026.10.26        # via -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp
