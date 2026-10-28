@@ -38,7 +38,7 @@ structlog-sentry==2.2.1   # via -r reqs/sentry-requirements.in
 tenacity==9.2.1           # via stamina
 typing-extensions==4.16.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.4  # via pydantic
-tzdata==2026.5            # via arrow, python-dateutil
+tzdata==2026.6            # via arrow, python-dateutil
 urllib3==2.8.0            # via requests, sentry-sdk, yt-dlp
 websockets==17.3          # via yt-dlp
 yarl==1.25.1              # via aiohttp
