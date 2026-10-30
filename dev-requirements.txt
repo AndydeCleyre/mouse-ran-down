@@ -18,7 +18,7 @@ idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requir
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
 instagrapi @ git+https://github.com/subzeroid/instagrapi@1265dff41ec43e08b5ccf3aea31c1b5185302fae  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.16         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-ipython==9.17.1           # via -r reqs/dev-requirements.in
+ipython==9.18.0           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.20.1              # via ipython
 markdown-it-py==4.2.0     # via rich
@@ -27,7 +27,7 @@ mdurl==0.1.2              # via markdown-it-py
 multidict==7.2.1          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
 mutagen==1.48.1           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-nodeenv==1.11.0           # via pyright
+nodeenv==1.11.1           # via pyright
 parso==0.8.7              # via jedi
 pathspec==1.1.1           # via ssort
 pexpect==4.9.0            # via ipython
@@ -40,8 +40,8 @@ ptyprocess==0.7.0         # via pexpect
 pure-eval==0.2.4          # via stack-data
 pycparser==3.12           # via cffi, -c reqs/../mouse_ran_down/requirements.txt
 pycryptodomex==3.24.1     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-pydantic==2.14.1          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
-pydantic-core==2.50.1     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
+pydantic==2.14.2          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
+pydantic-core==2.50.2     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 pygments==2.21.0          # via ipython, ipython-pygments-lexers, rich
 pyright==1.1.414          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt

@@ -24,8 +24,8 @@ plumbum==2.0.2            # via -r reqs/requirements.in
 propcache==0.5.4          # via aiohttp, yarl
 pycparser==3.12           # via cffi
 pycryptodomex==3.24.1     # via instagrapi, yt-dlp
-pydantic==2.14.1          # via instagrapi
-pydantic-core==2.50.1     # via pydantic
+pydantic==2.14.2          # via instagrapi
+pydantic-core==2.50.2     # via pydantic
 pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.37.1  # via -r reqs/requirements.in
 python-dateutil==3.0.0    # via arrow
