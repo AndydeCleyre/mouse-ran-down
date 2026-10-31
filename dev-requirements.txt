@@ -64,7 +64,7 @@ typing-inspection==0.4.4  # via pydantic, -c reqs/../mouse_ran_down/requirements
 tzdata==2026.6            # via arrow, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.8.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.9.4            # via prompt-toolkit
-websockets==17.3          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+websockets==17.4          # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 yarl==1.25.1              # via aiohttp, -c reqs/../mouse_ran_down/requirements.txt
 yt-dlp==2026.10.26        # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
