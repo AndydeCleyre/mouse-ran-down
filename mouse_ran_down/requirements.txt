@@ -10,7 +10,7 @@ cffi==2.1.1               # via curl-cffi
 charset-normalizer==3.5.2  # via requests
 curl-cffi==0.17.0         # via instagrapi, yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
-gallery-dl==1.32.18       # via -r reqs/requirements.in
+gallery-dl==1.32.19       # via -r reqs/requirements.in
 html2text==2025.4.15      # via -r reqs/requirements.in
 idna==3.20                # via requests, yarl
 inform==1.37              # via nestedtext
@@ -28,10 +28,10 @@ pydantic==2.14.2          # via instagrapi
 pydantic-core==2.50.2     # via pydantic
 pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.37.1  # via -r reqs/requirements.in
-python-dateutil==3.0.0    # via arrow
+python-dateutil==4.0.0    # via arrow
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
 sentry-sdk==2.73.0        # via structlog-sentry, -r reqs/sentry-requirements.in
-six==1.17.0               # via inform, python-dateutil
+six==1.17.0               # via inform
 stamina==26.1.0           # via -r reqs/requirements.in
 structlog==26.1.0         # via structlog-sentry, -r reqs/requirements.in
 structlog-sentry==2.2.1   # via -r reqs/sentry-requirements.in

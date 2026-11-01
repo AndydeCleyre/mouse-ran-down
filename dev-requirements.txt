@@ -12,7 +12,7 @@ charset-normalizer==3.5.2  # via requests, -c reqs/../mouse_ran_down/requirement
 curl-cffi==0.17.0         # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 executing==2.3.0          # via stack-data
 frozenlist==1.8.0         # via aiohttp, aiosignal, -c reqs/../mouse_ran_down/requirements.txt
-gallery-dl==1.32.18       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+gallery-dl==1.32.19       # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
@@ -27,7 +27,7 @@ mdurl==0.1.2              # via markdown-it-py
 multidict==7.2.1          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
 mutagen==1.48.1           # via yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 nestedtext==3.8           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-nodeenv==1.11.1           # via pyright
+nodeenv==1.12.0           # via pyright
 parso==0.8.7              # via jedi
 pathspec==1.1.1           # via ssort
 pexpect==4.9.0            # via ipython
@@ -46,12 +46,12 @@ pygments==2.21.0          # via ipython, ipython-pygments-lexers, rich
 pyright==1.1.414          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pytelegrambotapi==4.37.1  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
-python-dateutil==3.0.0    # via arrow, -c reqs/../mouse_ran_down/requirements.txt
+python-dateutil==4.0.0    # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
 ruff==0.17.3              # via -r reqs/dev-requirements.in
 sentry-sdk==2.73.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
-six==1.17.0               # via inform, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
+six==1.17.0               # via inform, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.19.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython
 stamina==26.1.0           # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
