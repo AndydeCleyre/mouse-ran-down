@@ -16,7 +16,7 @@ gallery-dl==1.32.19       # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@745bc33bf01071341f6c7802d86bfe85f970da70  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@9fb792f2f2560eb5aa63abef1fa6cfd2dc09f35e  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.16         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.18.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -40,8 +40,8 @@ ptyprocess==0.7.0         # via pexpect
 pure-eval==0.2.4          # via stack-data
 pycparser==3.12           # via cffi, -c reqs/../mouse_ran_down/requirements.txt
 pycryptodomex==3.24.1     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-pydantic==2.14.2          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
-pydantic-core==2.50.2     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
+pydantic==2.14.3          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
+pydantic-core==2.50.4     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 pygments==2.21.0          # via ipython, ipython-pygments-lexers, rich
 pyright==1.1.414          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
@@ -60,7 +60,7 @@ structlog-sentry==2.2.1   # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 tenacity==9.2.1           # via stamina, -c reqs/../mouse_ran_down/requirements.txt
 traitlets==5.16.1         # via ipython, matplotlib-inline
 typing-extensions==4.16.0  # via pydantic, pydantic-core, pyright, typing-inspection, -c reqs/../mouse_ran_down/requirements.txt
-typing-inspection==0.4.4  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
+typing-inspection==0.4.5  # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 tzdata==2026.6            # via arrow, python-dateutil, -c reqs/../mouse_ran_down/requirements.txt
 urllib3==2.8.0            # via requests, sentry-sdk, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 wcwidth==0.9.4            # via prompt-toolkit
