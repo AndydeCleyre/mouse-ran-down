@@ -16,7 +16,7 @@ gallery-dl==1.32.19       # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@9fb792f2f2560eb5aa63abef1fa6cfd2dc09f35e  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@a6742304ebec53f2a0ff1e32aa4b6a068ed97cf9  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.16         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.18.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -39,7 +39,7 @@ psutil==7.2.2             # via ipython
 ptyprocess==0.7.0         # via pexpect
 pure-eval==0.2.4          # via stack-data
 pycparser==3.12           # via cffi, -c reqs/../mouse_ran_down/requirements.txt
-pycryptodomex==3.24.1     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
+pycryptodomex==3.24.2     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 pydantic==2.14.3          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
 pydantic-core==2.50.4     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 pygments==2.21.0          # via ipython, ipython-pygments-lexers, rich
@@ -49,8 +49,8 @@ pytelegrambotapi==4.37.1  # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 python-dateutil==4.0.0    # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
-ruff==0.17.3              # via -r reqs/dev-requirements.in
-sentry-sdk==2.73.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
+ruff==0.17.4              # via -r reqs/dev-requirements.in
+sentry-sdk==2.74.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.19.0             # via -r reqs/dev-requirements.in
 stack-data==0.6.3         # via ipython
