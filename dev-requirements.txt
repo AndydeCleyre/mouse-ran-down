@@ -21,7 +21,7 @@ instaloader==4.16         # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 ipython==9.18.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
 jedi==0.20.1              # via ipython
-markdown-it-py==4.2.0     # via rich
+markdown-it-py==4.3.0     # via rich
 matplotlib-inline==0.2.2  # via ipython
 mdurl==0.1.2              # via markdown-it-py
 multidict==7.2.1          # via aiohttp, yarl, -c reqs/../mouse_ran_down/requirements.txt
