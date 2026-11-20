@@ -16,7 +16,7 @@ gallery-dl==1.32.20       # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 html2text==2025.4.15      # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 idna==3.20                # via requests, yarl, -c reqs/../mouse_ran_down/requirements.txt
 inform==1.37              # via nestedtext, -c reqs/../mouse_ran_down/requirements.txt
-instagrapi @ git+https://github.com/subzeroid/instagrapi@bce05a2d1cc4a19431e3f3d99878d853e9356d80  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
+instagrapi @ git+https://github.com/subzeroid/instagrapi@fbac391bb415187bddea9b4805a7b26960d73828  # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 instaloader==4.16         # via -c reqs/../mouse_ran_down/requirements.txt, -r reqs/requirements.in
 ipython==9.18.1           # via -r reqs/dev-requirements.in
 ipython-pygments-lexers==1.1.1  # via ipython
@@ -40,8 +40,8 @@ ptyprocess==0.7.0         # via pexpect
 pure-eval==0.2.4          # via stack-data
 pycparser==3.12           # via cffi, -c reqs/../mouse_ran_down/requirements.txt
 pycryptodomex==3.24.2     # via instagrapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
-pydantic==2.14.3          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
-pydantic-core==2.50.4     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
+pydantic==2.14.4          # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
+pydantic-core==2.50.5     # via pydantic, -c reqs/../mouse_ran_down/requirements.txt
 pygments==2.21.0          # via ipython, ipython-pygments-lexers, rich
 pyright==1.1.414          # via -r reqs/dev-requirements.in
 pysocks==1.7.1            # via instagrapi, -c reqs/../mouse_ran_down/requirements.txt
@@ -49,7 +49,7 @@ pytelegrambotapi==4.37.1  # via -c reqs/../mouse_ran_down/requirements.txt, -r r
 python-dateutil==4.0.0    # via arrow, -c reqs/../mouse_ran_down/requirements.txt
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp, -c reqs/../mouse_ran_down/requirements.txt
 rich==15.0.0              # via -r reqs/dev-requirements.in
-ruff==0.17.5              # via -r reqs/dev-requirements.in
+ruff==0.17.6              # via -r reqs/dev-requirements.in
 sentry-sdk==2.75.0        # via structlog-sentry, -c reqs/../mouse_ran_down/requirements.txt, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform, -c reqs/../mouse_ran_down/requirements.txt
 ssort==0.19.0             # via -r reqs/dev-requirements.in
