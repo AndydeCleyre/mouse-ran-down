@@ -7,7 +7,7 @@ attrs==26.1.0             # via aiohttp
 brotli==1.2.1             # via yt-dlp
 certifi==2026.11.20       # via curl-cffi, requests, sentry-sdk, yt-dlp
 cffi==2.1.1               # via curl-cffi
-charset-normalizer==3.5.2  # via requests
+charset-normalizer==3.5.3  # via requests
 curl-cffi==0.17.0         # via instagrapi, yt-dlp
 frozenlist==1.8.0         # via aiohttp, aiosignal
 gallery-dl==1.32.21       # via -r reqs/requirements.in
@@ -30,11 +30,11 @@ pysocks==1.7.1            # via instagrapi
 pytelegrambotapi==4.37.1  # via -r reqs/requirements.in
 python-dateutil==4.0.0    # via arrow
 requests==2.34.2          # via gallery-dl, instagrapi, instaloader, pytelegrambotapi, yt-dlp
-sentry-sdk==2.75.0        # via structlog-sentry, -r reqs/sentry-requirements.in
+sentry-sdk==3.0.0         # via structlog-sentry, -r reqs/sentry-requirements.in
 six==1.17.0               # via inform
 stamina==26.2.0           # via -r reqs/requirements.in
 structlog==26.1.0         # via structlog-sentry, -r reqs/requirements.in
-structlog-sentry==2.2.2   # via -r reqs/sentry-requirements.in
+structlog-sentry==2.1.0   # via -r reqs/sentry-requirements.in
 tenacity==9.2.1           # via stamina
 typing-extensions==4.16.0  # via pydantic, pydantic-core, typing-inspection
 typing-inspection==0.4.5  # via pydantic
