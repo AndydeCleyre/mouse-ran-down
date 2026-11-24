@@ -42,5 +42,5 @@ tzdata==2026.6            # via arrow, python-dateutil
 urllib3==2.8.0            # via requests, sentry-sdk, yt-dlp
 websockets==17.4          # via yt-dlp
 yarl==1.25.1              # via aiohttp
-yt-dlp==2026.10.26        # via -r reqs/requirements.in
+yt-dlp==2026.11.23        # via -r reqs/requirements.in
 yt-dlp-ejs==0.8.0         # via yt-dlp
